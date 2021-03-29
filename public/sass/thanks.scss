@@ -1,0 +1,32 @@
+@import "./module";
+@import "./base";
+
+div {
+    text-align: center;
+
+    h1 {
+        @include media768 {
+            font-size: 29px;
+        }
+    }
+
+    p {
+        color: #9A9A9A;
+
+        @include media768 {
+            font-size: 13px;
+        }
+    }
+
+    button {
+        padding: 5px 16px;
+        border: none;
+        border-radius: 20px;
+        background-color: $base-color;
+        color: #fff;
+
+        @include media768 {
+            font-size: 13px;
+        }
+    }
+}

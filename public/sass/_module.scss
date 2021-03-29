@@ -1,0 +1,20 @@
+$font-color :#333;
+$base-color:#00A5BB;
+$border-color:#E7E7E7;
+
+@mixin media768($width-media:600px) {
+  @media (max-width:$width-media) {
+    @content
+  }
+}
+
+
+@mixin media1050($width-media2:1050px) {
+  @media (max-width:$width-media2) {
+    @content
+  }
+}
+
+@mixin  topWrap {
+  width: 96%;
+}

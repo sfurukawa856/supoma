@@ -1,0 +1,17 @@
+@import "./module";
+
+body {
+  font-size: 16px;
+  font-family: 'Noto Sans JP', 'Quicksand', sans-serif;
+  box-sizing: border-box;
+  color: $font-color;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+li {
+  list-style-type: none;
+}

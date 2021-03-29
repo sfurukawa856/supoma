@@ -1,0 +1,94 @@
+body {
+  font-size: 16px;
+  font-family: "Noto Sans JP", "Quicksand", sans-serif;
+  box-sizing: border-box;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
+}
+
+.userForm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.userForm .title {
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 24px;
+}
+.userForm .alert {
+  color: red;
+}
+.userForm .alert p {
+  margin-bottom: 4px;
+  padding-left: 16px;
+}
+.userForm .alert p:last-of-type {
+  margin-bottom: 16px;
+}
+.userForm form {
+  width: 350px;
+}
+@media (max-width: 370px) {
+  .userForm form {
+    width: 300px;
+  }
+}
+.userForm form .user input,
+.userForm form .email input,
+.userForm form .pass input {
+  width: 100%;
+  height: 32px;
+  margin: 0 auto;
+  background-color: #E7E7E7;
+  color: #333;
+  border: none;
+  padding: 5px 16px;
+  border-radius: 10px;
+  outline: none;
+}
+.userForm form .user,
+.userForm form .email,
+.userForm form .pass {
+  margin-bottom: 8px;
+}
+.userForm form .bottom-g {
+  position: relative;
+}
+.userForm form .passwordBlok {
+  margin-left: 16px;
+}
+.userForm form .checkbox {
+  margin-right: 12px;
+}
+.userForm form .UserBtn {
+  width: 50px;
+  height: 50px;
+  background-color: #00A5BB;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.userForm form .login a {
+  background-color: #E7E7E7;
+  color: #9A9A9A;
+  width: 110px;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 10px;
+  margin-top: 8px;
+}/*# sourceMappingURL=user.css.map */

@@ -1,0 +1,110 @@
+@import "./base";
+@import "./module";
+
+#container {
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+
+    @include media768 {
+        display: block;
+    }
+
+    .left {
+        margin-left: 100px;
+
+        @include media768 {
+            margin: 0 30px;
+        }
+
+        .head {
+            display: flex;
+            padding: 20px;
+            align-items: center;
+
+            @include media768 {
+                text-align: center;
+            }
+
+            h2 {
+                margin: 3px 0 0 20px;
+            }
+        }
+
+        .text {
+            margin: 50px 0 150px 0;
+
+            @include media768 {
+                margin: 50px 0 100px 0;
+            }
+
+            p {
+                font-size: 3rem;
+                margin-bottom: 20px;
+
+                @include media768 {
+                    font-size: 21px;
+                }
+
+                span {
+                    font-size: 5rem;
+                    color: $base-color;
+
+                    @include media768 {
+                        font-size: 45px;
+                    }
+                }
+
+                .white {
+                    background-color: $base-color;
+                    border-radius: 50%;
+                    color: #fff;
+                    padding: 5px 20px 0 20px;
+                    margin-left: 70px;
+
+                    @include media768 {
+                        margin-left: 20px;
+                    }
+                }
+            }
+        }
+
+        .btn {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 100px;
+
+            p {
+                margin-bottom: 30px;
+            }
+
+            @include media768 {
+                display: block;
+                text-align: center;
+            }
+
+            input {
+                background-color: $base-color;
+                color: #fff;
+                padding: 5px 30px;
+                border-radius: 30px;
+                font-size: 30px;
+            }
+        }
+    }
+
+    .right {
+        img {
+            width: 600px;
+            margin-top: 100px;
+
+            @include media768 {
+                width: 200px;
+                position: absolute;
+                z-index: -1;
+                top: 155px;
+                left: 110px;
+            }
+        }
+    }
+}

@@ -1,0 +1,51 @@
+body {
+  font-size: 16px;
+  font-family: 'Noto Sans JP', 'Quicksand', sans-serif;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+li {
+  list-style-type: none;
+}
+
+div {
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  div h1 {
+    font-size: 29px;
+  }
+}
+
+div p {
+  color: #9A9A9A;
+}
+
+@media (max-width: 600px) {
+  div p {
+    font-size: 13px;
+  }
+}
+
+div button {
+  padding: 5px 16px;
+  border: none;
+  border-radius: 20px;
+  background-color: #00A5BB;
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  div button {
+    font-size: 13px;
+  }
+}
+/*# sourceMappingURL=thanks.css.map */
