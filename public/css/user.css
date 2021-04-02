@@ -1,48 +1,71 @@
 body {
   font-size: 16px;
-  font-family: "Noto Sans JP", "Quicksand", sans-serif;
-  box-sizing: border-box;
+  font-family: 'Noto Sans JP', 'Quicksand', sans-serif;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   color: #333;
 }
 
 a {
   text-decoration: none;
+  color: #000;
 }
 
 li {
   list-style-type: none;
 }
 
+body {
+  background-color: #00A5BB;
+}
+
 .userForm {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 20px;
 }
+
+@media (max-width: 600px) {
+  .userForm {
+    padding: 5px;
+  }
+}
+
 .userForm .title {
   font-size: 2rem;
   color: #333;
   text-align: center;
   margin-bottom: 24px;
 }
+
 .userForm .alert {
   color: red;
 }
+
 .userForm .alert p {
   margin-bottom: 4px;
   padding-left: 16px;
 }
+
 .userForm .alert p:last-of-type {
   margin-bottom: 16px;
 }
+
 .userForm form {
   width: 350px;
 }
+
 @media (max-width: 370px) {
   .userForm form {
     width: 300px;
   }
 }
+
 .userForm form .user input,
 .userForm form .email input,
 .userForm form .pass input {
@@ -56,20 +79,25 @@ li {
   border-radius: 10px;
   outline: none;
 }
+
 .userForm form .user,
 .userForm form .email,
 .userForm form .pass {
   margin-bottom: 8px;
 }
+
 .userForm form .bottom-g {
   position: relative;
 }
+
 .userForm form .passwordBlok {
   margin-left: 16px;
 }
+
 .userForm form .checkbox {
   margin-right: 12px;
 }
+
 .userForm form .UserBtn {
   width: 50px;
   height: 50px;
@@ -80,10 +108,22 @@ li {
   position: absolute;
   top: 0;
   right: 0;
+  background-image: linear-gradient(45deg, #709dff 0%, #91fdb7 100%);
+  -webkit-transition: .4s;
+  transition: .4s;
 }
+
+.userForm form .UserBtn:hover {
+  -webkit-transform: rotate(20deg);
+          transform: rotate(20deg);
+}
+
 .userForm form .login a {
-  background-color: #E7E7E7;
-  color: #9A9A9A;
+  background: -webkit-gradient(linear, left bottom, left top, from(#67b26f), to(#4ca2cd));
+  background: linear-gradient(0deg, #67b26f, #4ca2cd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #acb6e5;
   width: 110px;
   display: inline-block;
   height: 40px;
@@ -91,4 +131,5 @@ li {
   text-align: center;
   border-radius: 10px;
   margin-top: 8px;
-}/*# sourceMappingURL=user.css.map */
+}
+/*# sourceMappingURL=user.css.map */

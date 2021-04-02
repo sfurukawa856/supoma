@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once('../common/database.php');
+require_once('./action/myUtil.php');
 
 $id = $_SESSION['user']['id'];
 require '../common/auth.php';
@@ -88,8 +89,6 @@ try {
                         <a href="./index.php" class="btn">マイページ</a>
                         <ul class="ul">
                             <li><a href="./action/logout.php">ログアウト</a></li>
-                            <li><a href="./action/logout.php">ログアウト</a></li>
-                            <li><a href="./action/logout.php">ログアウト</a></li>
                         </ul>
                     </div>
                 </div>
@@ -108,9 +107,9 @@ try {
                 <li><a href="apply.php" class="line">募集する</a></li>
                 <li class="news"><a href="news.php">お知らせ</a>
                     <?php if (!empty($dbResult2[0]['SUM(count)'])) : ?>
-                    <span class="news-span">
-                        <?php echo $dbResult2[0]['SUM(count)']; ?>
-                    </span>
+                        <span class="news-span">
+                            <?php echo $dbResult2[0]['SUM(count)']; ?>
+                        </span>
                     <?php endif; ?>
                 </li>
             </ul>
@@ -132,67 +131,61 @@ try {
             }
             ?>
             <?php if (isset($_SESSION['success'])) : ?>
-            <p class="success"><?php echo $_SESSION['success'] ?></p>
-            <?php unset($_SESSION['success']); ?>
+                <p class="success"><?php echo $_SESSION['success'] ?></p>
+                <?php unset($_SESSION['success']); ?>
             <?php endif; ?>
             <form action="./action/Recruitment.php" method="POST" class="main-form" enctype="multipart/form-data">
                 <dl>
                     <div class="items">
                         <dt class="dt-l">タイトル</dt>
-                        <dd class="dt-r"><input type="text" name="title" id="title" placeholder="（例）フットサル経験者募集"
-                                class="titleInput" value="<?php echo $title ?>"></dd>
+                        <dd class="dt-r"><input type="text" name="title" id="title" placeholder="（例）フットサル経験者募集" class="titleInput" value="<?php echo $title ?>"></dd>
                     </div>
                     <div class="items">
                         <dt class="dt-l">カテゴリー</dt>
                         <dd class="dt-r">
                             <select name="category" id="category" class="category">
                                 <option value="" disabled selected>選択してください</option>
-                                <option value="サッカー">サッカー</option>
-                                <option value="野球">野球</option>
-                                <option value="テニス">テニス</option>
-                                <option value="スノーボード">スノーボード</option>
-                                <option value="バスケットボール">バスケットボール</option>
-                                <option value="ダンス">ダンス</option>
-                                <option value="バトミントン">バトミントン</option>
-                                <option value="卓球">卓球</option>
+                                <option value="サッカー" <?php selected("サッカー", $_SESSION['category']); ?>>サッカー</option>
+                                <option value="野球" <?php selected("野球", $_SESSION['category']); ?>>野球</option>
+                                <option value="テニス" <?php selected("テニス", $_SESSION['category']); ?>>テニス</option>
+                                <option value="スノーボード" <?php selected("スノーボード", $_SESSION['category']); ?>>スノーボード</option>
+                                <option value="バスケットボール" <?php selected("バスケットボール", $_SESSION['category']); ?>>バスケットボール</option>
+                                <option value="ダンス" <?php selected("ダンス", $_SESSION['category']); ?>>ダンス</option>
+                                <option value="バトミントン" <?php selected("バトミントン", $_SESSION['category']); ?>>バトミントン</option>
+                                <option value="卓球" <?php selected("卓球", $_SESSION['category']); ?>>卓球</option>
                             </select>
                         </dd>
                     </div>
                     <div class="items">
                         <dt class="dt-l">募集人数</dt>
                         <dd class="dt-r">
-                            <input type="number" id="number" placeholder="（例）3" class="human" name="member"
-                                value="<?php echo $member ?>">
+                            <input type="number" id="number" placeholder="（例）3" class="human" name="member" value="<?php echo $member ?>">
                         </dd>
                     </div>
                     <div class="items">
                         <dt class="dt-l">開催日</dt>
                         <dd class="dt-r">
-                            <input type="datetime-local" name="eventDate" id="eventDate" class="eventDate"
-                                value="<?php echo $eventDate ?>">
+                            <input type="datetime-local" name="eventDate" id="eventDate" class="eventDate" value="<?php echo $eventDate ?>">
                         </dd>
                     </div>
                     <div class="items">
                         <dt class="dt-l">開催場所</dt>
                         <dd class="dt-r">
-                            <input type="text" name="place" id="place" placeholder="（例）代々木公園" class="place"
-                                value="<?php echo $place ?>">
+                            <input type="text" name="place" id="place" placeholder="（例）代々木公園" class="place" value="<?php echo $place ?>">
                         </dd>
                     </div>
                     <div class="items">
                         <dt class="dt-l">募集期間</dt>
                         <dd class="dt-r applydate">
-                            <input type="date" name="start_time" id="period" class="period"
-                                value="<?php echo $start_time ?>">
+                            <input type="date" name="start_time" id="period" class="period" value="<?php echo $start_time ?>">
                             <span>~</span>
-                            <input type="date" name="end_time" id="period" class="period"
-                                value="<?php echo $end_time ?>">
+                            <input type="date" name="end_time" id="period" class="period" value="<?php echo $end_time ?>">
                         </dd>
                     </div>
                     <div class="items">
                         <dt class="dt-l">メッセージ</dt>
                         <dd class="dt-r">
-                            <textarea name="message" id="message" class="message"></textarea>
+                            <textarea name="message" id="message" class="message"><?php echo $message; ?></textarea>
                         </dd>
                     </div>
                     <div class="items">

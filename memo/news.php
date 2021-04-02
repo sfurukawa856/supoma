@@ -10,8 +10,8 @@ if (!isLogin()) {
 
 $id = $_SESSION['user']['id'];
 
+$dbConnect = getDatabaseConnection();
 try {
-    $dbConnect = getDatabaseConnection();
     $sql = "SELECT * FROM news WHERE news_id=:id";
     $stm = $dbConnect->prepare($sql);
     $stm->bindValue(':id', "$id", PDO::PARAM_INT);
@@ -23,7 +23,10 @@ try {
 } catch (Exception $e) {
     echo "データベース接続エラーがありました。<br>";
     echo $e->getMessage();
+    exit();
 }
+
+
 
 
 
@@ -53,7 +56,6 @@ if (!empty($dbResult)) {
 //降順（insert_timeを基準）
 
 
-
 ?>
 
 <!DOCTYPE html>
@@ -71,8 +73,12 @@ if (!empty($dbResult)) {
 <body>
     <header>
         <div class="left flex">
-            <img src="../images/Slogo.png" alt="ロゴ" width="50">
-            <h2>募集</h2>
+            <a href="./table.php">
+                <img src="../public/images/Slogo.png" alt="ロゴ" width="50">
+            </a>
+            <a href="./apply.php">
+                <h2>募集</h2>
+            </a>
         </div>
         <div class="right flex">
             <div class="icon"><i class="fas fa-search"></i></div>
@@ -94,8 +100,7 @@ if (!empty($dbResult)) {
                     <a href="../memo/" class="btn">マイページ</a>
                     <ul class="ul">
                         <li><a href="./action/logout.php">ログアウト</a></li>
-                        <li><a href="./action/logout.php">ログアウト</a></li>
-                        <li><a href="./action/logout.php">ログアウト</a></li>
+
                     </ul>
                 </div>
             </div>
@@ -114,19 +119,351 @@ if (!empty($dbResult)) {
                 ?>
 
                 <?php if (!empty($news["recruitment"])) : ?>
-                    <div class="container">
-                        <div class="news">
-                            <div class="news-item">
-                                <div class="news-logo">
-                                    <img src="../images/supomalogo.png" alt="プロフィール" width="50">
-                                </div>
-                                <div class="news-text">
-                                    <p><?php echo $replace ?></p>
-                                    <p><?php echo $news["recruitment"] ?></p>
+                    <?php
+                    $userpost_id = $news["post_id"];
+                    $insert_date = $news["post_insert_date"];
+
+                    $idNews = $news["id"];
+
+                    $joining_id =  $news["joining_id"];
+
+
+                    try {
+                        $sql2 = "SELECT * FROM userinfor WHERE user_id = :joining_id";
+
+                        $stm = $dbConnect->prepare($sql2);
+                        $stm->bindValue(':joining_id', (int)$joining_id, PDO::PARAM_INT);
+                        $stm->execute();
+                        $dbResult2 = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+                        // var_dump(mb_substr($dbResult2[0]['file_path'], 3));
+
+                        $imgRecruitment = mb_substr($dbResult2[0]['file_path'], 3);
+
+                        // var_dump($dbResult2[0]['file_path']);
+                    } catch (Exception $e) {
+                        echo "データベース接続エラーがありました。<br>";
+                        echo $e->getMessage();
+                    }
+
+
+
+                    ?>
+
+
+                    <form action="../Individual/personal.php" method="POST" name="form<?php echo $idNews; ?>">
+                        <input type="hidden" name="user_id" value="<?php echo $userpost_id; ?>">
+                        <input type="hidden" name="insert_date" value="<?php echo $insert_date; ?>">
+                        <input type="hidden" name="id_news" value="<?php echo $idNews; ?>">
+
+                        <div class="container">
+                            <div class="news">
+                                <div class="news-item">
+                                    <div class="news-logo">
+                                        <img src="<?php echo $imgRecruitment; ?>" alt="プロフィール" width="50">
+                                    </div>
+                                    <div class="news-text">
+                                        <p><?php echo $replace ?></p>
+                                        <p><a href="javascript:form<?php echo $idNews; ?>.submit()" class="link"><?php echo $news["recruitment"] ?></a></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+
+                    </form>
+
+                <?php elseif (!empty($news["joining"])) : ?>
+                    <?php
+                    $userpost_id = $news["post_id"];
+                    $insert_date = $news["post_insert_date"];
+
+                    $idNews = $news["id"];
+
+
+                    $joining_id =  $news["joining_id"];
+
+
+
+
+                    try {
+                        $sql2 = "SELECT * FROM userinfor WHERE user_id = :joining_id";
+
+                        $stm = $dbConnect->prepare($sql2);
+                        $stm->bindValue(':joining_id', (int)$joining_id, PDO::PARAM_INT);
+                        $stm->execute();
+                        $dbResult2 = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+                        // var_dump(mb_substr($dbResult2[0]['file_path'], 3));
+
+                        $imgJoining = mb_substr($dbResult2[0]['file_path'], 3);
+
+                        // var_dump($dbResult2[0]['file_path']);
+                    } catch (Exception $e) {
+                        echo "データベース接続エラーがありました。<br>";
+                        echo $e->getMessage();
+                    }
+
+                    ?>
+
+                    <form action="../Individual/personal.php" method="POST" name="form<?php echo $idNews; ?>">
+                        <input type="hidden" name="user_id" value="<?php echo $userpost_id; ?>">
+                        <input type="hidden" name="insert_date" value="<?php echo $insert_date; ?>">
+                        <input type="hidden" name="id_news" value="<?php echo $idNews; ?>">
+
+                        <div class="container">
+                            <div class="news">
+                                <div class="news-item">
+                                    <div class="news-logo">
+                                        <img src="<?php echo $imgJoining ?>" alt="プロフィール" width="50">
+                                    </div>
+                                    <div class="news-text">
+                                        <p><?php echo $replace ?></p>
+                                        <p><a href="javascript:form<?php echo $idNews; ?>.submit()" class="link"><?php echo $news["joining"] ?></a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+
+
+
+                <?php elseif (!empty($news["application"])) : ?>
+                    <?php
+                    $userpost_id = $news["post_id"];
+
+                    // echo $userpost_id;
+                    $insert_date = $news["post_insert_date"];
+
+                    $idNews = $news["id"];
+
+
+                    $take = 'check';
+
+                    $joining_id =  $news["joining_id"];
+                    // echo $joining_id;
+
+                    try {
+                        $sql2 = "SELECT * FROM userinfor WHERE user_id = :joining_id";
+
+                        $stm = $dbConnect->prepare($sql2);
+                        $stm->bindValue(':joining_id', (int)$joining_id, PDO::PARAM_INT);
+                        $stm->execute();
+                        $dbResult2 = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+                        // var_dump(mb_substr($dbResult2[0]['file_path'], 3));
+
+                        $imgApplication = mb_substr($dbResult2[0]['file_path'], 3);
+
+                        // var_dump($dbResult2[0]['file_path']);
+                    } catch (Exception $e) {
+                        echo "データベース接続エラーがありました。<br>";
+                        echo $e->getMessage();
+                    }
+
+                    ?>
+
+                    <form action="./action/takePart.php" method="POST" name="form<?php echo $idNews; ?>">
+                        <input type="hidden" name="user_id" value="<?php echo $userpost_id; ?>">
+                        <input type="hidden" name="insert_date" value="<?php echo $insert_date; ?>">
+                        <input type="hidden" name="bool" value="<?php echo $take; ?>">
+                        <input type="hidden" name="id_news" value="<?php echo $idNews; ?>">
+
+
+                        <input type="hidden" name="joining_id" value="<?php echo $joining_id; ?>">
+
+                        <div class="container">
+                            <div class="news">
+                                <div class="news-item">
+                                    <div class="news-logo">
+                                        <img src="<?php echo $imgApplication ?>" alt="プロフィール" width="50">
+                                    </div>
+                                    <div class="news-text">
+                                        <p><?php echo $replace ?></p>
+                                        <p>
+                                            <a href="javascript:form<?php echo $idNews; ?>.submit()" class="link"><?php echo $news["application"] ?></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+
+                <?php elseif (!empty($news["approval"])) : ?>
+
+                    <?php
+                    $joining_id =  $news["joining_id"];
+                    // echo $joining_id;
+
+                    $userpost_id = $news["post_id"];
+                    $insert_date = $news["post_insert_date"];
+
+                    $idNews = $news["id"];
+
+
+
+                    try {
+                        $sql2 = "SELECT * FROM userinfor WHERE user_id = :joining_id";
+
+                        $stm = $dbConnect->prepare($sql2);
+                        $stm->bindValue(':joining_id', (int)$joining_id, PDO::PARAM_INT);
+                        $stm->execute();
+                        $dbResult2 = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+                        // var_dump(mb_substr($dbResult2[0]['file_path'], 3));
+
+                        $imgApproval = mb_substr($dbResult2[0]['file_path'], 3);
+
+                        // var_dump($dbResult2[0]['file_path']);
+                    } catch (Exception $e) {
+                        echo "データベース接続エラーがありました。<br>";
+                        echo $e->getMessage();
+                    }
+
+
+                    ?>
+                    <form action="../Individual/personal.php" method="POST" name="form<?php echo $idNews; ?>">
+                        <input type="hidden" name="user_id" value="<?php echo $userpost_id; ?>">
+                        <input type="hidden" name="insert_date" value="<?php echo $insert_date; ?>">
+                        <input type="hidden" name="id_news" value="<?php echo $idNews; ?>">
+                        <div class="container">
+                            <div class="news">
+                                <div class="news-item">
+                                    <div class="news-logo">
+                                        <img src="<?php echo $imgApproval; ?>" alt="プロフィール" width="50">
+                                    </div>
+                                    <div class="news-text">
+                                        <p><?php echo $replace ?></p>
+                                        <p>
+                                            <a href="javascript:form<?php echo $idNews; ?>.submit()" class="link"><?php echo $news["approval"] ?></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                <?php elseif (!empty($news["result"])) : ?>
+
+                    <?php
+                    $idNews = $news["id"];
+
+                    $joining_id =  $news["joining_id"];
+
+
+                    $userpost_id = $news["post_id"];
+
+                    // echo $userpost_id;
+                    $insert_date = $news["post_insert_date"];
+
+
+                    $message = $news['message'];
+
+                    try {
+                        $sql2 = "SELECT * FROM userinfor WHERE user_id = :joining_id";
+
+                        $stm = $dbConnect->prepare($sql2);
+                        $stm->bindValue(':joining_id', (int)$joining_id, PDO::PARAM_INT);
+                        $stm->execute();
+                        $dbResult2 = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+                        // var_dump(mb_substr($dbResult2[0]['file_path'], 3));
+
+                        $imgResult = mb_substr($dbResult2[0]['file_path'], 3);
+
+                        // var_dump($dbResult2[0]['file_path']);
+                    } catch (Exception $e) {
+                        echo "データベース接続エラーがありました。<br>";
+                        echo $e->getMessage();
+                    }
+
+
+                    ?>
+                    <form action="./congra.php" method="POST" name="form<?php echo $idNews; ?>">
+                        <input type="hidden" name="id_news" value="<?php echo $idNews; ?>">
+                        <input type="hidden" name="userpost_id" value="<?php echo $userpost_id; ?>">
+                        <input type="hidden" name="insert_date" value="<?php echo $insert_date; ?>">
+                        <input type="hidden" name="message" value="<?php echo $message; ?>">
+
+                        <div class="container">
+                            <div class="news">
+                                <div class="news-item">
+                                    <div class="news-logo">
+                                        <img src="<?php echo $imgResult ?>" alt="プロフィール" width="50">
+                                    </div>
+                                    <div class="news-text">
+                                        <p><?php echo $replace ?></p>
+                                        <p>
+                                            <a href="javascript:form<?php echo $idNews; ?>.submit()" class="link"><?php echo $news["result"] ?></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+
+                <?php elseif (!empty($news["result_no"])) : ?>
+
+                    <?php
+
+                    $idNews = $news["id"];
+                    $joining_id =  $news["joining_id"];
+
+
+                    // echo $joining_id;
+
+                    $userpost_id = $news["post_id"];
+                    $insert_date = $news["post_insert_date"];
+
+
+
+                    try {
+                        $sql2 = "SELECT * FROM userinfor WHERE user_id = :joining_id";
+
+                        $stm = $dbConnect->prepare($sql2);
+                        $stm->bindValue(':joining_id', (int)$joining_id, PDO::PARAM_INT);
+                        $stm->execute();
+                        $dbResult2 = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+                        // var_dump(mb_substr($dbResult2[0]['file_path'], 3));
+
+                        $imgResultNo = mb_substr($dbResult2[0]['file_path'], 3);
+
+                        // var_dump($dbResult2[0]['file_path']);
+                    } catch (Exception $e) {
+                        echo "データベース接続エラーがありました。<br>";
+                        echo $e->getMessage();
+                    }
+
+
+                    ?>
+                    <form action="../Individual/personal.php" method="POST" name="form<?php echo $idNews; ?>">
+
+                        <input type="hidden" name="user_id" value="<?php echo $userpost_id; ?>">
+                        <input type="hidden" name="insert_date" value="<?php echo $insert_date; ?>">
+                        <input type="hidden" name="id_news" value="<?php echo $idNews; ?>">
+
+                        <div class="container">
+                            <div class="news">
+                                <div class="news-item">
+                                    <div class="news-logo">
+                                        <img src="<?php echo $imgResultNo; ?>" alt="プロフィール" width="50">
+                                    </div>
+                                    <div class="news-text">
+                                        <p><?php echo $replace ?></p>
+                                        <p>
+                                            <a href="javascript:form<?php echo $idNews; ?>.submit()" class="link"><?php echo $news["result_no"] ?></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
@@ -140,7 +477,7 @@ if (!empty($dbResult)) {
                 <p><a href="./action/logout.php">ログアウト</a></p>
             </div>
             <div class="footer-logo">
-                <img src="../images/supomalogo.png" alt="logo" width="100">
+                <img src="../public//images/supomalogo.png" alt="logo" width="100">
             </div>
         </div>
         <div class="contact">

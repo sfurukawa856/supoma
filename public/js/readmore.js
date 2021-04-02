@@ -1,14 +1,15 @@
 'use strict';
+import { jsonData } from "./call_json.js";
 // 変数定義
 const btn = document.querySelector('#readmore');
-const readmoreArea = document.querySelector('#readmoreArea');
 const table = document.querySelector('.table');
 let counter = 0;
+const jsonUrl = "http://localhost/GroupWork/20210329_spoma-main/public/js/data.json";
 
 // jsonファイルの読み込み
 btn.addEventListener('click', function () {
     counter++;
-    jsonData().then(function (value2) {
+    jsonData(jsonUrl).then(function (value2) {
         for (let j = 0; j <= 2; j++) {
             let counter2 = counter * 3 + j;
             const el = value2[counter2];
@@ -88,7 +89,7 @@ btn.addEventListener('click', function () {
                 const p_message = document.createElement('p');
                 const message_el = el["message"];
                 p_message.textContent = message_el;
-                form.appendChild(p_message);
+                link.appendChild(p_message);
             } else {
                 btn.remove();
             }
@@ -96,20 +97,13 @@ btn.addEventListener('click', function () {
     })
 })
 
-async function jsonData() {
-    const url = "http://localhost/GroupWork/20210329_spoma-main/public/js/data.json";
-    const res = await fetch(url);
-    const data = await res.json();
-    return data;
-}
-
 // もっと見るボタンの有効無効
 window.addEventListener('load', function () {
     btn.disabled = true;
     btn.style.color = "#B0B0B0";
 
     const itemCount = document.querySelectorAll('.table-item');
-    jsonData().then(function (value) {
+    jsonData(jsonUrl).then(function (value) {
         if (value.length - itemCount.length > 0) {
             btn.disabled = false;
             btn.style.color = "#000";

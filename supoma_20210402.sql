@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2021-03-29 12:39:35
+-- 生成日時: 2021-04-02 15:45:50
 -- サーバのバージョン： 10.4.17-MariaDB
 -- PHP のバージョン: 7.4.13
 
@@ -24,12 +24,37 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- テーブルの構造 `chat`
+--
+
+CREATE TABLE `chat` (
+  `id` int(11) NOT NULL,
+  `chat_id` int(11) NOT NULL,
+  `chat_message` varchar(200) NOT NULL,
+  `comment_user_id` int(11) NOT NULL,
+  `post_user_id` int(11) NOT NULL,
+  `chat_date` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- テーブルの構造 `news`
 --
 
 CREATE TABLE `news` (
   `news_id` int(11) NOT NULL,
-  `recruitment` varchar(191) NOT NULL,
+  `id` int(11) NOT NULL,
+  `post_id` int(11) DEFAULT NULL,
+  `post_insert_date` text DEFAULT NULL,
+  `recruitment` varchar(191) DEFAULT NULL,
+  `joining` varchar(191) DEFAULT NULL,
+  `joining_id` int(11) NOT NULL,
+  `application` varchar(191) DEFAULT NULL,
+  `approval` varchar(191) DEFAULT NULL,
+  `result` varchar(191) DEFAULT NULL,
+  `result_no` varchar(191) DEFAULT NULL,
+  `message` text DEFAULT NULL,
   `count` int(11) NOT NULL,
   `insert_time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -72,6 +97,7 @@ CREATE TABLE `userinfor` (
 --
 
 CREATE TABLE `userpost` (
+  `post_id` int(11) NOT NULL,
   `userpost_id` int(11) NOT NULL,
   `title` varchar(191) NOT NULL,
   `category` varchar(191) NOT NULL,
@@ -92,10 +118,18 @@ CREATE TABLE `userpost` (
 --
 
 --
+-- テーブルのインデックス `chat`
+--
+ALTER TABLE `chat`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `chat_id` (`chat_id`),
+  ADD KEY `post_user_id` (`post_user_id`);
+
+--
 -- テーブルのインデックス `news`
 --
 ALTER TABLE `news`
-  ADD UNIQUE KEY `insert_time` (`insert_time`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `news_id` (`news_id`);
 
 --
@@ -116,6 +150,7 @@ ALTER TABLE `userinfor`
 -- テーブルのインデックス `userpost`
 --
 ALTER TABLE `userpost`
+  ADD PRIMARY KEY (`post_id`),
   ADD UNIQUE KEY `file_path` (`file_path`),
   ADD KEY `userpost_id` (`userpost_id`);
 
@@ -124,14 +159,39 @@ ALTER TABLE `userpost`
 --
 
 --
+-- テーブルの AUTO_INCREMENT `chat`
+--
+ALTER TABLE `chat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+
+--
+-- テーブルの AUTO_INCREMENT `news`
+--
+ALTER TABLE `news`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
+
+--
 -- テーブルの AUTO_INCREMENT `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- テーブルの AUTO_INCREMENT `userpost`
+--
+ALTER TABLE `userpost`
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- ダンプしたテーブルの制約
 --
+
+--
+-- テーブルの制約 `chat`
+--
+ALTER TABLE `chat`
+  ADD CONSTRAINT `chat_id` FOREIGN KEY (`chat_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `post_user_id` FOREIGN KEY (`post_user_id`) REFERENCES `userpost` (`post_id`);
 
 --
 -- テーブルの制約 `news`

@@ -1,0 +1,131 @@
+@import "./base";
+@import "./module";
+
+.logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    &-item {
+        margin: 5px;
+
+        img {
+            width: 125px;
+
+            @include media768 {
+                width: 50px;
+            }
+        }
+
+        @include media768 {
+            &:nth-child(2) {
+                display: none;
+            }
+
+            &:nth-child(5) {
+                display: none;
+            }
+
+            &:nth-child(6) {
+                display: none;
+            }
+
+            &:nth-child(9) {
+                display: none;
+            }
+        }
+    }
+}
+
+.main {
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    @include media768 {
+        display: block;
+    }
+
+    .waku {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 0.5em 1em;
+        margin: 1em 0;
+        background: #f4f4f4;
+        border-left: solid 6px $base-color;
+        box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.33);
+
+        p {
+            &:nth-child(3) {
+                color: black;
+                font-size: 23px;
+                margin: 0;
+            }
+
+            &:nth-child(4) {
+                margin: 0;
+            }
+        }
+
+        @include media768 {
+            margin: 20px auto;
+        }
+
+    }
+
+
+    .red {
+        color: red;
+    }
+
+    p {
+        font-size: 2rem;
+        color: #F6861F;
+
+        @include media768 {
+            font-size: 25px;
+            margin: 20px 0;
+        }
+
+        &:nth-child(4) {
+            color: #00A5BB;
+        }
+    }
+
+    .congra {
+        width: 100%;
+        text-align: center;
+
+        img {
+            position: relative;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            font-family: 'RocknRoll One', sans-serif;
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.8rem;
+            margin: 0;
+            min-width: 320px;
+
+            @include media768 {
+                font-size: 1.5rem;
+            }
+
+        }
+    }
+}
+
+button {
+    padding: 5px 16px;
+    border: none;
+    border-radius: 20px;
+    background-color: $base-color;
+    color: #fff;
+    font-size: 20px;
+}

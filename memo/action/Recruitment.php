@@ -2,24 +2,25 @@
 session_start();
 require '../../common/validation.php';
 require '../../common/database.php';
+require_once './myUtil.php';
 
 $id = $_SESSION['user']['id'];
 // var_dump($id);
 
-$title = $_POST['title'];
-$category = $_POST['category'];
-$member = $_POST['member'];
-$eventDate = $_POST['eventDate'];
+$title = es($_POST['title']);
+$category = es($_POST['category']);
+$member = es($_POST['member']);
+$eventDate = es($_POST['eventDate']);
 
 // var_dump($eventDate);
 
-$place = $_POST['place'];
-$start_time = $_POST['start_time'];
-$end_time = $_POST['end_time'];
-$message = $_POST['message'];
+$place = es($_POST['place']);
+$start_time = es($_POST['start_time']);
+$end_time = es($_POST['end_time']);
+$message = nl2br(es($_POST['message']), false);
 
 
-$file = $_FILES['img'];
+$file = es($_FILES['img']);
 // var_dump($file);
 $filename = basename($file['name']);
 //一時的に保存させれている場所
@@ -62,7 +63,7 @@ if (!$_SESSION['errors']) {
     fileCheck($_SESSION['errors'], $tmp_path, $file_err, "ファイルサイズは1MB未満にしてください");
 
     dateCheck($_SESSION['errors'], $start_time, '募集期間(開始日)は本日以降を選択してください');
-    dateCheck($_SESSION['errors'], $end_time, '募集期間(終了日)は本日以降を選択してください');
+    dataCheck3($_SESSION['errors'], $end_time, $start_time, '募集期間(終了日)は募集開始日以降を選択してください');
     dateCheck2($_SESSION['errors'], $eventDate, '開催日は現在時刻以降を選択してください');
     //拡張子が画像形式かどうか
     $allow_ext = array('jpg', 'jpeg', 'png');

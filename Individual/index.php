@@ -62,6 +62,19 @@ try {
 }
 
 
+//通知数
+try {
+    // $dbConnect = getDatabaseConnection();
+    $sql = "SELECT SUM(count) FROM news WHERE news_id=:id";
+    $stm = $dbConnect->prepare($sql);
+    $stm->bindValue(':id', "$id", PDO::PARAM_INT);
+    $stm->execute();
+    $dbResult2 = $stm->fetchAll(PDO::FETCH_ASSOC);
+} catch (Exception $e) {
+    echo "データベース接続エラーがありました。<br>";
+    echo $e->getMessage();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -72,19 +85,31 @@ try {
     require_once("../common/header.php");
     echo getHeader("募集個別確認ページ");
     ?>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
     <link rel="stylesheet" href="../public/css/Individual.css">
 </head>
 
 <body>
     <header>
         <div class="left flex">
-            <img src="../images/Slogo.png" alt="ロゴ" width="50">
+            <img src="../public/images/Slogo.png" alt="ロゴ" width="50">
             <h2>募集</h2>
         </div>
         <div class="right flex">
-            <div class="icon"><i class="fas fa-search"></i></div>
-            <div class="icon"><i class="fas fa-comment-dots"></i></div>
-            <div class="icon"><i class="far fa-bell"></i></div>
+            <div class="icon">
+
+                <a href="../memo/news.php">
+                    <i class="far fa-bell"></i>
+                </a>
+
+                <?php if (!empty($dbResult2[0]['SUM(count)'])) : ?>
+                    <span class="news-span">
+                        <?php echo $dbResult2[0]['SUM(count)']; ?>
+                    </span>
+                <?php endif; ?>
+
+            </div>
+
             <?php
             $name = $dbResult[0]['name'];
             ?>
@@ -111,8 +136,6 @@ try {
                     </div>
                     <a href="../memo/" class="btn">マイページ</a>
                     <ul class="ul">
-                        <li><a href="./action/logout.php">ログアウト</a></li>
-                        <li><a href="./action/logout.php">ログアウト</a></li>
                         <li><a href="./action/logout.php">ログアウト</a></li>
                     </ul>
                 </div>
@@ -166,40 +189,12 @@ try {
                             <dd class="answer"><?php echo es($place); ?></dd>
                         </div>
                         <dt class="message">メッセージ</dt>
-                        <dd class="text"><?php echo es($message); ?></dd>
+                        <dd class="text"><?php echo $message; ?></dd>
                     </dl>
 
                     <form action="#" method="POST" class="form">
                         <h2 class="comment">コメント欄<span class="notification">※応募者が質問、コメントする欄になります</span></h2>
                         <p class="info">相手のことを考え丁寧なコメントを心がけましょう</p>
-                        <!-- <div class="talk-items-user">
-                            <div class="block">
-                                <p class="nickname">ニックネーム</p>
-                                <p class="talk">testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</p>
-                            </div>
-                            <div class="img-wrap"><img src="../images/Slogo.png" alt=""></div>
-                        </div>
-                        <div class="talk-items-my">
-                            <div class="img-wrap"><img src="../images/Slogo.png" alt=""></div>
-                            <div class="block">
-                                <p class="nickname">ニックネーム</p>
-                                <p class="talk">testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</p>
-                            </div>
-                        </div>
-                        <div class="talk-items-my">
-                            <div class="img-wrap"><img src="../images/Slogo.png" alt=""></div>
-                            <div class="block">
-                                <p class="nickname">ニックネーム</p>
-                                <p class="talk">testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</p>
-                            </div>
-                        </div>
-                        <div class="talk-items-user">
-                            <div class="block">
-                                <p class="nickname">ニックネーム</p>
-                                <p class="talk">testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</p>
-                            </div>
-                            <div class="img-wrap"><img src="../images/Slogo.png" alt=""></div>
-                        </div> -->
                         <textarea name="message" class="message" placeholder="質問する..."></textarea>
                         <div class="form-btn">
                             <button type="submit">質問する</button>
@@ -221,8 +216,8 @@ try {
                             $nickname = $dbResult[0]['nickname'];
                             ?>
                             <p><?php echo es($nickname); ?></p>
-                            <h2>評価</h2>
-                            <p>★★★★</p>
+                            <!-- <h2>評価</h2>
+                            <p>★★★★</p> -->
                         </div>
                     </div>
                 </div>
@@ -235,22 +230,12 @@ try {
     <footer>
         <div class="footer-wrapper">
             <div class="footer-item">
-                <h2>About</h2>
-                <p>会社概要</p>
-            </div>
-            <div class="footer-item">
                 <h2>Profile</h2>
-                <p>マイページ</p>
-                <p>設定</p>
-                <p>ログアウト</p>
-            </div>
-            <div class="footer-item">
-                <h2>Language</h2>
-                <p>日本語</p>
-                <p>English</p>
+                <p><a href="../memo/index.php">マイページ</a></p>
+                <p><a href="../memo/action/logout.php">ログアウト</a></p>
             </div>
             <div class="footer-logo">
-                <img src="../images/supomalogo.png" alt="logo" width="100">
+                <img src="../public/images/supomalogo.png" alt="logo" width="100">
             </div>
         </div>
         <div class="contact">

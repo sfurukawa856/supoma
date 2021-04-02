@@ -3,6 +3,7 @@ session_start();
 
 require '../common/auth.php';
 require_once('../memo/action/myUtil.php');
+require_once('../common/database.php');
 
 if (!isLogin()) {
     header('Location: ../login/');
@@ -14,23 +15,51 @@ $userpost_id = es($_POST['user_id']);
 $insert_date = es($_POST['insert_date']);
 
 // var_dump($_POST);
-// var_dump($_SESSION);
+$_SESSION['userpost_id'] = $userpost_id;
+$_SESSION['insert_date'] = $insert_date;
+
+?>
+
+
+<?php
+
+//newsテーブルのcountカラム更新
+
+if (!empty($_POST['id_news'])) {
+    $idNews = es($_POST['id_news']);
+    $dbConnect = getDatabaseConnection();
+
+    try {
+
+        $sql = "UPDATE news SET count = 0 WHERE id = :id";
+
+        $stm = $dbConnect->prepare($sql);
+        $stm->bindValue(':id', "$idNews", PDO::PARAM_INT);
+        $stm->execute();
+    } catch (Exception $e) {
+        echo "データベース接続エラーがありました。<br>";
+        echo $e->getMessage();
+    }
+}
+
 ?>
 
 <?php
 
 //ログインしているユーザーのuserinfoのデータ取得
 try {
-    require_once('../common/database.php');
+    // require_once('../common/database.php');
     $dbConnect = getDatabaseConnection();
     $sql = "SELECT * FROM user,userinfor WHERE id=:id AND user_id=id";
     $stm = $dbConnect->prepare($sql);
     $stm->bindValue(':id', "$id", PDO::PARAM_INT);
     $stm->execute();
     $userinfoResult = $stm->fetchAll(PDO::FETCH_ASSOC);
+    // echo "<p>ログインユーザー</p>";
     // var_dump($userinfoResult);
+    // echo "<hr>";
 } catch (Exception $e) {
-    echo "データベース接続エラーがありました。<br>";
+    echo "データベース接続エラーがありました(personal.php//62)。<br>";
     echo $e->getMessage();
     exit();
 }
@@ -42,12 +71,16 @@ try {
     $stm->bindValue(':id', "$userpost_id", PDO::PARAM_INT);
     $stm->execute();
     $postUserinfoResult = $stm->fetchAll(PDO::FETCH_ASSOC);
+    // echo "<p>投稿ユーザーのニックネーム</p>";
     // var_dump($postUserinfoResult);
+    // echo "<hr>";
 } catch (Exception $e) {
-    echo "データベース接続エラーがありました。<br>";
+    echo "データベース接続エラーがありました(personal.php//50)。<br>";
     echo $e->getMessage();
     exit();
 }
+$commentUserNickname = $userinfoResult[0]['nickname'];
+$nickname = $postUserinfoResult[0]['nickname'];
 
 //投稿者のuserpostのデータ取得
 try {
@@ -57,37 +90,27 @@ try {
     $stm->bindValue(':insert_date', $insert_date, PDO::PARAM_INT);
     $stm->execute();
     $userpostResult = $stm->fetchAll(PDO::FETCH_ASSOC);
+    // echo "<p>投稿ユーザー</p>";
     // var_dump($userpostResult);
+    // echo "<hr>";
 } catch (Exception $e) {
-    echo "データベース接続エラーがありました。<br>";
+    echo "データベース接続エラーがありました(personal.php//69)。<br>";
     echo $e->getMessage();
     exit();
 }
 
-//
-/**
- * 多次元配列のソート関数
- * @param string $key_name
- * @param $sort_order
- * @param array $array
- * @return array $array
- */
-// function sortByKey($key_name, $sort_order, $array)
-// {
-//     foreach ($array as $key => $value) {
-//         $standard_key_array[$key] = $value[$key_name];
-//     }
-
-//     array_multisort($standard_key_array, $sort_order, $array);
-
-//     return $array;
-// }
-//降順（insert_dateを基準）
-// $sorted_array = sortByKey('insert_date', SORT_DESC, $userpostResult);
-// var_dump($sorted_array);
-
-
-
+//通知数
+try {
+    // $dbConnect = getDatabaseConnection();
+    $sql = "SELECT SUM(count) FROM news WHERE news_id=:id";
+    $stm = $dbConnect->prepare($sql);
+    $stm->bindValue(':id', "$id", PDO::PARAM_INT);
+    $stm->execute();
+    $dbResult2 = $stm->fetchAll(PDO::FETCH_ASSOC);
+} catch (Exception $e) {
+    echo "データベース接続エラーがありました。<br>";
+    echo $e->getMessage();
+}
 ?>
 
 <!DOCTYPE html>
@@ -98,19 +121,35 @@ try {
     require_once("../common/header.php");
     echo getHeader("募集個別ページ");
     ?>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
     <link rel="stylesheet" href="../public/css/Individual2.css">
 </head>
 
 <body>
     <header>
         <div class="left flex">
-            <img src="../images/Slogo.png" alt="ロゴ" width="50">
-            <h2>募集</h2>
+            <a href="../memo/table.php">
+                <img src="../public/images/Slogo.png" alt="ロゴ" width="50">
+            </a>
+            <a href="../memo/apply.php">
+                <h2>募集</h2>
+            </a>
         </div>
         <div class="right flex">
-            <div class="icon"><i class="fas fa-search"></i></div>
-            <div class="icon"><i class="fas fa-comment-dots"></i></div>
-            <div class="icon"><i class="far fa-bell"></i></div>
+            <div class="icon">
+
+
+                <a href="../memo/news.php">
+                    <i class="far fa-bell"></i>
+                </a>
+
+                <?php if (!empty($dbResult2[0]['SUM(count)'])) : ?>
+                    <span class="news-span">
+                        <?php echo $dbResult2[0]['SUM(count)']; ?>
+                    </span>
+                <?php endif; ?>
+
+            </div>
             <?php
             $name = $userinfoResult[0]['name'];
             ?>
@@ -139,15 +178,10 @@ try {
                     </div>
                     <a href="../memo/" class="btn">マイページ</a>
                     <ul class="ul">
-                        <li><a href="./action/logout.php">ログアウト</a></li>
-                        <li><a href="./action/logout.php">ログアウト</a></li>
-                        <li><a href="./action/logout.php">ログアウト</a></li>
+                        <li><a href="../memo/action/logout.php">ログアウト</a></li>
                     </ul>
                 </div>
             </div>
-
-
-
         </div>
     </header>
 
@@ -162,15 +196,15 @@ try {
         $url2 = "http://localhost/GroupWork/20210329_spoma-main/images/{$file_name2}";
         // $url2 = "http://localhost/supoma-locall/images/{$file_name2}";
         ?>
-
         <div class="main-sp-img">
             <img src="<?php echo $url2; ?>" alt="">
         </div>
         <div class="main-wrap">
             <?php
-
+            $userpost_id1 = $userpostResult[0]['userpost_id'];
             $category = $userpostResult[0]['category'];
             $title = $userpostResult[0]['title'];
+            $_SESSION['title'] = $title;
             $datetime = $userpostResult[0]['eventDate'];
             $eventDate = mb_substr($userpostResult[0]['eventDate'], 5, 11);
             $start_time = mb_substr($userpostResult[0]['start_time'], 5);
@@ -178,9 +212,7 @@ try {
             $member = $userpostResult[0]['member'];
             $place = $userpostResult[0]['place'];
             $message = $userpostResult[0]['message'];
-
-
-
+            $post_id = $userpostResult[0]['post_id'];
             ?>
             <span class="main-category"><?php echo es($category); ?></span>
             <h1 class="main-title"><?php echo es($title); ?></h1>
@@ -207,61 +239,116 @@ try {
                             <dd class="answer"><?php echo es($place); ?></dd>
                         </div>
                         <dt class="message">メッセージ</dt>
-                        <dd class="text"><?php echo es($message); ?></dd>
+                        <dd class="text"><?php echo $message; ?></dd>
                     </dl>
 
-
-                    <form action="#" method="POST" class="form">
+                    <form method="POST" class="form">
                         <h2 class="comment">コメント欄</h2>
                         <p class="info">相手のことを考え丁寧なコメントを心がけましょう</p>
-                        <div class="talk-items-user">
-                            <div class="block">
-                                <p class="nickname">ニックネーム</p>
-                                <p class="talk">testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</p>
+                        <!-- チャットエリア -->
+                        <!-- postUserIDがあるかどうか -->
+                        <?php
+                        $_SESSION['post_id'] = $post_id;
+                        // var_dump($post_id);
+                        // var_dump($_SESSION['commentUserID']);
+                        // chatテーブルから募集ページのIDを使って検索
+                        $chatSql = "SELECT * FROM chat WHERE post_user_id=:post_id";
+                        $chatStm = $dbConnect->prepare($chatSql);
+                        $chatStm->bindValue(':post_id', $post_id, PDO::PARAM_INT);
+                        $chatStm->execute();
+                        $chatResult = $chatStm->fetchAll(PDO::FETCH_ASSOC);
+                        // var_dump($chatResult);
+                        // var_dump(count($chatResult));
+
+                        // userinforテーブルからchatテーブルのコメントユーザーIDを使って検索
+                        $sql = "SELECT * FROM userinfor WHERE user_id=:user_id";
+                        $stm = $dbConnect->prepare($sql);
+                        $userinforResults = [];
+                        for ($j = 0; $j < count($chatResult); $j++) {
+                            $stm->bindValue(':user_id', $chatResult[$j]['comment_user_id'], PDO::PARAM_INT);
+                            $stm->execute();
+                            $userinforResult = $stm->fetchAll(PDO::FETCH_ASSOC);
+                            array_push($userinforResults, $userinforResult);
+                        }
+                        // var_dump($userinforResults);
+                        // var_dump(count($userinforResults));
+
+                        // userpostテーブルから$POST_idを使って検索
+                        $postSql = "SELECT * FROM userpost WHERE post_id=:post_id";
+                        $postStm = $dbConnect->prepare($postSql);
+                        $postStm->bindValue(':post_id', $post_id, PDO::PARAM_INT);
+                        $postStm->execute();
+                        $postResult = $postStm->fetchAll(PDO::FETCH_ASSOC);
+                        // var_dump($postResult);
+                        ?>
+                        <div class="commentArea">
+                            <?php if (!empty($chatResult)) : ?>
+                                <?php for ($i = 0; $i < count($chatResult); $i++) : ?>
+                                    <?php if ($postResult[0]['userpost_id'] === $chatResult[$i]['comment_user_id']) : ?>
+                                        <div class="talk-items-my">
+                                            <div class="img-wrap">
+                                                <img src="<?php echo substr($userinforResults[$i][0]['file_path'], 3) ?>">
+                                            </div>
+                                            <div class="block">
+                                                <p class="nickname"><?php echo $userinforResults[$i][0]['nickname'] ?></p>
+                                                <p class="talk"><?php echo $chatResult[$i]['chat_message'] ?></p>
+                                            </div>
+                                        </div>
+                                    <?php else : ?>
+                                        <div class="talk-items-user">
+                                            <div class="block">
+                                                <p class="nickname"><?php echo $userinforResults[$i][0]['nickname'] ?></p>
+                                                <p class="talk"><?php echo $chatResult[$i]['chat_message'] ?></p>
+                                            </div>
+                                            <div class="img-wrap">
+                                                <img src="<?php echo substr($userinforResults[$i][0]['file_path'], 3) ?>">
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+                            <?php endif; ?>
+
+                            <div class="talk-items-user none">
+                                <div class="block">
+                                    <p class="nickname"></p>
+                                    <p class="talk"></p>
+                                </div>
+                                <div class="img-wrap">
+                                </div>
                             </div>
-                            <div class="img-wrap"><img src="../images/Slogo.png" alt=""></div>
-                        </div>
-                        <div class="talk-items-my">
-                            <div class="img-wrap"><img src="../images/Slogo.png" alt=""></div>
-                            <div class="block">
-                                <p class="nickname">ニックネーム</p>
-                                <p class="talk">testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</p>
+                            <div class="talk-items-my none">
+                                <div class="img-wrap">
+                                </div>
+                                <div class="block">
+                                    <p class="nickname"></p>
+                                    <p class="talk"></p>
+                                </div>
                             </div>
                         </div>
-                        <div class="talk-items-my">
-                            <div class="img-wrap"><img src="../images/Slogo.png" alt=""></div>
-                            <div class="block">
-                                <p class="nickname">ニックネーム</p>
-                                <p class="talk">testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</p>
-                            </div>
-                        </div>
-                        <div class="talk-items-user">
-                            <div class="block">
-                                <p class="nickname">ニックネーム</p>
-                                <p class="talk">testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</p>
-                            </div>
-                            <div class="img-wrap"><img src="../images/Slogo.png" alt=""></div>
-                        </div>
-                        <textarea name="message" class="message" placeholder="質問する..."></textarea>
+                        <textarea name="chat_message" class="message" id="message" placeholder="質問する..."></textarea>
+                        <input type="hidden" name="commentUserID" value="<?php echo $id; ?>">
+                        <input type="hidden" name="postUserID" value="<?php echo $userpost_id1; ?>">
+                        <input type="hidden" name="commentUserFilepath" value="<?php echo $file_path; ?>">
+                        <input type="hidden" name="postUserFilepath" value="<?php echo $file_path2; ?>">
+                        <input type="hidden" name="commentUserNickname" value="<?php echo $commentUserNickname; ?>">
+                        <input type="hidden" name="postUserNickname" value="<?php echo $nickname; ?>">
                         <div class="form-btn">
-                            <button type="submit">質問する</button>
+                            <button type="button" id="submit">コメントする</button>
                         </div>
                     </form>
-
                 </div>
-
 
                 <div class="main-btn-wrap">
                     <div class="main-btn-wrap-flex">
-                        <button type="submit" class="main-btn">参加する</button>
+                        <?php if ($id === $userpost_id) : ?>
+                            <a href="./action/joining.php" class="myself">参加する</a>
+
+                        <?php else : ?>
+                            <a href="./action/joining.php" class="main-btn">参加する</a>
+                        <?php endif; ?>
                         <div class="side-block">
                             <h2>開催者</h2>
-                            <?php
-                            $nickname = $postUserinfoResult[0]['nickname'];
-                            ?>
                             <p><?php echo es($nickname); ?></p>
-                            <h2>評価</h2>
-                            <p>★★★★</p>
                         </div>
                     </div>
                 </div>
@@ -274,22 +361,12 @@ try {
     <footer>
         <div class="footer-wrapper">
             <div class="footer-item">
-                <h2>About</h2>
-                <p>会社概要</p>
-            </div>
-            <div class="footer-item">
                 <h2>Profile</h2>
-                <p>マイページ</p>
-                <p>設定</p>
-                <p>ログアウト</p>
-            </div>
-            <div class="footer-item">
-                <h2>Language</h2>
-                <p>日本語</p>
-                <p>English</p>
+                <p><a href="./index.php">マイページ</a></p>
+                <p><a href="./action/logout.php">ログアウト</a></p>
             </div>
             <div class="footer-logo">
-                <img src="../images/supomalogo.png" alt="logo" width="100">
+                <img src="../public/images/supomalogo.png" alt="logo" width="100">
             </div>
         </div>
         <div class="contact">
@@ -300,6 +377,7 @@ try {
     </footer>
 
     <script src="../public/js/script.js"></script>
+    <script src="../public/js/chat.js" type="module"></script>
 </body>
 
 </html>

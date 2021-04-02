@@ -41,33 +41,57 @@ try {
         $stm->bindValue(':place', htmlspecialchars($place));
         $stm->bindValue(':start_time', $start_time);
         $stm->bindValue(':end_time', $end_time);
-        $stm->bindValue(':message', htmlspecialchars($message));
+        $stm->bindValue(':message', $message);
         $stm->bindValue(':file_name', $filename);
         $stm->bindValue(':file_path', $save_path);
         $result  = $stm->execute();
 
-        $_SESSION['recruitment'] = "募集完了しました";
+
+
+        $_SESSION['recruitment'] = "「" . $title . "」" . "募集完了しました";
         $recruitment = $_SESSION['recruitment'];
+
+        if ($result) {
+
+            $sql3 = "SELECT insert_date FROM userpost WHERE userpost_id = :userpost_id AND file_path = :file_path";
+
+            $stm3 = $database_handler->prepare($sql3);
+            $stm3->bindValue(':userpost_id', $id);
+            $stm3->bindValue(':file_path', $save_path);
+            $stm3->execute();
+            $dbResult = $stm3->fetchAll(PDO::FETCH_ASSOC);
+
+            $post_insert_date = $dbResult[0]['insert_date'];
+            // echo $post_insert_date;
+        }
     }
 } catch (Exception $e) {
     echo  $e->getMessage();
 }
 
 
-$sql2 = "INSERT INTO news (news_id, recruitment,count) VALUES ( :news_id,:recruitment,1)";
+
+
+//newsテーブルに追加
+$sql2 = "INSERT INTO news (news_id, post_id,post_insert_date,recruitment,	joining_id,count) VALUES ( :news_id,:post_id,:post_insert_date,:recruitment,:joining_id,1)";
+
 
 try {
 
-    $stm = $database_handler->prepare($sql2);
+    $stm2 = $database_handler->prepare($sql2);
 
-    if ($stm) {
-        $stm->bindValue(':news_id', $id);
-        $stm->bindValue(':recruitment', $recruitment);
-        $result  = $stm->execute();
+    if ($stm2) {
+        $stm2->bindValue(':news_id', $id);
+        $stm2->bindValue(':post_id', $id);
+        $stm2->bindValue(':post_insert_date', $post_insert_date);
+        $stm2->bindValue(':recruitment', $recruitment);
+        $stm2->bindValue(':joining_id', $id);
+        $result  = $stm2->execute();
     }
 } catch (Exception $e) {
     echo  $e->getMessage();
 }
+
 
 
 // 一覧投稿画面にリダイレクト

@@ -1,438 +1,536 @@
 @import "./base";
 @import "./module";
 
-
 // ヘッダー
 header {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: solid 1px #E7E7E7;
-  padding: 10px 0;
-  position: fixed;
-  z-index: 999;
-  background-color: #fff;
-  width: 100%;
+	display: flex;
+	justify-content: space-between;
+	border-bottom: solid 1px #e7e7e7;
+	padding: 10px 0;
+	position: fixed;
+	z-index: 999;
+	background-color: #fff;
+	width: 100%;
 
-  @include media768 {
-    font-size: 10px;
-  }
+	@include media768 {
+		font-size: 10px;
+	}
 
-  .flex {
-    display: flex;
-    align-items: center;
-  }
+	.flex {
+		display: flex;
+		align-items: center;
+	}
 
-  .left {
-    img {
-      margin: 1rem;
+	.left {
+		img {
+			margin: 1rem;
 
-      @include media768 {
-        display: none;
+			@include media768 {
+				display: none;
+			}
+		}
+
+		h2 {
+			margin: 1rem;
+
+			@include media768 {
+				margin: 0;
+				margin-left: 20px;
+			}
+		}
+	}
+
+	.right {
+		.fas,
+		.far {
+			color: #9a9a9a;
+		}
+
+		.icon {
+			font-size: 30px;
+			margin: 1rem;
+			position: relative;
+
+			@include media768 {
+				font-size: 20px;
+				margin: 0;
+				margin-left: 10px;
+			}
+      .news-span {
+              font-size: 1rem;
+              width: 30px;
+              height: 30px;
+              text-align: center;
+              line-height: 30px;
+              display: inline-block;
+              background-color: #ff0000;
+              color: #fff;
+              border-radius: 50%;
+              position: absolute;
+              top: -20px;
+              right: -20px;
+
+              @include media768 {
+                font-size: 14px;
+                width: 26px;
+                height: 26px;
+                line-height: 26px;
+                top: -16px;
+              }
       }
-    }
+		}
 
-    h2 {
-      margin: 1rem;
+		img {
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			margin: 1rem;
+      object-fit: cover;
+			&:hover {
+				cursor: pointer;
+			}
 
-      @include media768 {
-        margin: 0;
-        margin-left: 20px;
-      }
-    }
-  }
+			@include media768 {
+				margin: 0;
+			}
+		}
 
-  .right {
+		h2 {
+			margin: 1rem;
 
-    .fas,
-    .far {
-      color: #9A9A9A;
-    }
-
-    .icon {
-      font-size: 30px;
-      margin: 1rem;
-
-      @include media768 {
-        font-size: 20px;
-        margin: 0;
-        margin-left: 10px;
-      }
-    }
-
-    img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      margin: 1rem;
-
-      @include media768 {
-        margin: 0;
-      }
-    }
-
-    h2 {
-      margin: 1rem;
-
-      @include media768 {
-        margin: 0 20px;
-      }
-    }
-  }
+			@include media768 {
+				margin: 0 20px;
+			}
+		}
+	}
 }
 
 .none {
-        position: absolute;
-        top: 103px;
-        right: 0;
-        @include media768 {
-          top: 72px;
-        }
-    }
-    // .bg-transparent {
-    //   position: absolute;
-    //   display: none;
-    //   top: 0;
-    //   right: 0;
-    //   width: 100%;
-    //   height: 100vw;
-    //   background-color: #000;
+	position: absolute;
+	top: 103px;
+	right: 0;
+	@include media768 {
+		top: 72px;
+	}
+}
 
-    //   &.display {
-    //     display: block;
-    //   }
-    // }
+.header-mypage {
+	border-radius: 10px;
+	display: none;
+	width: 320px;
+	height: 340px;
+	background-color: #fff;
+	padding-top: 24px;
+	box-shadow: 2px 2px 4px rgb(187, 187, 187);
 
 
-    .header-mypage {
-        border-radius: 10px;
-        display: none;
-        width: 320px;
-        height: 340px;
-        background-color: #fff;
-        padding-top: 24px;
-        box-shadow: 2px 2px 4px rgb(187, 187, 187);
+	.header-mypage-wrap {
+		width: 85%;
+		margin: 0 auto;
 
-        // @include media768 {
-        //     max-width: 100%;
-        //     width: 320px;
-        //     //   height: 100vw;
-        // }
+		.faceName {
+			display: flex;
+			align-items: center;
+			margin-bottom: 20px;
 
-        .header-mypage-wrap {
-            width: 85%;
-            margin: 0 auto;
+			.img {
+				width: 40px;
+				height: 40px;
+				border-radius: 50%;
+				// border: 1px solid rgb(59, 58, 58);
+				margin-right: 8px;
 
-            .faceName {
-                display: flex;
-                align-items: center;
-                margin-bottom: 20px;
-    
-                .img {
-    
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    // border: 1px solid rgb(59, 58, 58);
-                    margin-right: 8px;
-    
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        border-radius: 50%;
-                    }
-                }
-    
-                h1 {
-                    font-size: (24rem/16);
-                }
-            }
-    
-            .btn {
-                background-color: #00A5BB;
-                color: #fff;
-                font-weight: 500;
-                border-radius: 20px;
-                width: 100%;
-                display: inline-block;
-                text-align: center;
-                line-height: 40px;
-                margin-bottom: 20px;
-                font-size: 1rem;
-             
-            }
-    
-            .ul {
-                li {
-                    margin-bottom: 16px;
-                    font-size: 1rem;
-                }
-    
-                a {
-                    color: #75797C;
-                    font-size: 1rem;
-                }
-            }
-        }
+				img {
+					width: 100%;
+					height: 100%;
+					border-radius: 50%;
+                        object-fit: cover;
+				}
+			}
 
-        &.display {
-            display: block;
-        }
-    }
+			h1 {
+				font-size: (24rem/16);
+			}
+		}
 
+		.btn {
+			background-color: #00a5bb;
+			color: #fff;
+			font-weight: 500;
+			border-radius: 20px;
+			width: 100%;
+			display: inline-block;
+			text-align: center;
+			line-height: 40px;
+			margin-bottom: 20px;
+			font-size: 1rem;
+		}
 
+		.ul {
+			li {
+				margin-bottom: 16px;
+				font-size: 1rem;
+			}
 
+			a {
+				color: #75797c;
+				font-size: 1rem;
+			}
+		}
+	}
+
+	&.display {
+		display: block;
+	}
+}
 
 // sliderのためのcss
 .swiper-slide {
-  box-shadow: 2px 2px 4px gray;
-  margin: 0 10px;
-  margin-bottom: 2rem;
-  margin-top: 100px;
-  // width: 200px;
+	// box-shadow: 2px 2px 4px gray;
+	margin: 0 10px;
+	margin-bottom: 2rem;
+	margin-top: 100px;
+	// width: 200px;
 
+	@include media768 {
+		display: none;
+	}
 
+	.img {
+		width: 100%;
+	}
 
-  @include media768 {
-    display: none;
-  }
+	img {
+		width: 100%;
+		height: 20vw;
+		object-fit: cover;
+	}
 
+	.table {
+		&-item {
+			box-shadow: 2px 2px 4px gray;
+			margin: 2rem;
+
+			img {
+				width: 100%;
+				height: 400px;
+				object-fit: cover;
+			}
+
+			&-text {
+				display: flex;
+				justify-content: space-between;
+				padding: 1rem;
+			}
+		}
+	}
+}
+
+// 新しいスライダーのCSS
+
+.swiper-slide {
   .img {
-    width: 100%; 
-    
-    
+    position: relative;
   }
 
   img {
-    width: 100%;
-    height: 20vw;
-    object-fit: cover;
-    // width: 50%;
-    // height: auto;
-    // height: 100%;
-    // height: 400px;
-  }
-
-  .table {
-    &-item {
-      box-shadow: 2px 2px 4px gray;
-      margin: 2rem;
-
-
-      img {
-        width: 100%;
-        height: 400px;
-        object-fit: cover;
-      }
-
-      &-text {
-        display: flex;
-        justify-content: space-between;
-        padding: 1rem;
-      }
-    }
-  }
-}
-
-// 条件、検索
-.conditions {
-  margin: 2rem 0;
-
-
-  @include media768 {
-    margin: 2rem;
-    margin-top: 70px;
-  }
-
-  .sports {
-    background-color: #E7E7E7;
-    color: #333;
-    padding: 5px 16px;
-    border-radius: 10px;
-    width: 200px;
+    opacity: .5;
+    vertical-align: middle;
   }
 
   p {
-    padding: 5px 16px;
+    font-size: 5rem;
+    position: absolute;
   }
 
-  & input {
-    background-color: #E7E7E7;
-    color: #333;
-    padding: 5px 16px;
-    border-radius: 10px;
-    width: 200px;
+  .swiper-container-free-mode>.swiper-wrapper {
+    -webkit-transition-timing-function: linear !important;
+    -o-transition-timing-function: linear !important;
+    transition-timing-function: linear !important;
   }
-  .searchBtn{
-    background-color: $base-color;
-    color: #fff;
-    padding: 5px 16px;
-    border-radius: 10px;
-    width: 200px;
+
+  .Snowbord {
+    background: url(../images/snow.jpg);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    top: 30%;
+    left: 20%;
+    background-position: center;
+
   }
+
+  .Basketball {
+    background: url(../images/basuke.jpg);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    top: 30%;
+    left: 20%;
+    background-position: center;
+
+  }
+
+  .Tennis {
+    background: url(../images/tenisu.jpg);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    top: 30%;
+    left: 32%;
+    background-position: center;
+
+  }
+
+  .Tabletennis {
+    background: url(../images/takkyu.jpg);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    top: 30%;
+    left: 15%;
+    background-position: center;
+
+  }
+
+  .Baseball {
+    background: url(../images/baseball.jpg);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    top: 30%;
+    left: 25%;
+    background-position: center;
+
+  }
+
+  .Badminton {
+    background: url(../images/badominton.jpg);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    top: 30%;
+    left: 20%;
+    background-position: left;
+
+  }
+
+  .Soccer {
+    background: url(../images/soccer.jpg);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    top: 30%;
+    left: 30%;
+    background-position: bottom;
+
+  }
+
+  .Dance {
+    background: url(../images/dansu.jpg);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    top: 30%;
+    left: 32%;
+    background-position: center;
+
+  }
+}
+
+
+// 条件、検索
+.conditions {
+	margin: 2rem 0;
+
+	@include media768 {
+		margin: 2rem;
+		margin-top: 70px;
+	}
+
+	.sports {
+		background-color: #e7e7e7;
+		color: #333;
+		padding: 5px 16px;
+		border-radius: 10px;
+		width: 200px;
+	}
+
+	p {
+		padding: 5px 16px;
+	}
+
+	& input {
+		background-color: #e7e7e7;
+		color: #333;
+		padding: 5px 16px;
+		border-radius: 10px;
+		width: 200px;
+	}
+	.searchBtn {
+		background-color: $base-color;
+		color: #fff;
+		padding: 5px 16px;
+		border-radius: 10px;
+		width: 200px;
+	}
 }
 
 // 投稿した一覧
 .main-container {
-  max-width: 960px;
-  margin: 0 auto;
-  display: flex;
+	max-width: 960px;
+	margin: 0 auto;
+	display: flex;
 
-  @include media768 {
-    display: block;
-  }
+	@include media768 {
+		display: block;
+	}
 
+	.table {
+		&-item {
+			box-shadow: 2px 2px 4px gray;
+			margin: 2rem;
+			&:hover {
+				opacity: 0.7;
+			}
 
-  .table {
-    &-item {
-      box-shadow: 2px 2px 4px gray;
-      margin: 2rem;
-      &:hover{
-        opacity: 0.7;
-      }
+			p:nth-child(3) {
+				color: #9a9a9a;
+				padding: 1rem;
+			}
 
-      p:nth-child(3) {
-        color: #9A9A9A;
-        padding: 1rem;
-      }
+			img {
+				width: 100%;
+				height: 20vw;
+				object-fit: cover;
+				@include media768 {
+					height: 30vw;
+				}
+			}
 
-      img {
-        width: 100%;
-        height: 20vw;
-        object-fit: cover;
-        @include media768 {
-          height: 30vw;
-        }
-      }
+			&-text {
+				display: flex;
+				justify-content: space-between;
+				padding: 1rem;
+				align-items: center;
 
-      &-text {
-        display: flex;
-        justify-content: space-between;
-        padding: 1rem;
-        align-items: center;
+				@include media768 {
+					display: block;
+				}
 
-        @include media768 {
-          display: block;
+				&-left {
+					display: flex;
+					align-items: center;
 
-        }
+					@include media768 {
+						display: block;
+					}
 
-        &-left {
-          display: flex;
-          align-items: center;
+					p:nth-child(2) {
+						margin-left: 20px;
 
-          @include media768 {
-            display: block;
-          }
+						@include media768 {
+							margin: 10px 0;
+						}
+					}
+				}
+			}
 
-          p:nth-child(2) {
-            margin-left: 20px;
-
-            @include media768 {
-              margin: 10px 0;
-            }
-          }
-        }
-      }
-
-      h3 {
-        @include media768 {
-          margin-top: 20px;
-        }
-
-      }
-    }
-  }
+			h3 {
+				@include media768 {
+					margin-top: 20px;
+				}
+			}
+		}
+	}
 }
 
 .category {
-  padding: 5px 16px;
-  border-radius: 20px;
-  background-color: $base-color;
-  color: #fff;
+	padding: 5px 16px;
+	border-radius: 20px;
+	background-color: $base-color;
+	color: #fff;
 
-  @include media768 {
-    display: inline-block;
-  }
+	@include media768 {
+		display: inline-block;
+	}
 }
 
 .number {
-  display: block;
-  max-width: 960px;
-  margin: 50px auto;
-  text-align: center;
+	display: block;
+	max-width: 960px;
+	margin: 50px auto;
+	text-align: center;
 }
-
 
 // フッター
 footer {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 100px;
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 100px;
 
-  @include media768 {
-    display: block;
+	@include media768 {
+		display: block;
+	}
+
+	h2 {
+		margin-top: 100px;
+
+		@include media768 {
+			margin: 0;
+		}
+	}
+
+	.footer-wrapper {
+		position: relative;
+		width: 70%;
+		padding: 0 160px;
+
+		@include media768 {
+			width: 100%;
+			display: block;
+			padding: 20px;
+		}
+
+		p {
+			margin: 1rem 0;
+			color: #9a9a9a;
+		}
+
+		.footer-logo {
+			position: absolute;
+			top: 380px;
+			left: 160px;
+
+			@include media768 {
+				top: 20px;
+				left: 200px;
+			}
+		}
+	}
+
+	.contact {
+		// width: 30%;
+
+		@include media768 {
+			width: 100%;
+			padding: 20px;
+		}
+
+		textarea {
+			border: solid #e7e7e7 1px;
+			box-shadow: 0 0 8px gray;
+			margin: 2rem 0;
+      outline: none;
+      padding: 8px 16px;
+		}
+
+		input {
+			width: 280px;
+			background-color: #e7e7e7;
+			color: #333;
+			padding: 5px 16px;
+			border-radius: 10px;
+      outline: none;
+		}
   }
 
-  h2 {
-    margin-top: 100px;
-
-    @include media768 {
-      margin: 0;
-    }
-  }
-
-  .footer-wrapper {
-    position: relative;
-    width: 70%;
-    padding: 0 160px;
-
-    @include media768 {
-      width: 100%;
-      display: block;
-      padding: 20px;
-    }
-
-    p {
-      margin: 1rem 0;
-      color: #9A9A9A;
-    }
-
-    .footer-logo {
-      position: absolute;
-      top: 380px;
-      left: 160px;
-
-      @include media768 {
-        top: 20px;
-        left: 200px;
-      }
-    }
-  }
-
-  .contact {
-    width: 30%;
-
-    @include media768 {
-      width: 100%;
-      padding: 20px;
-    }
-
-    textarea {
-      border: solid #E7E7E7 1px;
-      box-shadow: 0 0 8px gray;
-      margin: 2rem 0;
-    }
-
-    input {
-      width: 280px;
-      background-color: #E7E7E7;
-      color: #333;
-      padding: 5px 16px;
-      border-radius: 10px;
-
-    }
-  }
+  form {
+    margin-right: 40px;
+	}
 }
-
 
 // スマホ対応

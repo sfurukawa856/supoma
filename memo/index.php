@@ -96,8 +96,7 @@ try {
                         <a href="index.php" class="btn">マイページ</a>
                         <ul class="ul">
                             <li><a href="./action/logout.php">ログアウト</a></li>
-                            <li><a href="./action/logout.php">ログアウト</a></li>
-                            <li><a href="./action/logout.php">ログアウト</a></li>
+
                         </ul>
                     </div>
                 </div>
