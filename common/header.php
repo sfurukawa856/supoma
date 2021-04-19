@@ -31,7 +31,7 @@
                     <ul class="ul">
                         <li><a href="http://localhost/GroupWork/20210329_spoma-main/memo/table.php">一覧</a></li>
                         <li><a href="http://localhost/GroupWork/20210329_spoma-main/memo/news.php">通知</a></li>
-                        <li><a href="http://localhost/GroupWork/20210329_spoma-main/memo/apply.php">募集</a></li>
+                        <li><a href="http://localhost/GroupWork/20210329_spoma-main/memo/apply.php">募集する</a></li>
                         <li><a href="http://localhost/GroupWork/20210329_spoma-main/memo/action/logout.php">ログアウト</a></li>
                     </ul>
                 </div>
