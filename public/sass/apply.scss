@@ -149,6 +149,14 @@ body {
                 text-align: center;
                 line-height: 40px;
                 margin-bottom: 20px;
+                outline: none;
+                transition: all 0.4s;
+
+  &:hover{
+	  color:#00a5bb;
+  background-color: #fff;
+  border: 1px solid #00a5bb;
+  }
             }
 
             .ul {
@@ -300,6 +308,7 @@ body {
     .main {
         padding-top: 40px;
         position: relative;
+        padding-bottom: 60px;
 
         @include media768 {
             padding-top: 24px;
@@ -338,7 +347,19 @@ body {
         }
 
         .add {
-            margin-bottom: 24px;
+            margin-bottom: 16px;
+        }
+
+        .hissu {
+            color: red;
+            font-size: (14rem/16);
+            margin-bottom: 16px;
+            @include media1050 {
+            font-size: (12rem/16);
+            }
+            @include media768 {
+            padding-left: 0;
+            }
         }
 
         .alart {
@@ -376,6 +397,10 @@ body {
                     margin-bottom: 8px;
                     width: 100%;
                 }
+                .kome {
+    color: red;
+    margin-left: 4px;
+  }
             }
 
             .dt-r {
@@ -434,6 +459,15 @@ body {
                 font-weight: 500;
                 top: -3%;
                 right: 2%;
+                outline: none;
+                transition: all 0.4s;
+
+                &:hover{
+                color:#00a5bb;
+                background-color: #fff;
+                border: 1px solid #00a5bb;
+                }
+
 
                 @include media768 {
                     position: relative;

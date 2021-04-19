@@ -62,7 +62,6 @@ try {
             $dbResult = $stm3->fetchAll(PDO::FETCH_ASSOC);
 
             $post_insert_date = $dbResult[0]['insert_date'];
-            // echo $post_insert_date;
         }
     }
 } catch (Exception $e) {
@@ -92,6 +91,9 @@ try {
     echo  $e->getMessage();
 }
 
+$_SESSION['collect']  = [
+    'check' => true
+];
 
 
 // 一覧投稿画面にリダイレクト

@@ -33,9 +33,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (this.status === 200) {
                     const jsonUrl = "http://localhost/GroupWork/20210329_spoma-main/public/js/chatData.json";
                     jsonData(jsonUrl).then(function (value) {
-                        console.log(value['chat_message'].split('\n'));
-                        console.log(value['chat_message'].split('\n').join('<br>'));
-                        // let newText = textArray.join('<br>');
                         // ログインユーザーとコメントユーザーのIDチェック
                         if (value['commentUserID'] !== value['postUserID']) {
                             var talkItem = document.querySelector('.talk-items-user');
@@ -62,15 +59,13 @@ document.addEventListener('DOMContentLoaded', function () {
                             nickname.textContent = value['commentUserNickname'];
                             // メッセージ表示
                             const talk = talkItem.querySelector('.talk');
-                            // talk.textContent = value['chat_message'].split('\n').join('<br>');
-                            talk.insertAdjacentHTML('beforeend', value['chat_message'].split('\n').join('<br>'));
+                            const talkContent = value['chat_message'].split('\n').join('<br>');
+                            talk.insertAdjacentHTML('beforeend', talkContent + "<br><span class='chatDate'>たった今</span>");
                         } else {
                             const clone_talkItemNone = talkItemNone.cloneNode(true);
                             talkItemNone.after(clone_talkItemNone);
                             talkItemNone.classList.remove('none');
 
-                            // console.log(talkItems);
-                            // const talkItemCounter = talkItems.length;
                             const talkItemCounter = talkItems[talkItems.length - 1];
 
                             // アイコン表示
@@ -83,21 +78,15 @@ document.addEventListener('DOMContentLoaded', function () {
                             nickname.textContent = value['commentUserNickname'];
                             // メッセージ表示
                             const talk = talkItemCounter.querySelector('.talk');
-                            // talk.textContent = value['chat_message'].split('\n').join('<br>');
-                            talk.insertAdjacentHTML('beforeend', value['chat_message'].split('\n').join('<br>'));
-
-                            console.log('hoge');
-                            // console.log(talkItemUserNone);
+                            const talkContent = value['chat_message'].split('\n').join('<br>');
+                            talk.insertAdjacentHTML('beforeend', talkContent + "<br><span class='chatDate'>たった今</span>");
                         }
                     })
-                    // const jsonData = request.responseText;
-                    document.querySelector(".form-btn").insertAdjacentHTML('beforeend', request.responseText);
                 } else {
                     alert('サーバーエラーが発生しました。');
                     location.href = '../../Individual/personal.php';
                 }
             } else {
-                console.log('通信中…');
             }
         };
 
@@ -105,20 +94,5 @@ document.addEventListener('DOMContentLoaded', function () {
             message.value = "";
             disabled(submitBtn, true);
         }
-
-        // function EncodeHTMLForm(data) {
-        //     var params = [];
-
-        //     for (var name in data) {
-        //         var value = data[name];
-        //         var param = encodeURIComponent(name) + '=' + encodeURIComponent(value);
-
-        //         params.push(param);
-        //     }
-
-        //     console.log(params);
-
-        //     return params.join('&').replace(/%20/g, '+');
-        // }
     })
 })

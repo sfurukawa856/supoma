@@ -11,12 +11,7 @@ if (!isLogin()) {
 
 
 
-$message = es($_POST['message']);
-
-
-// echo $insert_date;
-// echo $userpost_id;
-
+$message = $_POST['message'];
 
 
 //newsテーブルのcountカラム更新
@@ -120,8 +115,8 @@ try {
                 <p class="red">開催場所 : <?php echo $place ?></p>
 
                 <?php if (!empty($message)) : ?>
-                <p>主催者からのメッセージ</p>
-                <p><?php echo $message ?></p>
+                    <p>主催者からのメッセージ</p>
+                    <p><?php echo $message ?></p>
                 <?php endif; ?>
             </div>
         </div>
@@ -141,10 +136,10 @@ try {
     </div>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-    AOS.init({
-        once: true,
-        duration: 600,
-    })
+        AOS.init({
+            once: true,
+            duration: 600,
+        })
     </script>
 </body>
 

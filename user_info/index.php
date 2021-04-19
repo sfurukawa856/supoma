@@ -1,13 +1,10 @@
 <?php
 session_start();
 require '../common/auth.php';
-//$_SESSION['user']がもっていなかったらログイン画面へ
-// if (!isLogin()) {
-//     header('Location: ../login/');
-//     exit;
-// }
+// クリックジャッキング対策
+header('X-FRAME-OPTIONS:DENY');
 
-//
+
 if (user_id()) {
     header('Location: ../memo/');
     exit;
@@ -20,7 +17,7 @@ if (user_id()) {
 <head>
     <?php
     //共通ファイル読み込み
-    require_once('../common/header.php');
+    require_once('../common/head.php');
     //head取得
     echo getHeader("ユーザー情報登録");
 
@@ -44,15 +41,25 @@ if (user_id()) {
             }
             ?>
             <p class="subtitle">ここで入力する情報は、マイページに表示されます。別途設定することが可能です。</p>
-            <form enctype="multipart/form-data" action="./action/user_info.php" method="POST">
+            <p class="hissu">*は必須です。</p>
 
+            <!-- CSRF対策 -->
+            <?php
+            if (!isset($_SESSION['csrfToken'])) {
+                $csrfToken = bin2hex(random_bytes(32));
+                $_SESSION['csrfToken'] = $csrfToken;
+            }
+            $token = $_SESSION['csrfToken'];
+            ?>
+
+            <form enctype="multipart/form-data" action="./action/user_info.php" method="POST">
                 <table>
                     <tr>
-                        <td class="td-l">ニックネーム</td>
+                        <td class="td-l">ニックネーム<span class="kome">*</span></td>
                         <td class="td-r"><input type="text" name="nickname" class="nickname"></td>
                     </tr>
                     <tr>
-                        <td class="td-l">スポーツの種類を選んでください</td>
+                        <td class="td-l">スポーツの種類を選んでください<span class="kome">*</span></td>
                         <td class="td-r">
                             <select name="sports" id="" class="sports">
                                 <option value="" disabled selected>選択してください</option>
@@ -68,7 +75,7 @@ if (user_id()) {
                         </td>
                     </tr>
                     <tr>
-                        <td class="td-l">性別</td>
+                        <td class="td-l">性別<span class="kome">*</span></td>
                         <td class="td-r">
                             <select name="sex" class="sex">
                                 <option value="" disabled selected>選択してください</option>
@@ -78,15 +85,16 @@ if (user_id()) {
                         </td>
                     </tr>
                     <tr>
-                        <td class="td-l">年齢</td>
+                        <td class="td-l">年齢<span class="kome">*</span></td>
                         <td class="td-r"><input type="number" name="age" class="age"></td>
                     </tr>
                     <tr>
-                        <td class="td-l">プロフィール画像</td>
-                        <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
+                        <td class="td-l">プロフィール画像<span class="kome">*</span></td>
+                        <input type="hidden" name="MAX_FILE_SIZE" value="4194304" />
                         <td class="td-r"><input name="img" type="file" accept="image/*" / class="profile"></td>
                     </tr>
                 </table>
+                <input type="hidden" name="csrf" value="<?php echo $token; ?>">
                 <div class="btn">
                     <button type="submit">次へ</button>
                 </div>

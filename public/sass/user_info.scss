@@ -10,9 +10,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
 
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
   @include media1050 {
     width: 86%;
   }
@@ -70,14 +67,24 @@
   }
 }
 
+.hissu {
+  color: red;
+  padding-left: 5%;
+  font-size: (14rem/16);
+  margin-bottom: 16px;
+    @include media1050 {
+    font-size: (12rem/16);
+  }
+  @include media768 {
+    padding-left: 0;
+  }
+}
 
 form {
   table {
     color: #75797C;
-    // width: 47.5%;
     width: 100%;
     border-collapse: collapse;
-    // border: solid 1px black;
   }
 
   tr {
@@ -102,6 +109,11 @@ form {
       padding-left: 0;
       width: 90%;
     }
+  }
+
+  .kome {
+    color: red;
+    margin-left: 4px;
   }
 
   .td-r {
@@ -167,6 +179,7 @@ form {
 
   .btn {
     text-align: right;
+    outline: none;
 
     @include media768 {
       text-align: center;
@@ -180,6 +193,7 @@ form {
       border-radius: 4px;
       margin-top: 28px;
       font-size: (14rem/16);
+      outline: none;
 
       @include media768 {
         width: 100px;

@@ -1,11 +1,11 @@
 'use strict';
 import { jsonData } from "./call_json.js";
+import { now } from "./end_apply.js";
 // 変数定義
 const btn = document.querySelector('#readmore');
 const table = document.querySelector('.table');
 let counter = 0;
 const jsonUrl = "http://localhost/GroupWork/20210329_spoma-main/public/js/data.json";
-
 // jsonファイルの読み込み
 btn.addEventListener('click', function () {
     counter++;
@@ -13,12 +13,17 @@ btn.addEventListener('click', function () {
         for (let j = 0; j <= 2; j++) {
             let counter2 = counter * 3 + j;
             const el = value2[counter2];
-            console.log(counter2);
             if (el) {
-                console.log(el);
                 // クラス名table-itemのdivを作りtableの中に挿入
                 const div_tableItem = document.createElement('div');
                 div_tableItem.classList.add('table-item');
+                if (el["end_time"] < now) {
+                    div_tableItem.classList.add('past');
+                } else if (el["end_time"] === now) {
+                    div_tableItem.classList.add('future');
+                } else if (el["end_time"] >= now) {
+                    div_tableItem.classList.add('future');
+                }
                 table.appendChild(div_tableItem);
 
                 // formタグを作りtable-itemの中に挿入
@@ -28,7 +33,7 @@ btn.addEventListener('click', function () {
                 form.method = 'post';
                 div_tableItem.appendChild(form);
 
-                // input type="hidden"を二つ作りformの中に挿入
+                // input type="hidden"を三つ作りformの中に挿入
                 const hidden1 = document.createElement('input');
                 hidden1.type = 'hidden';
                 hidden1.name = 'user_id';
@@ -81,14 +86,19 @@ btn.addEventListener('click', function () {
 
                 // 実施日用のpタグを作りtable-item-text-leftの中に挿入
                 const p_eventDate = document.createElement('p');
-                const eventDate_el = el["eventDate"];
-                p_eventDate.textContent = "実施日：" + eventDate_el;
+                const eventDate_el = el["eventDate"].substr(5, 11);
+                p_eventDate.textContent = "開催日：" + eventDate_el;
                 div_tableItemTextLeft.appendChild(p_eventDate);
 
                 // メッセージ用のpタグを作りformの中に挿入
                 const p_message = document.createElement('p');
-                const message_el = el["message"];
-                p_message.textContent = message_el;
+                if (el["message"].length >= 120) {
+                    var message_el = el["message"].substr(0, 119) + "…";
+                } else {
+                    var message_el = el["message"];
+                }
+                // p_message.textContent = message_el;
+                p_message.insertAdjacentHTML('beforeend', message_el);
                 link.appendChild(p_message);
             } else {
                 btn.remove();

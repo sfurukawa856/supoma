@@ -3,6 +3,13 @@ session_start();
 require '../../common/validation.php';
 require '../../common/database.php';
 
+// CSRF対策
+if ($_POST['csrf'] !== $_SESSION['csrfToken']) {
+    header('Location: ../../user/index.php');
+    exit('もう一度入力してください。');
+} else {
+    unset($_SESSION['csrfToken']);
+}
 
 // セッション変数の変数定義
 $user_name = $_SESSION['user_name'];
@@ -15,13 +22,10 @@ $sex = $_POST['sex'];
 $age = $_POST['age'];
 
 //file
-
 $file = $_FILES['img'];
 $filename = basename($file['name']);
 //一時的に保存させれている場所
 $tmp_path = $file['tmp_name'];
-// echo $tmp_path;
-// echo "<br>";
 $file_err = $file['error'];
 $filesize = $file['size'];
 //アップロード先(MANPの場合)
@@ -50,7 +54,7 @@ stringMaxSizeCheck($_SESSION['errors'], $age, "年齢は11文字以内で入力�
 
 ctypeDigit($_SESSION['errors'], $age, "年齢は整数で入力してください");
 
-fileCheck($_SESSION['errors'], $tmp_path, $file_err, "ファイルサイズは3MB未満にしてください");
+fileCheck($_SESSION['errors'], $tmp_path, $file_err, "ファイルサイズは4MB未満にしてください");
 
 //拡張子が画像形式かどうか
 $allow_ext = array('jpg', 'jpeg', 'png');
@@ -68,7 +72,7 @@ if ($_SESSION['errors']) {
 $database_handler = getDatabaseConnection();
 
 $user_sql = "INSERT INTO user (name, email, password) VALUES (:name, :email, :password)";
-$userinfor_sql = "INSERT INTO userInfor (user_id, nickname, sports, sex, age, file_name, file_path) VALUES ( :user_id,:nickname, :sports, :sex, :age, :file_name, :file_path)";
+$userinfor_sql = "INSERT INTO userinfor (user_id, nickname, sports, sex, age, file_name, file_path) VALUES ( :user_id,:nickname, :sports, :sex, :age, :file_name, :file_path)";
 
 // //ファイルがどうか
 if (is_uploaded_file($tmp_path)) {
@@ -127,5 +131,5 @@ if (is_uploaded_file($tmp_path)) {
 
 
 // メモ投稿画面にリダイレクト
-header('Location: ../../memo/');
+header('Location: ../../memo/table.php');
 exit;

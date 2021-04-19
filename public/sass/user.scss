@@ -98,6 +98,7 @@ body {
             right: 0;
             background-image: linear-gradient(45deg,#709dff 0%, #91fdb7 100%);
             transition: .4s;
+            outline: none;
 
             &:hover {
                 transform: rotate(20deg);
@@ -107,7 +108,6 @@ body {
         .login {
 
             a {
-                // background-color: #E7E7E7;
                 background: linear-gradient(0deg, #67b26f, #4ca2cd);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;

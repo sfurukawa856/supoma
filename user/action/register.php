@@ -1,7 +1,17 @@
 <?php
+session_start();
+var_dump($_POST);
+
+var_dump($_SESSION['csrfToken']);
+// CSRF対策
+if ($_POST['csrf'] !== $_SESSION['csrfToken']) {
+    // header('Location: ../index.php');
+    exit('もう一度入力してください。');
+} else {
+    unset($_SESSION['csrfToken']);
+}
 
 // 登録処理を実装するファイル
-
 session_start();
 require '../../common/validation.php';
 require '../../common/database.php';
@@ -30,7 +40,7 @@ if (!$_SESSION['errors']) {
     mailAddressCheck($_SESSION['errors'], $user_email, "正しいメールアドレスを入力してください。");
 
     // - ユーザー名・パスワード半角英数チェック
-    halfAlphanumericCheck($_SESSION['errors'], $user_name, "ユーザー名は半角英数字で入力してください。");
+    // halfAlphanumericCheck($_SESSION['errors'], $user_name, "ユーザー名は半角英数字で入力してください。");
     halfAlphanumericCheck($_SESSION['errors'], $user_password, "パスワードは半角英数字で入力してください。");
 
     // - メールアドレス重複チェック
@@ -51,13 +61,6 @@ try {
     $_SESSION['user_name'] = $user_name;
     $_SESSION['user_email'] = $user_email;
     $_SESSION['password'] = $password;
-
-    //登録したら、セッションにユーザー情報を保持
-    // // ユーザー情報保持
-    // $_SESSION['user'] = [
-    //     'name' => $user_name,
-    //     'id' => $database_handler->lastInsertId()
-    // ];
 } catch (Throwable $e) {
     echo $e->getMessage();
     exit;

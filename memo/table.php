@@ -9,7 +9,6 @@ if (!isLogin()) {
     header('Location: ../login/');
     exit;
 }
-// var_dump($_SESSION);
 $id = $_SESSION['user']['id'];
 
 
@@ -40,6 +39,25 @@ if (!empty($_SESSION['search'])) {
             $data = json_encode($result, JSON_UNESCAPED_UNICODE);
             file_put_contents("../public/js/data.json", $data, LOCK_EX);
         }
+
+        // プロフィール情報取得
+        // 名前情報取得
+        $sql = "SELECT name FROM user WHERE id=:id";
+        $stm = $dbConnect->prepare($sql);
+        $stm->bindValue(':id', $id, PDO::PARAM_INT);
+        $stm->execute();
+        $nameResult = $stm->fetchAll(PDO::FETCH_ASSOC);
+        $name = $nameResult[0]['name'];
+        $_SESSION['user_name'] = $name;
+        // ファイルパス取得
+        $sql = "SELECT nickname,file_path FROM userinfor WHERE user_id=:user_id";
+        $stm = $dbConnect->prepare($sql);
+        $stm->bindValue(':user_id', $id, PDO::PARAM_INT);
+        $stm->execute();
+        $filepathResult = $stm->fetchAll(PDO::FETCH_ASSOC);
+        $file_name = substr($filepathResult[0]['file_path'], 13);
+        $_SESSION['url'] = "http://localhost/GroupWork/20210329_spoma-main/images/{$file_name}";
+        $_SESSION['nickname'] = $filepathResult[0]['nickname'];
     } catch (Exception $e) {
         echo "データベース接続エラーがありました。<br>";
         echo $e->getMessage();
@@ -63,60 +81,24 @@ try {
 <html lang="ja">
 
 <head>
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <?php
-    require_once("../common/header.php");
+    require_once("../common/head.php");
     echo getHeader("一覧ページ");
     ?>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
     <link rel="stylesheet" href="../public/css/table.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/css/swiper.min.css">
-    <script src="../public/js/mail_validation.js"></script>
 </head>
 
 <body>
-    <header>
-        <div class="left flex">
-            <a href="table.php"><img src="../public/images/Slogo.png" alt="ロゴ" width="50"></a>
-            <h2><a href="apply.php">募集</a></h2>
-        </div>
-        <div class="right flex">
-            <div class="icon">
-                <a href="./news.php"><i class="far fa-bell"></i></a>
-
-                <!-- <span class="news-span">10</span> -->
-
-                <?php if (!empty($dbResult2[0]['SUM(count)'])) : ?>
-                    <span class="news-span">
-                        <?php echo $dbResult2[0]['SUM(count)']; ?>
-                    </span>
-                <?php endif; ?>
-
-            </div>
-            <h2 class="headerInfo"><?php echo es($_SESSION['user_name']); ?></h2>
-            <img src="<?php echo es($_SESSION['url']); ?>" alt="プロフィール" width="50" class="headerInfo">
-        </div>
-
-        <div class="none">
-            <div class="header-mypage">
-                <div class="header-mypage-wrap">
-                    <div class="faceName">
-                        <div class="img">
-                            <img src="<?php echo es($_SESSION['url']); ?>" alt="">
-                        </div>
-                        <h1><?php echo es($_SESSION['user_name']); ?></h1>
-                    </div>
-                    <a href="../memo/" class="btn">マイページ</a>
-                    <ul class="ul">
-                        <li><a href="./action/logout.php">ログアウト</a></li>
-                    </ul>
-                </div>
-            </div>
-
-
-
-        </div>
-
-    </header>
+    <div class="cursor"></div>
+    <div class="follower"></div>
+    <?php
+    require_once('../common/header.php');
+    ?>
 
     <!-- Slider main container -->
     <div class="swiper-container">
@@ -125,57 +107,45 @@ try {
             <!-- Slides -->
             <div class="swiper-slide">
                 <div class="img">
-                    <img src="../public/images/snow.jpg" alt="スノーボード">
-                    <p class="Snowbord">Snowbord</p>
+                    <img src="../public/images/slide1.png" alt="スノーボード">
                 </div>
             </div>
             <div class="swiper-slide">
                 <div class="img">
-                    <img src="../public/images/basuke.jpg" alt="バスケ">
-                    <p class="Basketball">Basketball</p>
+                    <img src="../public/images/slide2.png" alt="バスケ">
                 </div>
             </div>
             <div class="swiper-slide">
                 <div class="img">
-                    <img src="../public/images/tenisu.jpg" alt="テニス">
-                    <p class="Tennis">Tennis</p>
+                    <img src="../public/images/slide3.png" alt="テニス">
                 </div>
             </div>
             <div class="swiper-slide">
                 <div class="img">
-                    <img src="../public/images/takkyu.jpg" alt="卓球">
-                    <p class="Tabletennis">Tabletennis</p>
+                    <img src="../public/images/slide4.png" alt="卓球">
                 </div>
             </div>
             <div class="swiper-slide">
                 <div class="img">
-                    <img src="../public/images/baseball.jpg" alt="野球">
-                    <p class="Baseball">Baseball</p>
+                    <img src="../public/images/slide5.png" alt="野球">
                 </div>
             </div>
             <div class="swiper-slide">
                 <div class="img">
-                    <img src="../public/images/badominton.jpg" alt="バドミントン">
-                    <p class="Badminton">Badminton</p>
+                    <img src="../public/images/slide6.png" alt="バドミントン">
                 </div>
             </div>
             <div class="swiper-slide">
                 <div class="img">
-                    <img src="../public/images/soccer.jpg" alt="サッカー">
-                    <p class="Soccer">Soccer</p>
+                    <img src="../public/images/slide7.png" alt="サッカー">
                 </div>
             </div>
             <div class="swiper-slide">
                 <div class="img">
-                    <img src="../public/images/dansu.jpg" alt="ダンス">
-                    <p class="Dance">Dance</p>
+                    <img src="../public/images/slide8.png" alt="ダンス">
                 </div>
             </div>
         </div>
-
-        <!-- If we need navigation buttons -->
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
     </div>
 
     <main>
@@ -202,7 +172,9 @@ try {
                             </select>
                         </dd>
                     </div><br>
-                    <input type="submit" value="検索する" class="searchBtn">
+                    <div class="btnhover">
+                        <input type="submit" value="検索する" class="searchBtn">
+                    </div>
                 </form>
             </div>
             <?php
@@ -220,6 +192,7 @@ try {
                             <form name="form<?php echo $i; ?>" action="../Individual/personal.php" method="post">
                                 <input type="hidden" name="user_id" value="<?php echo $result[$i]['userpost_id']; ?>">
                                 <input type="hidden" name="insert_date" value="<?php echo $result[$i]['insert_date']; ?>">
+                                <input type="hidden" name="end_time" value="<?php echo $result[$i]['end_time']; ?>">
                                 <a href="javascript:form<?php echo $i; ?>.submit()">
                                     <div class="image-container">
                                         <img src="<?php echo es(substr($result[$i]['file_path'], 3)); ?>" alt="">
@@ -227,9 +200,23 @@ try {
                                     <div class="table-item-text">
                                         <div class="table-item-text-left">
                                             <p class="category"><?php echo es($result[$i]['category']); ?></p>
-                                            <p>開催日：<span><?php echo es($result[$i]['eventDate']); ?></span></p>
+                                            <?php
+                                            // 日時短縮化
+                                            $eventDateShort = substr($result[$i]['eventDate'], 5, -3);
+                                            ?>
+                                            <p>開催日：<span><?php echo es($eventDateShort); ?></span></p>
                                         </div>
-                                        <h3><?php echo es($result[$i]['title']); ?></h3>
+                                        <h3>
+                                            <?php
+                                            // タイトル12文字以内を表示
+                                            if (mb_strlen($result[$i]['title']) >= 12) {
+                                                $resultTitle = mb_substr($result[$i]['title'], 0, 11) . "…";
+                                            } else {
+                                                $resultTitle = $result[$i]['title'];
+                                            }
+                                            ?>
+                                            <?php echo es($resultTitle); ?>
+                                        </h3>
                                     </div>
                                     <?php
                                     // メッセージ120文字以内を表示
@@ -255,30 +242,17 @@ try {
         </div>
     </main>
     <hr>
-    <footer>
-        <div class="footer-wrapper">
-            <div class="footer-item">
-                <h2>Profile</h2>
-                <p><a href="./index.php">マイページ</a></p>
-                <p><a href="./action/logout.php">ログアウト</a></p>
-            </div>
-            <div class="footer-logo">
-                <img src="../public/images/supomalogo.png" alt="logo" width="100">
-            </div>
-        </div>
-        <div class="contact">
-            <form action="./action/thanks.php" name="contact_form" method="POST" onsubmit="return check()">
-                <h2>お問い合わせ</h2>
-                <p><textarea name="contact" id="" cols="30" rows="10" placeholder="スポマに意見を送る..."></textarea></p>
-                <input type="submit" value="送信" name="btn_submit">
-            </form>
-        </div>
-    </footer>
-
+    <?php
+    require '../common/footer.php';
+    ?>
     <script src="//cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/js/swiper.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    <script src="../public/js/jquery-3.6.0.min.js"></script>
     <script src="../public/js/slider.js"></script>
     <script src="../public/js/readmore.js" type="module"></script>
     <script src="../public/js/script.js"></script>
+    <script src="../public/js/end_apply.js" type="module"></script>
+    <script src="../public/js/contact.js" type="module"></script>
 </body>
 
 </html>

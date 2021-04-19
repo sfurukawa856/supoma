@@ -1,6 +1,5 @@
 @import "./module";
 @import "./base";
-// @import "./table.scss";
 
 // ヘッダー
 header {
@@ -67,13 +66,24 @@ header {
       object-fit: cover;
       margin: 1rem;
 
+      &:hover{
+        cursor: pointer;
+      }
+
       @include media768 {
         margin: 0;
+        				width: 30px;
+    			height: 30px;
+			    margin-right: 5px;
       }
     }
 
     h2 {
       margin: 1rem;
+
+      &:hover{
+        cursor: pointer;
+      }
 
       @include media768 {
         margin: 0 20px;
@@ -85,6 +95,14 @@ header {
       font-size: (24rem/16);
       color: #333;
       font-weight: 700;
+
+      @include media768 {
+        font-size: (16rem/16);
+      }
+
+      &:hover{
+        cursor: pointer;
+      }
   }
 }
 
@@ -96,20 +114,6 @@ header {
           top: 72px;
         }
     }
-    // .bg-transparent {
-    //   position: absolute;
-    //   display: none;
-    //   top: 0;
-    //   right: 0;
-    //   width: 100%;
-    //   height: 100vw;
-    //   background-color: #000;
-
-    //   &.display {
-    //     display: block;
-    //   }
-    // }
-
 
     .header-mypage {
         border-radius: 10px;
@@ -119,12 +123,6 @@ header {
         background-color: #fff;
         padding-top: 24px;
         box-shadow: 2px 2px 4px rgb(187, 187, 187);
-
-        // @include media768 {
-        //     max-width: 100%;
-        //     width: 320px;
-        //     //   height: 100vw;
-        // }
 
         .header-mypage-wrap {
             width: 85%;
@@ -140,7 +138,6 @@ header {
                     width: 40px;
                     height: 40px;
                     border-radius: 50%;
-                    // border: 1px solid rgb(59, 58, 58);
                     margin-right: 8px;
     
                     img {
@@ -208,6 +205,11 @@ main {
 
     .link {
     transition: 0.1s all;
+        }
+
+    .check {
+      color: rgb(153, 153, 153);
+
     }
 
     .link:hover {
@@ -246,73 +248,76 @@ main {
 }
 
 footer {
-  width: 100%;
-  display: flex;
-  margin-bottom: 100px;
+	width: 75%;
+	display: flex;
+	justify-content: space-between;
+  margin: 0 auto;
+	margin-bottom: 100px;
 
-  @include media768 {
-    display: block;
-  }
+	@include media768 {
+		display: block;
+    width: 100%;
+	}
 
-  h2 {
-    margin-top: 100px;
+	h2 {
+		margin-top: 100px;
 
-    @include media768 {
-      margin: 0;
-    }
-  }
+		@include media768 {
+			margin: 0;
+		}
+	}
 
-  .footer-wrapper {
-    position: relative;
-    width: 70%;
-    padding: 0 160px;
-    // display: flex;
-    // justify-content: space-around;
+	.footer-wrapper {
+		position: relative;
 
-    @include media768 {
-      width: 100%;
-      display: block;
-      padding: 20px;
-    }
+		@include media768 {
+			width: 100%;
+			display: block;
+			padding: 20px;
+		}
 
-    p {
-      margin: 1rem 0;
-      color: #9A9A9A;
-    }
+		p {
+			margin: 1rem 0;
+			color: #9a9a9a;
+		}
 
-    .footer-logo {
-      position: absolute;
-      top: 380px;
-      left: 160px;
+		.footer-logo {
+			position: absolute;
+			top: 50%;
+			left: 0;
 
-      @include media768 {
-        top: 20px;
-        left: 200px;
-      }
-    }
-  }
+			@include media768 {
+				top: 15%;
+				left: 65%;
+			}
+		}
+	}
 
-  .contact {
-    width: 30%;
+	.contact {
+		margin-right: 25px;
 
-    @include media768 {
-      width: 100%;
-      padding: 20px;
-    }
+		@include media768 {
+			width: 100%;
+			padding: 20px;
+      text-align: center;
+		}
 
-    textarea {
-      border: solid #E7E7E7 1px;
-      box-shadow: 0 0 8px gray;
-      margin: 2rem 0;
-    }
+		textarea {
+			border: solid #e7e7e7 1px;
+			box-shadow: 0 0 8px gray;
+			margin: 2rem 0;
+      outline: none;
+      padding: 4px;
+	  width: 100%;
+		}
 
-    input {
-      width: 280px;
-      background-color: #E7E7E7;
-      color: #333;
-      padding: 5px 16px;
-      border-radius: 10px;
-
-    }
+		input {
+			width: 280px;
+			background-color: #e7e7e7;
+			color: #fff;
+			padding: 5px 16px;
+			border-radius: 10px;
+      outline: none;
+		}
   }
 }

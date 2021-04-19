@@ -12,26 +12,26 @@ if (!isLogin()) {
 }
 $name = $_SESSION['user_name'];
 $url = $_SESSION['url'];
-if (!empty($_SESSION['userpost'])) {
-    $title = $_SESSION['userpost']['title'];
-    $category = $_SESSION['userpost']['category'];
-    $member = $_SESSION['userpost']['member'];
-    $eventDate = $_SESSION['userpost']['eventDate'];
-    $place = $_SESSION['userpost']['place'];
-    $start_time = $_SESSION['userpost']['start_time'];
-    $end_time = $_SESSION['userpost']['end_time'];
-    $message = $_SESSION['userpost']['message'];
-    unset($_SESSION['userpost']);
-} else {
-    $title = "";
-    $category = "";
-    $member = "";
-    $eventDate = "";
-    $place = "";
-    $start_time = "";
-    $end_time = "";
-    $message = "";
-}
+// if (!empty($_SESSION['userpost'])) {
+//     $title = $_SESSION['userpost']['title'];
+//     $category = $_SESSION['userpost']['category'];
+//     $member = $_SESSION['userpost']['member'];
+//     $eventDate = $_SESSION['userpost']['eventDate'];
+//     $place = $_SESSION['userpost']['place'];
+//     $start_time = $_SESSION['userpost']['start_time'];
+//     $end_time = $_SESSION['userpost']['end_time'];
+//     $message = strip_tags($_SESSION['userpost']['message']);
+//     unset($_SESSION['userpost']);
+// } else {
+//     $title = "";
+//     $category = "";
+//     $member = "";
+//     $eventDate = "";
+//     $place = "";
+//     $start_time = "";
+//     $end_time = "";
+//     $message = "";
+// }
 ?>
 
 <?php
@@ -57,7 +57,7 @@ try {
 <head>
     <?php
     // 共通ファイル読み込み
-    require_once("../common/header.php");
+    require_once("../common/head.php");
     echo getHeader("マイページ 応募画面");
     ?>
     <link rel="stylesheet" href="../public/css/apply.css">
@@ -88,6 +88,9 @@ try {
                         </div>
                         <a href="./index.php" class="btn">マイページ</a>
                         <ul class="ul">
+                            <li><a href="./table.php">一覧</a></li>
+                            <li><a href="./news.php">通知</a></li>
+                            <li><a href="http://localhost/GroupWork/20210329_spoma-main/memo/apply.php">募集</a></li>
                             <li><a href="./action/logout.php">ログアウト</a></li>
                         </ul>
                     </div>
@@ -120,6 +123,7 @@ try {
         <div class="main-wrap">
             <h1 class="topTitle">どんな内容で応募したいですか？</h1>
             <p class="add">※ここで入力された内容は一覧ページに追加されます。</p>
+            <p class="hissu">*は必須です。</p>
             <?php
             if (isset($_SESSION['errors'])) {
                 echo '<div class="alart">';
@@ -130,6 +134,39 @@ try {
                 unset($_SESSION['errors']);
             }
             ?>
+            <?php
+            if (!empty($_SESSION['userpost'])) {
+                $title = $_SESSION['userpost']['title'];
+                $category = $_SESSION['userpost']['category'];
+                $member = $_SESSION['userpost']['member'];
+                $eventDate = $_SESSION['userpost']['eventDate'];
+                $place = $_SESSION['userpost']['place'];
+                $start_time = $_SESSION['userpost']['start_time'];
+                $end_time = $_SESSION['userpost']['end_time'];
+                $message = strip_tags($_SESSION['userpost']['message']);
+                unset($_SESSION['userpost']);
+                echo "<p class='hissu'>※画像項目は必ずご確認ください。</p>";
+            } else {
+                $title = "";
+                $category = "";
+                $member = "";
+                $eventDate = "";
+                $place = "";
+                $start_time = "";
+                $end_time = "";
+                $message = "";
+            }
+            ?>
+
+            <!-- CSRF対策 -->
+            <?php
+            if (!isset($_SESSION['csrfToken'])) {
+                $csrfToken = bin2hex(random_bytes(32));
+                $_SESSION['csrfToken'] = $csrfToken;
+            }
+            $token = $_SESSION['csrfToken'];
+            ?>
+
             <?php if (isset($_SESSION['success'])) : ?>
                 <p class="success"><?php echo $_SESSION['success'] ?></p>
                 <?php unset($_SESSION['success']); ?>
@@ -137,45 +174,45 @@ try {
             <form action="./action/Recruitment.php" method="POST" class="main-form" enctype="multipart/form-data">
                 <dl>
                     <div class="items">
-                        <dt class="dt-l">タイトル</dt>
+                        <dt class="dt-l">タイトル<span class="kome">*</span></dt>
                         <dd class="dt-r"><input type="text" name="title" id="title" placeholder="（例）フットサル経験者募集" class="titleInput" value="<?php echo $title ?>"></dd>
                     </div>
                     <div class="items">
-                        <dt class="dt-l">カテゴリー</dt>
+                        <dt class="dt-l">カテゴリー<span class="kome">*</span></dt>
                         <dd class="dt-r">
                             <select name="category" id="category" class="category">
                                 <option value="" disabled selected>選択してください</option>
-                                <option value="サッカー" <?php selected("サッカー", $_SESSION['category']); ?>>サッカー</option>
-                                <option value="野球" <?php selected("野球", $_SESSION['category']); ?>>野球</option>
-                                <option value="テニス" <?php selected("テニス", $_SESSION['category']); ?>>テニス</option>
-                                <option value="スノーボード" <?php selected("スノーボード", $_SESSION['category']); ?>>スノーボード</option>
-                                <option value="バスケットボール" <?php selected("バスケットボール", $_SESSION['category']); ?>>バスケットボール</option>
-                                <option value="ダンス" <?php selected("ダンス", $_SESSION['category']); ?>>ダンス</option>
-                                <option value="バトミントン" <?php selected("バトミントン", $_SESSION['category']); ?>>バトミントン</option>
-                                <option value="卓球" <?php selected("卓球", $_SESSION['category']); ?>>卓球</option>
+                                <option value="サッカー" <?php selected("サッカー", $category); ?>>サッカー</option>
+                                <option value="野球" <?php selected("野球", $category); ?>>野球</option>
+                                <option value="テニス" <?php selected("テニス", $category); ?>>テニス</option>
+                                <option value="スノーボード" <?php selected("スノーボード", $category); ?>>スノーボード</option>
+                                <option value="バスケットボール" <?php selected("バスケットボール", $category); ?>>バスケットボール</option>
+                                <option value="ダンス" <?php selected("ダンス", $category); ?>>ダンス</option>
+                                <option value="バトミントン" <?php selected("バトミントン", $category); ?>>バトミントン</option>
+                                <option value="卓球" <?php selected("卓球", $category); ?>>卓球</option>
                             </select>
                         </dd>
                     </div>
                     <div class="items">
-                        <dt class="dt-l">募集人数</dt>
+                        <dt class="dt-l">募集人数<span class="kome">*</span></dt>
                         <dd class="dt-r">
                             <input type="number" id="number" placeholder="（例）3" class="human" name="member" value="<?php echo $member ?>">
                         </dd>
                     </div>
                     <div class="items">
-                        <dt class="dt-l">開催日</dt>
+                        <dt class="dt-l">開催日<span class="kome">*</span></dt>
                         <dd class="dt-r">
                             <input type="datetime-local" name="eventDate" id="eventDate" class="eventDate" value="<?php echo $eventDate ?>">
                         </dd>
                     </div>
                     <div class="items">
-                        <dt class="dt-l">開催場所</dt>
+                        <dt class="dt-l">開催場所<span class="kome">*</span></dt>
                         <dd class="dt-r">
                             <input type="text" name="place" id="place" placeholder="（例）代々木公園" class="place" value="<?php echo $place ?>">
                         </dd>
                     </div>
                     <div class="items">
-                        <dt class="dt-l">募集期間</dt>
+                        <dt class="dt-l">募集期間<span class="kome">*</span></dt>
                         <dd class="dt-r applydate">
                             <input type="date" name="start_time" id="period" class="period" value="<?php echo $start_time ?>">
                             <span>~</span>
@@ -183,18 +220,19 @@ try {
                         </dd>
                     </div>
                     <div class="items">
-                        <dt class="dt-l">メッセージ</dt>
+                        <dt class="dt-l">メッセージ<span class="kome">*</span></dt>
                         <dd class="dt-r">
                             <textarea name="message" id="message" class="message"><?php echo $message; ?></textarea>
                         </dd>
                     </div>
                     <div class="items">
-                        <dt class="dt-l">画像</dt>
+                        <dt class="dt-l">画像<span class="kome">*</span></dt>
                         <dd class="dt-r">
                             <input type="hidden" name="MAX_FILE_SIZE" value="3145728" />
                             <td class="td-r"><input name="img" type="file" accept="image/*" / class="profile"></td>
                         </dd>
                     </div>
+                    <input type="hidden" name="csrf" value="<?php echo $token; ?>">
                 </dl>
                 <div class="btn-wrap">
                     <button type="submit" class="btn">確認画面へ</button>

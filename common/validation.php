@@ -108,7 +108,7 @@ function ctypeDigit(&$errors, $check_value, $message)
  */
 function fileCheck(&$errors, $tmp_path, $file_err, $message)
 {
-    if ($tmp_path > 3145728 || $file_err === 2) {
+    if ($tmp_path > 4194304 || $file_err === 2) {
         array_push($errors, $message);
     }
 }

@@ -14,7 +14,6 @@ $id = es($_SESSION['user']['id']);
 $userpost_id = es($_POST['user_id']);
 $insert_date = es($_POST['insert_date']);
 
-// var_dump($_POST);
 $_SESSION['userpost_id'] = $userpost_id;
 $_SESSION['insert_date'] = $insert_date;
 
@@ -48,16 +47,12 @@ if (!empty($_POST['id_news'])) {
 
 //ログインしているユーザーのuserinfoのデータ取得
 try {
-    // require_once('../common/database.php');
     $dbConnect = getDatabaseConnection();
     $sql = "SELECT * FROM user,userinfor WHERE id=:id AND user_id=id";
     $stm = $dbConnect->prepare($sql);
     $stm->bindValue(':id', "$id", PDO::PARAM_INT);
     $stm->execute();
     $userinfoResult = $stm->fetchAll(PDO::FETCH_ASSOC);
-    // echo "<p>ログインユーザー</p>";
-    // var_dump($userinfoResult);
-    // echo "<hr>";
 } catch (Exception $e) {
     echo "データベース接続エラーがありました(personal.php//62)。<br>";
     echo $e->getMessage();
@@ -71,9 +66,6 @@ try {
     $stm->bindValue(':id', "$userpost_id", PDO::PARAM_INT);
     $stm->execute();
     $postUserinfoResult = $stm->fetchAll(PDO::FETCH_ASSOC);
-    // echo "<p>投稿ユーザーのニックネーム</p>";
-    // var_dump($postUserinfoResult);
-    // echo "<hr>";
 } catch (Exception $e) {
     echo "データベース接続エラーがありました(personal.php//50)。<br>";
     echo $e->getMessage();
@@ -90,9 +82,6 @@ try {
     $stm->bindValue(':insert_date', $insert_date, PDO::PARAM_INT);
     $stm->execute();
     $userpostResult = $stm->fetchAll(PDO::FETCH_ASSOC);
-    // echo "<p>投稿ユーザー</p>";
-    // var_dump($userpostResult);
-    // echo "<hr>";
 } catch (Exception $e) {
     echo "データベース接続エラーがありました(personal.php//69)。<br>";
     echo $e->getMessage();
@@ -101,7 +90,6 @@ try {
 
 //通知数
 try {
-    // $dbConnect = getDatabaseConnection();
     $sql = "SELECT SUM(count) FROM news WHERE news_id=:id";
     $stm = $dbConnect->prepare($sql);
     $stm->bindValue(':id', "$id", PDO::PARAM_INT);
@@ -114,11 +102,14 @@ try {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <?php
-    require_once("../common/header.php");
+    require_once("../common/head.php");
     echo getHeader("募集個別ページ");
     ?>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
@@ -126,7 +117,13 @@ try {
 </head>
 
 <body>
-    <header>
+    <div class="cursor"></div>
+    <div class="follower"></div>
+    <?php
+    require_once('../common/header.php');
+    ?>
+
+    <!-- <header>
         <div class="left flex">
             <a href="../memo/table.php">
                 <img src="../public/images/Slogo.png" alt="ロゴ" width="50">
@@ -159,7 +156,6 @@ try {
             $path_info = pathinfo($file_path);
             $file_name = $path_info['basename'];
             $url = "http://localhost/GroupWork/20210329_spoma-main/images/{$file_name}";
-            // $url = "http://localhost/supoma-locall/images/{$file_name}";
             ?>
             <img src="<?php echo $url; ?>" alt="プロフィール" width="50" class="headerInfo">
         </div>
@@ -178,14 +174,14 @@ try {
                     </div>
                     <a href="../memo/" class="btn">マイページ</a>
                     <ul class="ul">
+                        <li><a href="../memo/table.php">一覧</a></li>
+                        <li><a href="../memo/news.php">通知</a></li>
                         <li><a href="../memo/action/logout.php">ログアウト</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-    </header>
-
-
+    </header> -->
 
     <main class="main">
 
@@ -194,7 +190,6 @@ try {
         $path_info2 = pathinfo($file_path2);
         $file_name2 = $path_info2['basename'];
         $url2 = "http://localhost/GroupWork/20210329_spoma-main/images/{$file_name2}";
-        // $url2 = "http://localhost/supoma-locall/images/{$file_name2}";
         ?>
         <div class="main-sp-img">
             <img src="<?php echo $url2; ?>" alt="">
@@ -227,6 +222,7 @@ try {
                         <div class="main-items-wrap">
                             <dt class="item">募集期間</dt>
                             <dd class="answer">
+                                <input type="hidden" class="end_time" value="<?php echo $userpostResult[0]['end_time']; ?>">
                                 <?php echo str_replace("-", "/", $start_time); ?>~<?php echo str_replace("-", "/", $end_time); ?>
                             </dd>
                         </div>
@@ -246,19 +242,14 @@ try {
                         <h2 class="comment">コメント欄</h2>
                         <p class="info">相手のことを考え丁寧なコメントを心がけましょう</p>
                         <!-- チャットエリア -->
-                        <!-- postUserIDがあるかどうか -->
                         <?php
                         $_SESSION['post_id'] = $post_id;
-                        // var_dump($post_id);
-                        // var_dump($_SESSION['commentUserID']);
                         // chatテーブルから募集ページのIDを使って検索
                         $chatSql = "SELECT * FROM chat WHERE post_user_id=:post_id";
                         $chatStm = $dbConnect->prepare($chatSql);
                         $chatStm->bindValue(':post_id', $post_id, PDO::PARAM_INT);
                         $chatStm->execute();
                         $chatResult = $chatStm->fetchAll(PDO::FETCH_ASSOC);
-                        // var_dump($chatResult);
-                        // var_dump(count($chatResult));
 
                         // userinforテーブルからchatテーブルのコメントユーザーIDを使って検索
                         $sql = "SELECT * FROM userinfor WHERE user_id=:user_id";
@@ -270,8 +261,6 @@ try {
                             $userinforResult = $stm->fetchAll(PDO::FETCH_ASSOC);
                             array_push($userinforResults, $userinforResult);
                         }
-                        // var_dump($userinforResults);
-                        // var_dump(count($userinforResults));
 
                         // userpostテーブルから$POST_idを使って検索
                         $postSql = "SELECT * FROM userpost WHERE post_id=:post_id";
@@ -279,7 +268,6 @@ try {
                         $postStm->bindValue(':post_id', $post_id, PDO::PARAM_INT);
                         $postStm->execute();
                         $postResult = $postStm->fetchAll(PDO::FETCH_ASSOC);
-                        // var_dump($postResult);
                         ?>
                         <div class="commentArea">
                             <?php if (!empty($chatResult)) : ?>
@@ -291,14 +279,22 @@ try {
                                             </div>
                                             <div class="block">
                                                 <p class="nickname"><?php echo $userinforResults[$i][0]['nickname'] ?></p>
-                                                <p class="talk"><?php echo $chatResult[$i]['chat_message'] ?></p>
+                                                <?php
+                                                $chatDate = substr($chatResult[$i]['chat_date'], 5, -3);
+                                                $chatDate = str_replace("-", "/", $chatDate);
+                                                ?>
+                                                <p class="talk"><?php echo $chatResult[$i]['chat_message'] . "<br><span class='chatDate'>" . $chatDate . "</span>" ?></p>
                                             </div>
                                         </div>
                                     <?php else : ?>
                                         <div class="talk-items-user">
                                             <div class="block">
                                                 <p class="nickname"><?php echo $userinforResults[$i][0]['nickname'] ?></p>
-                                                <p class="talk"><?php echo $chatResult[$i]['chat_message'] ?></p>
+                                                <?php
+                                                $chatDate = substr($chatResult[$i]['chat_date'], 5, -3);
+                                                $chatDate = str_replace("-", "/", $chatDate);
+                                                ?>
+                                                <p class="talk"><?php echo $chatResult[$i]['chat_message'] . "<br><span class='chatDate'>" . $chatDate . "</span>" ?></p>
                                             </div>
                                             <div class="img-wrap">
                                                 <img src="<?php echo substr($userinforResults[$i][0]['file_path'], 3) ?>">
@@ -325,13 +321,21 @@ try {
                                 </div>
                             </div>
                         </div>
-                        <textarea name="chat_message" class="message" id="message" placeholder="質問する..."></textarea>
+                        <textarea name="chat_message" class="message" id="message" placeholder="コメントする..."></textarea>
                         <input type="hidden" name="commentUserID" value="<?php echo $id; ?>">
                         <input type="hidden" name="postUserID" value="<?php echo $userpost_id1; ?>">
                         <input type="hidden" name="commentUserFilepath" value="<?php echo $file_path; ?>">
                         <input type="hidden" name="postUserFilepath" value="<?php echo $file_path2; ?>">
                         <input type="hidden" name="commentUserNickname" value="<?php echo $commentUserNickname; ?>">
                         <input type="hidden" name="postUserNickname" value="<?php echo $nickname; ?>">
+
+                        <!-- newsでテーブルで必要 -->
+                        <!-- 投稿者のID -->
+                        <input type="hidden" name="userpost_id" value="<?php echo $userpost_id; ?>">
+                        <!-- 投稿した時間 -->
+                        <input type="hidden" name="insert_date" value="<?php echo $insert_date; ?>">
+                        <input type="hidden" name="title" value="<?php echo $title; ?>">
+
                         <div class="form-btn">
                             <button type="button" id="submit">コメントする</button>
                         </div>
@@ -340,15 +344,53 @@ try {
 
                 <div class="main-btn-wrap">
                     <div class="main-btn-wrap-flex">
-                        <?php if ($id === $userpost_id) : ?>
+                        <?php
+                        // 募集内容に対して承認されたユーザーIDを検索しプッシュ
+                        $array_id = [];
+                        $joinSql = "SELECT news_id FROM news WHERE post_post_id=:post_post_id AND result IS NOT NULL";
+                        $joinStm = $dbConnect->prepare($joinSql);
+                        $joinStm->bindValue(':post_post_id', $post_id, PDO::PARAM_INT);
+                        $joinStm->execute();
+                        $joinResult = $joinStm->fetchAll(PDO::FETCH_ASSOC);
+                        for ($i = 0; $i < count($joinResult); $i++) {
+                            array_push($array_id, $joinResult[$i]['news_id']);
+                        }
+                        ?>
+                        <?php if ($id === $userpost_id || in_array($id, $array_id)) : ?>
                             <a href="./action/joining.php" class="myself">参加する</a>
 
                         <?php else : ?>
                             <a href="./action/joining.php" class="main-btn">参加する</a>
                         <?php endif; ?>
+                        <?php
+                        // 残り人数カウントエリア
+                        $newsSql = "SELECT post_id,approval FROM news WHERE post_post_id=:post_post_id AND approval IS NOT NULL";
+                        $newsStm = $dbConnect->prepare($newsSql);
+                        $newsStm->bindValue(':post_post_id', $post_id, PDO::PARAM_INT);
+                        $newsStm->execute();
+                        $newsResult = $newsStm->fetchAll(PDO::FETCH_ASSOC);
+                        if ($member - count($newsResult) > 0) {
+                            echo "<p class='member'>残り" . ($member - count($newsResult)) . "人！</p>";
+                        } else {
+                            echo "<p class='member-end'>満員になりました。</p>";
+                        }
+                        ?>
                         <div class="side-block">
                             <h2>開催者</h2>
-                            <p><?php echo es($nickname); ?></p>
+                            <p><?php echo es($nickname); ?><br><span class="review">★★★☆☆</span></p>
+                            <h2>参加者</h2>
+                            <?php
+                            // 検索されたユーザーIDを使ってニックネームをセレクト
+                            for ($i = 0; $i < count($joinResult); $i++) {
+                                $joinNicknameSql = "SELECT user_id,nickname FROM userinfor WHERE user_id=:user_id";
+                                $joinNicknameStm = $dbConnect->prepare($joinNicknameSql);
+                                $joinNicknameStm->bindValue(':user_id', $joinResult[$i]['news_id'], PDO::PARAM_INT);
+                                $joinNicknameStm->execute();
+                                $joinNicknameResult = $joinNicknameStm->fetchAll(PDO::FETCH_ASSOC);
+                                array_push($array_id, $joinNicknameResult[0]['user_id']);
+                                echo "<p>" . $joinNicknameResult[0]['nickname'] . " さん</p>";
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -358,26 +400,17 @@ try {
         </div>
     </main>
     <hr>
-    <footer>
-        <div class="footer-wrapper">
-            <div class="footer-item">
-                <h2>Profile</h2>
-                <p><a href="./index.php">マイページ</a></p>
-                <p><a href="./action/logout.php">ログアウト</a></p>
-            </div>
-            <div class="footer-logo">
-                <img src="../public/images/supomalogo.png" alt="logo" width="100">
-            </div>
-        </div>
-        <div class="contact">
-            <h2>お問い合わせ</h2>
-            <p><textarea name="contact" id="" placeholder="スポマに意見を送る..."></textarea></p>
-            <input type="submit" value="送信">
-        </div>
-    </footer>
+    <?php
+    require '../common/footer.php';
+    ?>
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    <script src="../public/js/jquery-3.6.0.min.js"></script>
     <script src="../public/js/script.js"></script>
     <script src="../public/js/chat.js" type="module"></script>
+    <script src="../public/js/end_personal.js" type="module"></script>
+    <script src="../public/js/contact.js" type="module"></script>
+
 </body>
 
 </html>

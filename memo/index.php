@@ -9,11 +9,9 @@ if (!isLogin()) {
     exit;
 }
 $id = $_SESSION['user']['id'];
-
 ?>
 <?php
 try {
-    require_once('../common/database.php');
     $dbConnect = getDatabaseConnection();
     $sql = "SELECT * FROM user,userinfor WHERE id=:id AND user_id=id";
     $stm = $dbConnect->prepare($sql);
@@ -24,6 +22,7 @@ try {
     echo "データベース接続エラーがありました。<br>";
     echo $e->getMessage();
 }
+
 ?>
 
 <?php
@@ -50,7 +49,7 @@ try {
     <head>
         <?php
         //共通ファイル読み込み
-        require_once('../common/header.php');
+        require_once('../common/head.php');
         //head取得
         echo getHeader("基本情報");
 
@@ -77,8 +76,8 @@ try {
                     $file_path = $dbResult[0]['file_path'];
                     $path_info = pathinfo($file_path);
                     $file_name = $path_info['basename'];
-                    // $url = "http://localhost/supoma/images/{$file_name}";
                     $url = "http://localhost/GroupWork/20210329_spoma-main/images/{$file_name}";
+
                     $_SESSION['url'] = $url;
                     ?>
                     <li class="navImg headerInfo"><img src="<?php echo $url; ?>" alt=""></li>
@@ -95,6 +94,9 @@ try {
                         </div>
                         <a href="index.php" class="btn">マイページ</a>
                         <ul class="ul">
+                            <li><a href="./table.php">一覧</a></li>
+                            <li><a href="./news.php">通知</a></li>
+                            <li><a href="http://localhost/GroupWork/20210329_spoma-main/memo/apply.php">募集</a></li>
                             <li><a href="./action/logout.php">ログアウト</a></li>
 
                         </ul>
@@ -206,7 +208,7 @@ try {
                         </div>
                         <div class="items">
                             <dt class="dt-l">プロフィール画像</dt>
-                            <input type="hidden" name="MAX_FILE_SIZE" value="3145728" />
+                            <input type="hidden" name="MAX_FILE_SIZE" value="4194304" />
                             <dd class="dt-r"><input name="img" type="file" accept="image/*" / class="file"></dd>
                         </div>
                     </dl>

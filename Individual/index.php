@@ -3,17 +3,19 @@ session_start();
 
 require '../common/auth.php';
 require_once('../memo/action/myUtil.php');
+// クリックジャッキング対策
+header('X-FRAME-OPTIONS:DENY');
 
 if (!isLogin()) {
     header('Location: ../login/');
     exit;
 }
 
-// if (isset($_SESSION['recruitment'])) {
-//     unset($_SESSION['recruitment']);
-//     header('Location: ../memo/');
-//     exit;
-// };
+if (isset($_SESSION['collect']['check'])) {
+    unset($_SESSION['collect']);
+    header('Location: ../memo/');
+    exit;
+};
 
 $id = $_SESSION['user']['id'];
 
@@ -21,11 +23,9 @@ $title = $_SESSION['userpost']['title'];
 $category = $_SESSION['userpost']['category'];
 $member = $_SESSION['userpost']['member'];
 $eventDate = $_SESSION['userpost']['eventDate'];
-// var_dump($eventDate);
 
 $replace = str_replace("T", " ", $eventDate);
 $replace2 = str_replace("-", "/", $replace);
-// var_dump($replace2);
 
 $place = $_SESSION['userpost']['place'];
 $start_time = $_SESSION['userpost']['start_time'];
@@ -54,8 +54,6 @@ try {
     $stm->bindValue(':id', "$id", PDO::PARAM_INT);
     $stm->execute();
     $dbResult = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-    // var_dump($dbResult);
 } catch (Exception $e) {
     echo "データベース接続エラーがありました。<br>";
     echo $e->getMessage();
@@ -64,7 +62,6 @@ try {
 
 //通知数
 try {
-    // $dbConnect = getDatabaseConnection();
     $sql = "SELECT SUM(count) FROM news WHERE news_id=:id";
     $stm = $dbConnect->prepare($sql);
     $stm->bindValue(':id', "$id", PDO::PARAM_INT);
@@ -78,11 +75,11 @@ try {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 
 <head>
     <?php
-    require_once("../common/header.php");
+    require_once("../common/head.php");
     echo getHeader("募集個別確認ページ");
     ?>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
@@ -90,63 +87,11 @@ try {
 </head>
 
 <body>
-    <header>
-        <div class="left flex">
-            <img src="../public/images/Slogo.png" alt="ロゴ" width="50">
-            <h2>募集</h2>
-        </div>
-        <div class="right flex">
-            <div class="icon">
-
-                <a href="../memo/news.php">
-                    <i class="far fa-bell"></i>
-                </a>
-
-                <?php if (!empty($dbResult2[0]['SUM(count)'])) : ?>
-                    <span class="news-span">
-                        <?php echo $dbResult2[0]['SUM(count)']; ?>
-                    </span>
-                <?php endif; ?>
-
-            </div>
-
-            <?php
-            $name = $dbResult[0]['name'];
-            ?>
-            <h2 class="headerInfo"><?php echo es($name); ?></h2>
-            <?php
-            $file_path = $dbResult[0]['file_path'];
-            $path_info = pathinfo($file_path);
-            $file_name = $path_info['basename'];
-            // $url = "http://localhost/GroupWork/20210319spoma-miyamura/images/{$file_name}";
-            $url = "http://localhost/GroupWork/20210329_spoma-main/images/{$file_name}";
-            // "http://localhost/";
-            ?>
-            <img src="<?php echo $url; ?>" alt="プロフィール" width="50" class="headerInfo">
-        </div>
-        <div class="none">
-
-            <div class="header-mypage">
-                <div class="header-mypage-wrap">
-                    <div class="faceName">
-                        <div class="img">
-                            <img src="<?php echo $url; ?>" alt="">
-                        </div>
-                        <h1><?php echo es($name); ?></h1>
-                    </div>
-                    <a href="../memo/" class="btn">マイページ</a>
-                    <ul class="ul">
-                        <li><a href="./action/logout.php">ログアウト</a></li>
-                    </ul>
-                </div>
-            </div>
-
-
-
-        </div>
-    </header>
-
-
+    <div class="cursor"></div>
+    <div class="follower"></div>
+    <?php
+    require_once('../common/header.php');
+    ?>
 
     <main class="main">
 
@@ -154,7 +99,6 @@ try {
         <?php
 
         $url2 = "http://localhost/GroupWork/20210329_spoma-main/images/{$save_filename}";
-        // "http://localhost/";
 
         ?>
 
@@ -195,14 +139,11 @@ try {
                     <form action="#" method="POST" class="form">
                         <h2 class="comment">コメント欄<span class="notification">※応募者が質問、コメントする欄になります</span></h2>
                         <p class="info">相手のことを考え丁寧なコメントを心がけましょう</p>
-                        <textarea name="message" class="message" placeholder="質問する..."></textarea>
+                        <textarea name="message" class="message" placeholder="コメントする..."></textarea>
                         <div class="form-btn">
-                            <button type="submit">質問する</button>
+                            <button type="submit">コメントする</button>
                         </div>
                     </form>
-
-
-
                 </div>
 
 
@@ -216,8 +157,6 @@ try {
                             $nickname = $dbResult[0]['nickname'];
                             ?>
                             <p><?php echo es($nickname); ?></p>
-                            <!-- <h2>評価</h2>
-                            <p>★★★★</p> -->
                         </div>
                     </div>
                 </div>
@@ -227,7 +166,12 @@ try {
         </div>
     </main>
     <hr>
-    <footer>
+
+    <?php
+    require '../common/footer.php';
+    ?>
+
+    <!-- <footer>
         <div class="footer-wrapper">
             <div class="footer-item">
                 <h2>Profile</h2>
@@ -239,13 +183,18 @@ try {
             </div>
         </div>
         <div class="contact">
-            <h2>お問い合わせ</h2>
-            <p><textarea name="contact" id="" placeholder="スポマに意見を送る..."></textarea></p>
-            <input type="submit" value="送信">
+            <form action="../memo/action/thanks.php" name="contact_form" method="POST">
+                <h2>お問い合わせ</h2>
+                <p><textarea name="contact" id="contact" cols="30" rows="10" placeholder="スポマに意見を送る..."></textarea></p>
+                <input type="submit" value="送信" name="btn_submit" id="btn_submit">
+            </form>
         </div>
-    </footer>
+    </footer> -->
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    <script src="../public/js/jquery-3.6.0.min.js"></script>
     <script src="../public/js/script.js"></script>
+    <script src="../public/js/contact.js" type="module"></script>
 </body>
 
 </html>

@@ -18,3 +18,52 @@ $border-color:#E7E7E7;
 @mixin  topWrap {
   width: 96%;
 }
+
+
+@mixin corsor {
+
+  body {
+  position: relative;
+  cursor: none;
+}
+
+.cursor,
+.follower {
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0; 
+  pointer-events: none;
+}
+
+.cursor {
+  width: 10px;
+  height: 10px;
+  background-color: $base-color;
+  z-index: 1001;
+}
+
+.follower {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  background-color: rgba(#fdfe00, .5);
+  z-index: 1000;
+  transition: transform ease .1s;
+  text-align: center;
+  span {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    transform: scale(0);
+  }
+  &.is-active {
+    transform: scale(3);
+  }
+}
+
+
+
+}

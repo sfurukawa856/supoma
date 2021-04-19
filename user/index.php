@@ -1,6 +1,9 @@
 <?php
 session_start();
 require '../common/auth.php';
+// クリックジャッキング対策
+header('X-FRAME-OPTIONS:DENY');
+
 if (isLogin()) {
     header('Location: ../memo/');
     exit;
@@ -13,7 +16,7 @@ if (isLogin()) {
 <head>
     <?php
     //共通ファイル読み込み
-    require_once('../common/header.php');
+    require_once('../common/head.php');
     //head取得
     echo getHeader("ユーザー登録");
 
@@ -26,11 +29,17 @@ if (isLogin()) {
 
     <div class="userForm">
 
-
+        <!-- CSRF対策 -->
+        <?php
+        if (!isset($_SESSION['csrfToken'])) {
+            $csrfToken = bin2hex(random_bytes(32));
+            $_SESSION['csrfToken'] = $csrfToken;
+        }
+        $token = $_SESSION['csrfToken'];
+        ?>
 
         <form action="./action/register.php" method="POST">
             <h1 class="title">新規登録</h1>
-
 
             <?php
             if (isset($_SESSION['errors'])) {
@@ -58,6 +67,7 @@ if (isLogin()) {
                     <input type="password" name="user_password" id="pass" placeholder="パスワード">
                 </label>
             </div>
+            <input type="hidden" name="csrf" value="<?php echo $token; ?>">
             <div class="bottom-g">
                 <p class="passwordBlok"><input type="checkbox" name="checkbox" id="checkbox" class="checkbox">パスワードを表示する
                 </p>
@@ -66,8 +76,6 @@ if (isLogin()) {
             <div class="login">
                 <a href="../login/index.php">ログイン</a>
             </div>
-
-
         </form>
     </div>
 

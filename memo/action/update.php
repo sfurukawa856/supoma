@@ -56,9 +56,13 @@ if (empty($_POST['sex'])) {
 // 年齢空チェック
 if (empty($_POST['age'])) {
     array_push($errors, "年齢を入力してください");
+} else if (!ctype_digit($_POST['age'])) {
+    // 年齢の自然数チェック
+    array_push($errors, "年齢の入力内容が間違っています");
 } else {
     $age = $_POST['age'];
 }
+
 
 // プロフィール画像の更新
 $file = $_FILES['img'];
@@ -67,6 +71,12 @@ $file_name = basename($file['name']);
 $tmp_path = $file['tmp_name'];
 $file_err = $file['error'];
 $filesize = $file['size'];
+
+// ファイルサイズチェック
+if ($tmp_path > 4194304 || $file_err === 2) {
+    array_push($errors, "ファイルサイズは4MB未満にしてください");
+}
+
 //アップロード先
 $uplod_dir = '../../images/';
 //ファイル名に日付をつけて保存
@@ -78,7 +88,7 @@ $allow_ext = array('jpg', 'jpeg', 'png');
 $file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
 fileExt($_SESSION['errors'], $file_ext, $allow_ext, "画像ファイルを添付してください");
 
-$url = "http://localhost/GroupWork/spoma-miyamura/images/{$file_name}";
+$url = "http://localhost/GroupWork/20210329_spoma-main/images/{$file_name}";
 
 if (count($errors) > 0) {
     $_SESSION['errors'] = $errors;
@@ -133,10 +143,6 @@ if ($filesize > 0) {
                 $dbResult_file = $stm_filename->fetchAll(PDO::FETCH_ASSOC);
                 var_dump($dbResult_file);
                 $dbfilename = $dbResult_file[0]['file_path'];
-                // $dbResult_file = substr($dbResult_file[0]['file_path'], 13);
-                // $replace = [" " => "", ":" => "", "-" => ""];
-                // $dbResult_filedate = str_replace(array_keys($replace), array_values($replace), $dbResult_file[0]['update_time']);
-                // $dbfilename = $dbResult_filedate . $dbResult_file[0]['file_name'];
                 if (unlink($dbfilename)) {
                     $updateFileSql = "UPDATE userinfor SET file_name=:file_name,file_path=:file_path WHERE user_id=:user_id";
                     $updateFileStm = $dbConnect->prepare($updateFileSql);

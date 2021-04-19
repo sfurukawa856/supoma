@@ -1,11 +1,12 @@
 @import "./base";
 @import "./module";
 
+@include corsor;
+
 // ヘッダー
 header {
 	display: flex;
 	justify-content: space-between;
-	border-bottom: solid 1px #e7e7e7;
 	padding: 10px 0;
 	position: fixed;
 	z-index: 999;
@@ -33,6 +34,10 @@ header {
 		h2 {
 			margin: 1rem;
 
+			&:hover {
+				cursor: pointer;
+			}
+
 			@include media768 {
 				margin: 0;
 				margin-left: 20px;
@@ -50,34 +55,54 @@ header {
 			font-size: 30px;
 			margin: 1rem;
 			position: relative;
+			transform: rotate(0deg);
+
+			&:hover {
+				animation-name: suzu;
+				animation-duration: 0.4s;
+				animation-timing-function: ease-out;
+				animation-iteration-count: infinite;
+			}
 
 			@include media768 {
 				font-size: 20px;
 				margin: 0;
 				margin-left: 10px;
 			}
-      .news-span {
-              font-size: 1rem;
-              width: 30px;
-              height: 30px;
-              text-align: center;
-              line-height: 30px;
-              display: inline-block;
-              background-color: #ff0000;
-              color: #fff;
-              border-radius: 50%;
-              position: absolute;
-              top: -20px;
-              right: -20px;
+			.news-span {
+				font-size: 1rem;
+				width: 30px;
+				height: 30px;
+				text-align: center;
+				line-height: 30px;
+				display: inline-block;
+				background-color: #ff0000;
+				color: #fff;
+				border-radius: 50%;
+				position: absolute;
+				top: -20px;
+				right: -20px;
 
-              @include media768 {
-                font-size: 14px;
-                width: 26px;
-                height: 26px;
-                line-height: 26px;
-                top: -16px;
-              }
-      }
+				@include media768 {
+					font-size: 14px;
+					width: 26px;
+					height: 26px;
+					line-height: 26px;
+					top: -16px;
+				}
+			}
+		}
+
+		@keyframes suzu {
+			0% {
+				transform: rotate(0deg);
+			}
+			50% {
+				transform: rotate(16deg);
+			}
+			100% {
+				transform: rotate(0deg);
+			}
 		}
 
 		img {
@@ -85,18 +110,25 @@ header {
 			height: 50px;
 			border-radius: 50%;
 			margin: 1rem;
-      object-fit: cover;
+			object-fit: cover;
 			&:hover {
 				cursor: pointer;
 			}
 
 			@include media768 {
 				margin: 0;
+				width: 30px;
+    			height: 30px;
+			    margin-right: 5px;
 			}
 		}
 
 		h2 {
 			margin: 1rem;
+
+			&:hover {
+				cursor: pointer;
+			}
 
 			@include media768 {
 				margin: 0 20px;
@@ -123,7 +155,6 @@ header {
 	padding-top: 24px;
 	box-shadow: 2px 2px 4px rgb(187, 187, 187);
 
-
 	.header-mypage-wrap {
 		width: 85%;
 		margin: 0 auto;
@@ -137,14 +168,13 @@ header {
 				width: 40px;
 				height: 40px;
 				border-radius: 50%;
-				// border: 1px solid rgb(59, 58, 58);
 				margin-right: 8px;
 
 				img {
 					width: 100%;
 					height: 100%;
 					border-radius: 50%;
-                        object-fit: cover;
+					object-fit: cover;
 				}
 			}
 
@@ -164,6 +194,13 @@ header {
 			line-height: 40px;
 			margin-bottom: 20px;
 			font-size: 1rem;
+			transition: all 0.4s;
+
+			&:hover {
+				color: #00a5bb;
+				background-color: #fff;
+				border: 1px solid #00a5bb;
+			}
 		}
 
 		.ul {
@@ -186,15 +223,10 @@ header {
 
 // sliderのためのcss
 .swiper-slide {
-	// box-shadow: 2px 2px 4px gray;
 	margin: 0 10px;
 	margin-bottom: 2rem;
 	margin-top: 100px;
-	// width: 200px;
-
-	@include media768 {
-		display: none;
-	}
+	width: 50% !important;
 
 	.img {
 		width: 100%;
@@ -204,12 +236,18 @@ header {
 		width: 100%;
 		height: 20vw;
 		object-fit: cover;
+		vertical-align: bottom;
 	}
 
 	.table {
 		&-item {
 			box-shadow: 2px 2px 4px gray;
 			margin: 2rem;
+			width: 54vw;
+
+			@include media768 {
+				width: auto;
+			}
 
 			img {
 				width: 100%;
@@ -226,118 +264,19 @@ header {
 	}
 }
 
-// 新しいスライダーのCSS
-
-.swiper-slide {
-  .img {
-    position: relative;
-  }
-
-  img {
-    opacity: .5;
-    vertical-align: middle;
-  }
-
-  p {
-    font-size: 5rem;
-    position: absolute;
-  }
-
-  .swiper-container-free-mode>.swiper-wrapper {
-    -webkit-transition-timing-function: linear !important;
-    -o-transition-timing-function: linear !important;
-    transition-timing-function: linear !important;
-  }
-
-  .Snowbord {
-    background: url(../images/snow.jpg);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    top: 30%;
-    left: 20%;
-    background-position: center;
-
-  }
-
-  .Basketball {
-    background: url(../images/basuke.jpg);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    top: 30%;
-    left: 20%;
-    background-position: center;
-
-  }
-
-  .Tennis {
-    background: url(../images/tenisu.jpg);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    top: 30%;
-    left: 32%;
-    background-position: center;
-
-  }
-
-  .Tabletennis {
-    background: url(../images/takkyu.jpg);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    top: 30%;
-    left: 15%;
-    background-position: center;
-
-  }
-
-  .Baseball {
-    background: url(../images/baseball.jpg);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    top: 30%;
-    left: 25%;
-    background-position: center;
-
-  }
-
-  .Badminton {
-    background: url(../images/badominton.jpg);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    top: 30%;
-    left: 20%;
-    background-position: left;
-
-  }
-
-  .Soccer {
-    background: url(../images/soccer.jpg);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    top: 30%;
-    left: 30%;
-    background-position: bottom;
-
-  }
-
-  .Dance {
-    background: url(../images/dansu.jpg);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    top: 30%;
-    left: 32%;
-    background-position: center;
-
-  }
-}
-
-
 // 条件、検索
 .conditions {
 	margin: 2rem 0;
 
+	form {
+		position: sticky;
+		top: 116px;
+		z-index: 2;
+	}
+
 	@include media768 {
 		margin: 2rem;
-		margin-top: 70px;
+		margin-top: 0;
 	}
 
 	.sports {
@@ -346,6 +285,11 @@ header {
 		padding: 5px 16px;
 		border-radius: 10px;
 		width: 200px;
+		outline: none;
+
+		@include media768 {
+			width: 100%;
+		}
 	}
 
 	p {
@@ -358,6 +302,11 @@ header {
 		padding: 5px 16px;
 		border-radius: 10px;
 		width: 200px;
+		outline: none;
+
+		@include media768 {
+			width: 100%;
+		}
 	}
 	.searchBtn {
 		background-color: $base-color;
@@ -365,6 +314,50 @@ header {
 		padding: 5px 16px;
 		border-radius: 10px;
 		width: 200px;
+		transition: all 0.4s;
+
+		@include media768 {
+			width: 100%;
+		}
+
+		&:hover {
+			color: $base-color;
+			background-color: #fff;
+		}
+
+		&:active {
+			transform: translateY(10px);
+		}
+	}
+
+	.btnhover {
+		position: relative;
+	}
+
+	.btnhover:hover:after {
+		position: absolute;
+		top: 0;
+		left: 0;
+		content: "";
+		border: 2px solid $base-color;
+		width: 200px;
+		height: 34px;
+		border-radius: 10px;
+		z-index: -1;
+		opacity: 1;
+		animation: 0.6s circleanime2 forwards;
+		animation-iteration-count: infinite;
+	}
+}
+
+/*波形が広がるアニメーション*/
+@keyframes circleanime2 {
+	0% {
+		transform: scale(0);
+	}
+	100% {
+		transform: scale(2);
+		opacity: 0;
 	}
 }
 
@@ -382,6 +375,23 @@ header {
 		&-item {
 			box-shadow: 2px 2px 4px gray;
 			margin: 2rem;
+			opacity: 0;
+			animation-name: fadein-bottom;
+			animation-duration: 1s;
+			animation-timing-function: ease-out;
+			animation-fill-mode: forwards;
+
+			@keyframes fadein-bottom {
+				0% {
+					opacity: 0;
+					transform: translateY(40px);
+				}
+				100% {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
 			&:hover {
 				opacity: 0.7;
 			}
@@ -398,6 +408,9 @@ header {
 				@include media768 {
 					height: 30vw;
 				}
+			}
+			&.past {
+				filter: grayscale(100%);
 			}
 
 			&-text {
@@ -453,16 +466,22 @@ header {
 	max-width: 960px;
 	margin: 50px auto;
 	text-align: center;
+
+	& #readmore {
+		outline: none;
+	}
 }
 
 // フッター
 footer {
-	width: 100%;
+	width: 75%;
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
+	margin: 0 auto;
 	margin-bottom: 100px;
 
 	@include media768 {
+		width: 100%;
 		display: block;
 	}
 
@@ -476,8 +495,6 @@ footer {
 
 	.footer-wrapper {
 		position: relative;
-		width: 70%;
-		padding: 0 160px;
 
 		@include media768 {
 			width: 100%;
@@ -492,44 +509,42 @@ footer {
 
 		.footer-logo {
 			position: absolute;
-			top: 380px;
-			left: 160px;
+			top: 50%;
+			left: 0;
 
 			@include media768 {
-				top: 20px;
-				left: 200px;
+				top: 15%;
+				left: 65%;
 			}
 		}
 	}
 
 	.contact {
-		// width: 30%;
+		margin-right: 25px;
 
 		@include media768 {
 			width: 100%;
 			padding: 20px;
+			text-align: center;
 		}
 
 		textarea {
 			border: solid #e7e7e7 1px;
 			box-shadow: 0 0 8px gray;
 			margin: 2rem 0;
-      outline: none;
-      padding: 8px 16px;
+			outline: none;
+			padding: 4px;
+			width: 100%;
 		}
 
 		input {
 			width: 280px;
 			background-color: #e7e7e7;
-			color: #333;
+			color: #fff;
 			padding: 5px 16px;
 			border-radius: 10px;
-      outline: none;
+			outline: none;
 		}
-  }
-
-  form {
-    margin-right: 40px;
 	}
 }
 
