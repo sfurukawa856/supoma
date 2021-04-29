@@ -1,0 +1,94 @@
+@import "./module";
+
+@import "./base";
+
+.cancel {
+	margin: 1rem;
+}
+
+main {
+	max-width: 960px;
+	margin: 0 auto;
+	padding: 0 20px;
+
+	.title {
+		margin-top: 50px;
+		border-bottom: solid 1px #e7e7e7;
+		padding-bottom: 20px;
+
+		.hissu {
+			margin-left: 10px;
+			font-size: 0.8rem;
+			color: red;
+			font-weight: normal;
+		}
+	}
+
+	.container {
+		margin: 20px 0;
+
+		input[type="checkbox"] {
+			margin-right: 5px;
+			margin-bottom: 10px;
+		}
+		input[type="checkbox"]:not(:first-child) {
+			margin-top: 10px;
+		}
+		textarea {
+			width: 40vw;
+			max-width: 400px;
+			min-width: 280px;
+			height: 5rem;
+			border: solid 1px gray;
+		}
+	}
+
+	.final_answer {
+		text-align: center;
+		border-top: solid 1px #e7e7e7;
+
+		.final_check {
+			margin: 20px 0;
+		}
+		input[type="checkbox"] {
+			margin-right: 5px;
+		}
+		input[type="submit"] {
+			margin-bottom: 20px;
+			padding: 15px 50px;
+			border: solid 1px rgb(197, 197, 197);
+			border-radius: 5px;
+			background: linear-gradient(white, rgb(172, 169, 169));
+
+			&:hover {
+				opacity: 0.8;
+			}
+		}
+		.disabled_submit {
+			color: rgb(175, 175, 175);
+			border: none;
+			pointer-events: none;
+			&:hover {
+				opacity: 1;
+				cursor: default;
+			}
+		}
+
+		.continue {
+			display: inline-block;
+			margin-bottom: 20px;
+			padding: 15px 57px;
+			border: solid 1px $base-color;
+			border-radius: 5px;
+			background-color: #fff;
+			background: none;
+			color: $base-color;
+
+			&:hover {
+				color: #fff;
+				background: linear-gradient($base-color, rgb(19, 141, 189));
+				opacity: 0.8;
+			}
+		}
+	}
+}

@@ -31,8 +31,9 @@ document.addEventListener('DOMContentLoaded', function () {
         request.onreadystatechange = function () {
             if (this.readyState === 4) {
                 if (this.status === 200) {
-                    const jsonUrl = "http://localhost/GroupWork/20210329_spoma-main/public/js/chatData.json";
+                    const jsonUrl = "http://localhost/GroupWork/20210329_spoma-main/public/json/chatData.json";
                     jsonData(jsonUrl).then(function (value) {
+                        console.log(value);
                         // ログインユーザーとコメントユーザーのIDチェック
                         if (value['commentUserID'] !== value['postUserID']) {
                             var talkItem = document.querySelector('.talk-items-user');

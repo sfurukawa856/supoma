@@ -1,0 +1,116 @@
+body {
+  font-size: 16px;
+  font-family: 'Noto Sans JP', 'Quicksand', sans-serif;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+li {
+  list-style-type: none;
+}
+
+.cancel {
+  margin: 1rem;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+main .title {
+  margin-top: 50px;
+  border-bottom: solid 1px #e7e7e7;
+  padding-bottom: 20px;
+}
+
+main .title .hissu {
+  margin-left: 10px;
+  font-size: 0.8rem;
+  color: red;
+  font-weight: normal;
+}
+
+main .container {
+  margin: 20px 0;
+}
+
+main .container input[type="checkbox"] {
+  margin-right: 5px;
+  margin-bottom: 10px;
+}
+
+main .container input[type="checkbox"]:not(:first-child) {
+  margin-top: 10px;
+}
+
+main .container textarea {
+  width: 40vw;
+  max-width: 400px;
+  min-width: 280px;
+  height: 5rem;
+  border: solid 1px gray;
+}
+
+main .final_answer {
+  text-align: center;
+  border-top: solid 1px #e7e7e7;
+}
+
+main .final_answer .final_check {
+  margin: 20px 0;
+}
+
+main .final_answer input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+main .final_answer input[type="submit"] {
+  margin-bottom: 20px;
+  padding: 15px 50px;
+  border: solid 1px #c5c5c5;
+  border-radius: 5px;
+  background: -webkit-gradient(linear, left top, left bottom, from(white), to(#aca9a9));
+  background: linear-gradient(white, #aca9a9);
+}
+
+main .final_answer input[type="submit"]:hover {
+  opacity: 0.8;
+}
+
+main .final_answer .disabled_submit {
+  color: #afafaf;
+  border: none;
+  pointer-events: none;
+}
+
+main .final_answer .disabled_submit:hover {
+  opacity: 1;
+  cursor: default;
+}
+
+main .final_answer .continue {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 15px 57px;
+  border: solid 1px #00A5BB;
+  border-radius: 5px;
+  background-color: #fff;
+  background: none;
+  color: #00A5BB;
+}
+
+main .final_answer .continue:hover {
+  color: #fff;
+  background: -webkit-gradient(linear, left top, left bottom, from(#00A5BB), to(#138dbd));
+  background: linear-gradient(#00A5BB, #138dbd);
+  opacity: 0.8;
+}
+/*# sourceMappingURL=cancel.css.map */

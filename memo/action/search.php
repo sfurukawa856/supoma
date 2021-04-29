@@ -49,7 +49,7 @@ if (isset($keyword) || isset($category)) {
         $data = json_encode($result, JSON_UNESCAPED_UNICODE);
 
         try {
-            $fileObj = new SplFileObject("../../public/js/data.json", "wb");
+            $fileObj = new SplFileObject("../../public/json/data.json", "wb");
         } catch (Exception $e) {
             echo "ファイルアクセスに失敗しました。<br>";
             echo $e->getMessage();

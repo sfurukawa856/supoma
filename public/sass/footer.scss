@@ -1,0 +1,79 @@
+@import "./base";
+@import "./module";
+
+@include corsor;
+
+footer {
+	width: 75%;
+	display: flex;
+	justify-content: space-between;
+	margin: 0 auto;
+	margin-bottom: 100px;
+
+	@include media768 {
+		width: 100%;
+		display: block;
+	}
+
+	h2 {
+		margin-top: 100px;
+
+		@include media768 {
+			margin: 0;
+		}
+	}
+
+	.footer-wrapper {
+		position: relative;
+
+		@include media768 {
+			width: 100%;
+			display: block;
+			padding: 20px;
+		}
+
+		p {
+			margin: 1rem 0;
+			color: #9a9a9a;
+		}
+
+		.footer-logo {
+			position: absolute;
+			top: 70%;
+			left: 0;
+
+			@include media768 {
+				top: 15%;
+				left: 65%;
+			}
+		}
+	}
+
+	.contact {
+		margin-right: 25px;
+
+		@include media768 {
+			width: 100%;
+			padding: 20px;
+			text-align: center;
+		}
+
+		textarea {
+			border: solid #e7e7e7 1px;
+			box-shadow: 0 0 8px gray;
+			margin: 2rem 0;
+			outline: none;
+			padding: 4px;
+			width: 100%;
+		}
+
+		input {
+			width: 280px;
+			background-color: #e7e7e7;
+			color: #fff;
+			padding: 5px 16px;
+			border-radius: 10px;
+			outline: none;
+		}
+	}
+}

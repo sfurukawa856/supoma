@@ -113,7 +113,7 @@ try {
     echo getHeader("募集個別ページ");
     ?>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
-    <link rel="stylesheet" href="../public/css/Individual2.css">
+    <link rel="stylesheet" href="../public/css/personal.css">
 </head>
 
 <body>
@@ -123,69 +123,13 @@ try {
     require_once('../common/header.php');
     ?>
 
-    <!-- <header>
-        <div class="left flex">
-            <a href="../memo/table.php">
-                <img src="../public/images/Slogo.png" alt="ロゴ" width="50">
-            </a>
-            <a href="../memo/apply.php">
-                <h2>募集</h2>
-            </a>
-        </div>
-        <div class="right flex">
-            <div class="icon">
-
-
-                <a href="../memo/news.php">
-                    <i class="far fa-bell"></i>
-                </a>
-
-                <?php if (!empty($dbResult2[0]['SUM(count)'])) : ?>
-                    <span class="news-span">
-                        <?php echo $dbResult2[0]['SUM(count)']; ?>
-                    </span>
-                <?php endif; ?>
-
-            </div>
-            <?php
-            $name = $userinfoResult[0]['name'];
-            ?>
-            <h2 class="headerInfo"><?php echo es($name); ?></h2>
-            <?php
-            $file_path = $userinfoResult[0]['file_path'];
-            $path_info = pathinfo($file_path);
-            $file_name = $path_info['basename'];
-            $url = "http://localhost/GroupWork/20210329_spoma-main/images/{$file_name}";
-            ?>
-            <img src="<?php echo $url; ?>" alt="プロフィール" width="50" class="headerInfo">
-        </div>
-        <div class="none">
-
-            <div class="header-mypage">
-                <div class="header-mypage-wrap">
-                    <div class="faceName">
-                        <div class="img">
-                            <img src="
-                            <?php echo $url; ?>" alt="">
-                        </div>
-                        <h1><?php
-                            echo es($name);
-                            ?></h1>
-                    </div>
-                    <a href="../memo/" class="btn">マイページ</a>
-                    <ul class="ul">
-                        <li><a href="../memo/table.php">一覧</a></li>
-                        <li><a href="../memo/news.php">通知</a></li>
-                        <li><a href="../memo/action/logout.php">ログアウト</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </header> -->
-
     <main class="main">
-
         <?php
+        $file_path = $userinfoResult[0]['file_path'];
+        $path_info = pathinfo($file_path);
+        $file_name = $path_info['basename'];
+        $url = "http://xs126549.xsrv.jp/portfolio/supoma/images/{$file_name}";
+
         $file_path2 = $userpostResult[0]['file_path'];
         $path_info2 = pathinfo($file_path2);
         $file_name2 = $path_info2['basename'];

@@ -5,7 +5,7 @@ import { now } from "./end_apply.js";
 const btn = document.querySelector('#readmore');
 const table = document.querySelector('.table');
 let counter = 0;
-const jsonUrl = "http://localhost/GroupWork/20210329_spoma-main/public/js/data.json";
+const jsonUrl = "http://localhost/GroupWork/20210329_spoma-main/public/json/data.json";
 // jsonファイルの読み込み
 btn.addEventListener('click', function () {
     counter++;

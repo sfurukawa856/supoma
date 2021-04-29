@@ -1,0 +1,41 @@
+body {
+  font-size: 16px;
+  font-family: 'Noto Sans JP', 'Quicksand', sans-serif;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+li {
+  list-style-type: none;
+}
+
+.alart {
+  color: #ff0000;
+}
+
+.alart p {
+  margin-top: 4px;
+}
+
+.alart p:last-of-type {
+  margin-top: 16px;
+}
+
+@media (max-width: 1050px) {
+  .alart {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .alart {
+    padding-left: 0;
+  }
+}
+/*# sourceMappingURL=errorMessage.css.map */

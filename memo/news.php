@@ -70,6 +70,8 @@ if (!empty($dbResult)) {
 </head>
 
 <body>
+    <div class="cursor"></div>
+    <div class="follower"></div>
     <?php
     require_once('../common/header.php');
     ?>
@@ -492,8 +494,6 @@ if (!empty($dbResult)) {
                             </div>
                         </div>
                     </form>
-
-
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php endif; ?>
@@ -504,25 +504,8 @@ if (!empty($dbResult)) {
     require '../common/footer.php';
     ?>
 
-    <!-- <footer>
-        <div class="footer-wrapper">
-            <div class="footer-item">
-                <h2>Profile</h2>
-                <p><a href="./index.php">マイページ</a></p>
-                <p><a href="./action/logout.php">ログアウト</a></p>
-            </div>
-            <div class="footer-logo">
-                <img src="../public/images/supomalogo.png" alt="logo" width="100">
-            </div>
-        </div>
-        <div class="contact">
-            <form action="./action/thanks.php" name="contact_form" method="POST">
-                <h2>お問い合わせ</h2>
-                <p><textarea name="contact" id="contact" cols="30" rows="10" placeholder="スポマに意見を送る..."></textarea></p>
-                <input type="submit" value="送信" name="btn_submit" id="btn_submit">
-            </form>
-        </div>
-    </footer> -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    <script src="../public/js/jquery-3.6.0.min.js"></script>
     <script src="../public/js/script.js"></script>
     <script src="../public/js/contact.js" type="module"></script>
 </body>

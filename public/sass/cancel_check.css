@@ -1,0 +1,69 @@
+body {
+  font-size: 16px;
+  font-family: 'Noto Sans JP', 'Quicksand', sans-serif;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+li {
+  list-style-type: none;
+}
+
+.cancel {
+  margin: 1rem;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+main .title {
+  margin-top: 50px;
+  border-bottom: solid 1px #e7e7e7;
+  padding-bottom: 20px;
+}
+
+main .container {
+  margin: 20px 0;
+}
+
+main .container p {
+  margin: 10px 0;
+}
+
+main .final_confirm {
+  margin-top: 30px;
+  text-align: center;
+}
+
+main .final_confirm p {
+  margin: 20px 0;
+}
+
+main .final_confirm input[type="button"] {
+  width: 150px;
+  margin-bottom: 20px;
+  padding: 15px 40px;
+  border: solid 1px #c5c5c5;
+  border-radius: 5px;
+  background: -webkit-gradient(linear, left top, left bottom, from(white), to(#aca9a9));
+  background: linear-gradient(white, #aca9a9);
+  cursor: pointer;
+}
+
+main .final_confirm input[type="button"]:hover {
+  opacity: 0.7;
+}
+
+main .final_confirm input[type="button"]:first-child {
+  margin-right: 20px;
+}
+/*# sourceMappingURL=cancel_check.css.map */

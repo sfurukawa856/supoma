@@ -48,7 +48,7 @@ $title = $_POST['title'];
 // jsonファイル書き出し
 $data = json_encode($_POST, JSON_UNESCAPED_UNICODE);
 try {
-    $fileObj = new SplFileObject("../../public/js/chatData.json", "wb");
+    $fileObj = new SplFileObject("../../public/json/chatData.json", "wb");
 } catch (Exception $e) {
     echo "ファイルアクセスに失敗しました。<br>";
     echo $e->getMessage();

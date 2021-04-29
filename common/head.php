@@ -17,9 +17,9 @@ function getHeader($title)
     <meta name="robots" content="noindex">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../public/css/rest.css" />
-    <link rel="icon" href="../public/images/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="../public/images/apple-touch-icon.png">
+    <link rel="stylesheet" type="text/css" href="http://localhost/GroupWork/20210329_spoma-main/public/css/rest.css" />
+    <link rel="icon" href="http://localhost/GroupWork/20210329_spoma-main/public/images/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="http://localhost/GroupWork/20210329_spoma-main/public/images/apple-touch-icon.png">
 
 
     <title>{$title}</title>

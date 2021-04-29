@@ -83,7 +83,7 @@ try {
     echo getHeader("募集個別確認ページ");
     ?>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
-    <link rel="stylesheet" href="../public/css/Individual.css">
+    <link rel="stylesheet" href="../public/css/individual.css">
 </head>
 
 <body>
@@ -170,26 +170,6 @@ try {
     <?php
     require '../common/footer.php';
     ?>
-
-    <!-- <footer>
-        <div class="footer-wrapper">
-            <div class="footer-item">
-                <h2>Profile</h2>
-                <p><a href="../memo/index.php">マイページ</a></p>
-                <p><a href="../memo/action/logout.php">ログアウト</a></p>
-            </div>
-            <div class="footer-logo">
-                <img src="../public/images/supomalogo.png" alt="logo" width="100">
-            </div>
-        </div>
-        <div class="contact">
-            <form action="../memo/action/thanks.php" name="contact_form" method="POST">
-                <h2>お問い合わせ</h2>
-                <p><textarea name="contact" id="contact" cols="30" rows="10" placeholder="スポマに意見を送る..."></textarea></p>
-                <input type="submit" value="送信" name="btn_submit" id="btn_submit">
-            </form>
-        </div>
-    </footer> -->
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
     <script src="../public/js/jquery-3.6.0.min.js"></script>

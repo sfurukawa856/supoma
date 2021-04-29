@@ -1,0 +1,24 @@
+@import "./module";
+
+@import "./base";
+
+.alart {
+	color: #ff0000;
+	// padding-left: 5%;
+
+	p {
+		margin-top: 4px;
+	}
+
+	p:last-of-type {
+		margin-top: 16px;
+	}
+
+	@include media1050 {
+		font-size: (14rem/16);
+	}
+
+	@include media768 {
+		padding-left: 0;
+	}
+}

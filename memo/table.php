@@ -4,6 +4,13 @@ require '../common/auth.php';
 require_once './action/myUtil.php';
 require_once('../common/database.php');
 
+if (isset($_SESSION['csrfToken'])) {
+    unset($_SESSION['csrfToken']);
+}
+
+if (isset($_SESSION['password'])) {
+    unset($_SESSION['password']);
+}
 
 if (!isLogin()) {
     header('Location: ../login/');
@@ -17,7 +24,7 @@ $id = $_SESSION['user']['id'];
 // search.phpからリダイレクトされたのかチェック
 if (!empty($_SESSION['search'])) {
     unset($_SESSION['search']);
-    $json = file_get_contents("../public/js/data.json");
+    $json = file_get_contents("../public/json/data.json");
     $result = json_decode($json, true);
 } else {
     // DB接続
@@ -37,7 +44,7 @@ if (!empty($_SESSION['search'])) {
 
             // jsonファイルに書き出し
             $data = json_encode($result, JSON_UNESCAPED_UNICODE);
-            file_put_contents("../public/js/data.json", $data, LOCK_EX);
+            file_put_contents("../public/json/data.json", $data, LOCK_EX);
         }
 
         // プロフィール情報取得
