@@ -32,6 +32,7 @@ if (empty($_POST)) {
 } else {
     $_SESSION['cancel'] = $_POST;
 }
+
 ?>
 
 <!DOCTYPE html>

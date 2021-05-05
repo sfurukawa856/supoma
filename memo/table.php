@@ -3,6 +3,7 @@ session_start();
 require '../common/auth.php';
 require_once './action/myUtil.php';
 require_once('../common/database.php');
+require_once('../Individual/alert.php');
 
 if (isset($_SESSION['csrfToken'])) {
     unset($_SESSION['csrfToken']);
@@ -176,6 +177,7 @@ try {
                                 <option value="ダンス" <?php selected("ダンス", $_SESSION['category']); ?>>ダンス</option>
                                 <option value="バトミントン" <?php selected("バトミントン", $_SESSION['category']); ?>>バトミントン</option>
                                 <option value="卓球" <?php selected("卓球", $_SESSION['category']); ?>>卓球</option>
+                                <option value="ゴルフ" <?php selected("ゴルフ", $category); ?>>ゴルフ</option>
                             </select>
                         </dd>
                     </div><br>
@@ -209,9 +211,9 @@ try {
                                             <p class="category"><?php echo es($result[$i]['category']); ?></p>
                                             <?php
                                             // 日時短縮化
-                                            $eventDateShort = substr($result[$i]['eventDate'], 5, -3);
+                                            $eventDateShort = es(substr($result[$i]['eventDate'], 5, -3));
                                             ?>
-                                            <p>開催日：<span><?php echo es($eventDateShort); ?></span></p>
+                                            <p>開催日：<span><?php echo str_replace("-", "/", $eventDateShort); ?></span></p>
                                         </div>
                                         <h3>
                                             <?php

@@ -23,9 +23,13 @@ $title = $_SESSION['userpost']['title'];
 $category = $_SESSION['userpost']['category'];
 $member = $_SESSION['userpost']['member'];
 $eventDate = $_SESSION['userpost']['eventDate'];
+$eventEndDate = $_SESSION['userpost']['eventEndDate'];
 
 $replace = str_replace("T", " ", $eventDate);
 $replace2 = str_replace("-", "/", $replace);
+
+$replace3 = str_replace("T", " ", $eventEndDate);
+$replace4 = str_replace("-", "/", $replace3);
 
 $place = $_SESSION['userpost']['place'];
 $start_time = $_SESSION['userpost']['start_time'];
@@ -109,14 +113,23 @@ try {
 
             <span class="main-category"><?php echo es($category); ?></span>
             <h1 class="main-title"><?php echo es($title); ?></h1>
-            <p class="main-eventdate">開催日 <time datetime="<?php echo mb_substr($replace2, 5, 11); ?>">
-                    <?php echo mb_substr($replace2, 5, 11); ?>~</time></p>
+            <!-- <p class="main-eventdate">開催日 <time datetime="<?php echo mb_substr($replace2, 5, 11); ?>">
+                    <?php echo mb_substr($replace2, 5, 11); ?>~</time></p> -->
             <div class="main-top-img">
                 <img src="<?php echo $url2; ?>" alt="">
             </div>
             <div class="flex">
                 <div class="flex-l">
                     <dl class="main-items">
+                        <div class="main-items-wrap">
+                            <dt class="item">開催日時</dt>
+                            <dd class="answer">
+                                <time datetime="<?php echo mb_substr($replace2, 5, 11); ?>">
+                                    <?php echo mb_substr($replace2, 5, 11); ?> ~ </time>
+                                <time datetime="<?php echo mb_substr($replace4, 5, 11); ?>">
+                                    <?php echo mb_substr($replace4, 5, 11); ?></time>
+                            </dd>
+                        </div>
                         <div class="main-items-wrap">
                             <dt class="item">募集期間</dt>
                             <dd class="answer">

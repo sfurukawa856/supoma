@@ -108,6 +108,8 @@ if (!empty($_POST['id_news'])) {
 </head>
 
 <body>
+    <div class="cursor"></div>
+    <div class="follower"></div>
     <?php
     require_once('../../common/header.php');
     ?>
@@ -144,6 +146,8 @@ if (!empty($_POST['id_news'])) {
             </div>
         </form>
     </main>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    <script src="../../public/js/jquery-3.6.0.min.js"></script>
     <script src="../../public/js/script.js"></script>
 </body>
 

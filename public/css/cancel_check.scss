@@ -33,20 +33,22 @@ main {
 			margin: 20px 0;
 		}
 
-		input[type="button"] {
-			width: 150px;
-			margin-bottom: 20px;
-			padding: 15px 40px;
-			border: solid 1px rgb(197, 197, 197);
-			border-radius: 5px;
-			background: linear-gradient(white, rgb(172, 169, 169));
-			cursor: pointer;
-			&:hover {
-				opacity: 0.7;
-			}
+		& form {
+			display: flex;
+			justify-content: space-evenly;
 
-			&:first-child {
-				margin-right: 20px;
+			& input[type="button"] {
+				width: 50%;
+				max-width: 140px;
+				margin-bottom: 20px;
+				padding: 15px 40px;
+				border: solid 1px rgb(197, 197, 197);
+				border-radius: 5px;
+				background: linear-gradient(white, rgb(172, 169, 169));
+				cursor: pointer;
+				&:hover {
+					opacity: 0.7;
+				}
 			}
 		}
 	}

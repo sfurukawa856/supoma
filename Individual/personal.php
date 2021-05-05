@@ -82,6 +82,7 @@ try {
     $stm->bindValue(':insert_date', $insert_date, PDO::PARAM_INT);
     $stm->execute();
     $userpostResult = $stm->fetchAll(PDO::FETCH_ASSOC);
+    // var_dump($userpostResult);
 } catch (Exception $e) {
     echo "データベース接続エラーがありました(personal.php//69)。<br>";
     echo $e->getMessage();
@@ -145,7 +146,9 @@ try {
             $title = $userpostResult[0]['title'];
             $_SESSION['title'] = $title;
             $datetime = $userpostResult[0]['eventDate'];
+            $dateEndtime = $userpostResult[0]['eventEndDate'];
             $eventDate = mb_substr($userpostResult[0]['eventDate'], 5, 11);
+            $eventEndDate = mb_substr($userpostResult[0]['eventEndDate'], 5, 11);
             $start_time = mb_substr($userpostResult[0]['start_time'], 5);
             $end_time = mb_substr($userpostResult[0]['end_time'], 5);
             $member = $userpostResult[0]['member'];
@@ -155,14 +158,23 @@ try {
             ?>
             <span class="main-category"><?php echo es($category); ?></span>
             <h1 class="main-title"><?php echo es($title); ?></h1>
-            <p class="main-eventdate">開催日 <time datetime="<?php echo $datetime; ?>">
-                    <?php echo $eventDate; ?>~</time></p>
+            <!-- <p class="main-eventdate">開催日 <time datetime="<?php echo $datetime; ?>">
+                    <?php echo $eventDate; ?>~</time></p> -->
             <div class="main-top-img">
                 <img src="<?php echo $url2; ?>" alt="">
             </div>
             <div class="flex">
                 <div class="flex-l">
                     <dl class="main-items">
+                        <div class="main-items-wrap">
+                            <dt class="item">開催日時</dt>
+                            <dd class="answer">
+                                <time datetime="<?php echo $datetime; ?>">
+                                    <?php echo str_replace("-", "/", $eventDate); ?> ~ </time>
+                                <time datetime="<?php echo $dateEndtime; ?>">
+                                    <?php echo str_replace("-", "/", $eventEndDate); ?></time>
+                            </dd>
+                        </div>
                         <div class="main-items-wrap">
                             <dt class="item">募集期間</dt>
                             <dd class="answer">

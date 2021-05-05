@@ -1,10 +1,13 @@
 <?php
 session_start();
 require '../common/auth.php';
+require_once('./action/myUtil.php');
+
 if (!isLogin()) {
     header('Location: ../login/');
     exit;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -32,6 +35,7 @@ if (!isLogin()) {
             echo '</div>';
             unset($_SESSION['errors']);
         }
+
         ?>
 
         <h3 class="title">注意事項</h3>
@@ -41,11 +45,20 @@ if (!isLogin()) {
         <form action="./action/cancel_check.php" method="post">
             <h3 class="title">退会理由<span class="hissu">※必須　※複数選択可</span></h3>
             <div class="container">
-                <input type="checkbox" name="reason[]" id="not_matching" value="マッチングできないから"><label for="not_matching">マッチングできないから</label><br>
-                <input type="checkbox" name="reason[]" id="not_sports" value="好きなスポーツが少ないから"><label for="not_sports">好きなスポーツが少ないから</label><br>
-                <input type="checkbox" name="reason[]" id="not_security" value="セキュリティ面で不安があるから"><label for="not_security">セキュリティ面で不安があるから</label><br>
+                <input type="checkbox" name="reason[]" id="not_matching" value="マッチングできないから" <?php if (!empty($_SESSION['cancel']['reason'])) {
+                                                                                                    checked("マッチングできないから", $_SESSION['cancel']['reason']);
+                                                                                                } ?>>
+                <label for="not_matching">マッチングできないから</label><br>
+                <input type="checkbox" name="reason[]" id="not_sports" value="好きなスポーツが少ないから" <?php if (!empty($_SESSION['cancel']['reason'])) {
+                                                                                                    checked("好きなスポーツが少ないから", $_SESSION['cancel']['reason']);
+                                                                                                } ?>><label for="not_sports">好きなスポーツが少ないから</label><br>
+                <input type="checkbox" name="reason[]" id="not_security" value="セキュリティ面で不安があるから" <?php if (!empty($_SESSION['cancel']['reason'])) {
+                                                                                                        checked("セキュリティ面で不安があるから", $_SESSION['cancel']['reason']);
+                                                                                                    } ?>><label for="not_security">セキュリティ面で不安があるから</label><br>
                 その他<br>
-                <textarea name="other"></textarea><br>
+                <textarea name="other"><?php if (!empty($_SESSION['cancel']['other'])) {
+                                            echo $_SESSION['cancel']['other'];
+                                        } ?></textarea><br>
             </div>
             <div class="final_answer">
                 <div class="final_check">
@@ -57,6 +70,13 @@ if (!isLogin()) {
             </div>
         </form>
     </main>
+
+    <?php
+    // 退会理由の有無チェック
+    if (!empty($_SESSION['cancel'])) {
+        unset($_SESSION['cancel']);
+    }
+    ?>
 
     <script src="../public/js/cancel.js"></script>
 </body>

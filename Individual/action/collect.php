@@ -8,6 +8,7 @@ $title = $_SESSION['userpost']['title'];
 $category = $_SESSION['userpost']['category'];
 $member = $_SESSION['userpost']['member'];
 $eventDate = $_SESSION['userpost']['eventDate'];
+$eventEndDate = $_SESSION['userpost']['eventEndDate'];
 $place = $_SESSION['userpost']['place'];
 $start_time = $_SESSION['userpost']['start_time'];
 $end_time = $_SESSION['userpost']['end_time'];
@@ -23,7 +24,7 @@ unset($_SESSION['userpost']);
 // DB接続処理
 $database_handler = getDatabaseConnection();
 
-$sql = "INSERT INTO userpost (userpost_id, title, category, member, eventDate, place, start_time, end_time, message, file_name, file_path) VALUES ( :userpost_id, :title, :category, :member, :eventDate, :place, :start_time, :end_time, :message, :file_name, :file_path)";
+$sql = "INSERT INTO userpost (userpost_id, title, category, member, eventDate,eventEndDate, place, start_time, end_time, message, file_name, file_path) VALUES ( :userpost_id, :title, :category, :member, :eventDate,:eventEndDate, :place, :start_time, :end_time, :message, :file_name, :file_path)";
 
 
 
@@ -38,6 +39,7 @@ try {
         $stm->bindValue(':category', $category);
         $stm->bindValue(':member', $member);
         $stm->bindValue(':eventDate', $eventDate);
+        $stm->bindValue(':eventEndDate', $eventEndDate);
         $stm->bindValue(':place', htmlspecialchars($place));
         $stm->bindValue(':start_time', $start_time);
         $stm->bindValue(':end_time', $end_time);

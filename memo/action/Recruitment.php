@@ -4,6 +4,9 @@ require '../../common/validation.php';
 require '../../common/database.php';
 require_once './myUtil.php';
 
+var_dump($_SESSION);
+var_dump($_POST);
+
 // CSRF対策
 if ($_POST['csrf'] !== $_SESSION['csrfToken']) {
     header('Location: ../../user/index.php');
@@ -18,8 +21,7 @@ $title = es($_POST['title']);
 $category = es($_POST['category']);
 $member = es($_POST['member']);
 $eventDate = es($_POST['eventDate']);
-
-
+$eventEndDate = es($_POST['eventEndDate']);
 $place = es($_POST['place']);
 $start_time = es($_POST['start_time']);
 $end_time = es($_POST['end_time']);
@@ -46,7 +48,8 @@ $_SESSION['errors'] = [];
 emptyCheck($_SESSION['errors'], $title, "タイトルを入力してください。");
 emptyCheck($_SESSION['errors'], $category, "カテゴリーを選択してください");
 emptyCheck($_SESSION['errors'], $member, "募集人数を入力してください");
-emptyCheck($_SESSION['errors'], $eventDate, "開催日を入力してください");
+emptyCheck($_SESSION['errors'], $eventDate, "開催日時を入力してください");
+emptyCheck($_SESSION['errors'], $eventEndDate, "開催日時を入力してください");
 emptyCheck($_SESSION['errors'], $place, "開催場所を入力してください");
 emptyCheck($_SESSION['errors'], $start_time, "募集期間（開始日）を入力してください");
 emptyCheck($_SESSION['errors'], $end_time, "募集期間（終了日）を入力してください");
@@ -79,6 +82,7 @@ $_SESSION['userpost'] = [
     'category' => $category,
     'member' => $member,
     'eventDate' => $eventDate,
+    'eventEndDate' => $eventEndDate,
     'place' => $place,
     'start_time' => $start_time,
     'end_time' => $end_time,

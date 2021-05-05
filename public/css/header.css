@@ -105,7 +105,9 @@ header .left img {
 
 @media (max-width: 600px) {
   header .left img {
-    display: none;
+    width: 50px;
+    margin: 0;
+    padding: 10px;
   }
 }
 

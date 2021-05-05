@@ -190,6 +190,7 @@ try {
                                 <option value="ダンス" <?php selected("ダンス", $category); ?>>ダンス</option>
                                 <option value="バトミントン" <?php selected("バトミントン", $category); ?>>バトミントン</option>
                                 <option value="卓球" <?php selected("卓球", $category); ?>>卓球</option>
+                                <option value="ゴルフ" <?php selected("ゴルフ", $category); ?>>ゴルフ</option>
                             </select>
                         </dd>
                     </div>
@@ -200,9 +201,12 @@ try {
                         </dd>
                     </div>
                     <div class="items">
-                        <dt class="dt-l">開催日<span class="kome">*</span></dt>
-                        <dd class="dt-r">
-                            <input type="datetime-local" name="eventDate" id="eventDate" class="eventDate" value="<?php echo $eventDate ?>">
+                        <dt class="dt-l">開催日時<span class="kome">*</span></dt>
+                        <dd class="dt-r applydate">
+                            <!-- <input type="datetime-local" name="eventDate" id="eventDate" class="eventDate" value="<?php echo $eventDate ?>"> -->
+                            <input type="datetime-local" name="eventDate" id="period" class="period" value="">
+                            <span>~</span>
+                            <input type="datetime-local" name="eventEndDate" id="period" class="period" value="">
                         </dd>
                     </div>
                     <div class="items">

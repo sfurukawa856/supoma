@@ -48,8 +48,18 @@ main .final_confirm p {
   margin: 20px 0;
 }
 
-main .final_confirm input[type="button"] {
-  width: 150px;
+main .final_confirm form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+main .final_confirm form input[type="button"] {
+  width: 50%;
+  max-width: 140px;
   margin-bottom: 20px;
   padding: 15px 40px;
   border: solid 1px #c5c5c5;
@@ -59,11 +69,7 @@ main .final_confirm input[type="button"] {
   cursor: pointer;
 }
 
-main .final_confirm input[type="button"]:hover {
+main .final_confirm form input[type="button"]:hover {
   opacity: 0.7;
-}
-
-main .final_confirm input[type="button"]:first-child {
-  margin-right: 20px;
 }
 /*# sourceMappingURL=cancel_check.css.map */
