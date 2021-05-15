@@ -5,7 +5,7 @@ var_dump($_POST);
 var_dump($_SESSION['csrfToken']);
 // CSRF対策
 if ($_POST['csrf'] !== $_SESSION['csrfToken']) {
-    // header('Location: ../index.php');
+    header('Location: ../');
     exit('もう一度入力してください。');
 } else {
     unset($_SESSION['csrfToken']);
@@ -48,7 +48,7 @@ if (!$_SESSION['errors']) {
 }
 
 if ($_SESSION['errors']) {
-    header('Location: ../../user/index.php');
+    header('Location: ../../user/');
     exit;
 }
 

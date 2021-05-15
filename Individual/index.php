@@ -91,8 +91,8 @@ try {
 </head>
 
 <body>
-    <div class="cursor"></div>
-    <div class="follower"></div>
+
+
     <?php
     require_once('../common/header.php');
     ?>
@@ -113,8 +113,6 @@ try {
 
             <span class="main-category"><?php echo es($category); ?></span>
             <h1 class="main-title"><?php echo es($title); ?></h1>
-            <!-- <p class="main-eventdate">開催日 <time datetime="<?php echo mb_substr($replace2, 5, 11); ?>">
-                    <?php echo mb_substr($replace2, 5, 11); ?>~</time></p> -->
             <div class="main-top-img">
                 <img src="<?php echo $url2; ?>" alt="">
             </div>
@@ -184,7 +182,6 @@ try {
     require '../common/footer.php';
     ?>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
     <script src="../public/js/jquery-3.6.0.min.js"></script>
     <script src="../public/js/script.js"></script>
     <script src="../public/js/contact.js" type="module"></script>

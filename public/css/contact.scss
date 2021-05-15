@@ -1,0 +1,131 @@
+@import "./base";
+@import "./module";
+
+main {
+	max-width: 960px;
+	margin: 0 auto;
+	padding: 0 20px;
+	padding-top: 115px;
+
+	@include media768 {
+		padding-top: 50px;
+	}
+
+	.contact {
+		margin-top: 40px;
+		border-bottom: solid 1px #e7e7e7;
+		padding-bottom: 20px;
+		@include media768 {
+			font-size: 1rem;
+		}
+	}
+
+	.errorMsg {
+		margin: 10px 0;
+		color: red;
+	}
+
+	.form {
+		margin-top: 20px;
+	}
+
+	table {
+		border-collapse: collapse;
+		width: 100%;
+
+		& tr {
+			border-bottom: 1px solid #e7e7e7;
+			height: 30px;
+			vertical-align: middle;
+
+			& th {
+				font-weight: normal;
+				font-size: 0.8rem;
+				width: 30%;
+				text-align: left;
+				background-color: $base-color;
+				padding-left: 10px;
+				opacity: 0.8;
+				color: #fff;
+
+				& .hissu {
+					color: red;
+					font-size: 0.7rem;
+					margin-left: 5px;
+				}
+			}
+
+			& td {
+				padding: 5px 0;
+				width: 70%;
+				padding-left: 10px;
+				text-align: left;
+
+				& input[type="text"],
+				& input[type="tel"],
+				& input[type="email"],
+				textarea {
+					padding: 10px;
+					width: 95%;
+					border: none;
+					background-color: rgb(236, 236, 236);
+				}
+
+				& textarea {
+					height: 12rem;
+					vertical-align: middle;
+
+					@include media768 {
+						height: 8rem;
+					}
+				}
+
+				& select {
+					margin-bottom: 10px;
+
+					&:first-child {
+						margin-right: 10px;
+					}
+				}
+			}
+		}
+	}
+
+	.attention {
+		font-size: 0.7rem;
+		margin-left: 10px;
+	}
+
+	.submit_area {
+		text-align: center;
+
+		& input[type="submit"] {
+			padding: 10px 30px;
+			background-color: #00a5bb;
+			color: #fff;
+			font-weight: 500;
+			border-radius: 20px;
+			display: inline-block;
+			text-align: center;
+			line-height: 40px;
+			margin: 20px 0;
+			font-size: 1.2rem;
+			transition: all 0.4s;
+
+			@include media768 {
+				padding: 5px 25px;
+				font-size: 1rem;
+			}
+
+			&:hover {
+				color: #00a5bb;
+				background-color: #fff;
+				border: 1px solid #00a5bb;
+			}
+		}
+		& .none {
+			pointer-events: none;
+			opacity: 0.3;
+		}
+	}
+}

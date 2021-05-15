@@ -1,12 +1,12 @@
 <?php
 
 session_start();
-require '../common/database.php';
-require '../common/auth.php';
+require '../../common/database.php';
+require '../../common/auth.php';
 
 
 if (!isLogin()) {
-    header('Location:../../login');
+    header('Location:../../login/');
     exit;
 }
 
@@ -21,20 +21,20 @@ $id = $_SESSION['user']['id'];
 <head>
     <?php
     //共通ファイル読み込み
-    require_once('../common/head.php');
+    require_once('../../common/head.php');
     //head取得
     echo getHeader("レビュー画面");
     ?>
-    <link rel="icon" href="../public/images/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="../public/images/apple-touch-icon.png">
+    <link rel="icon" href="../../public/images/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../public/images/apple-touch-icon.png">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="../public/css/rest.css" />
-    <link rel="stylesheet" href="../public/sass/review.css">
+    <link rel="stylesheet" type="text/css" href="../../public/css/rest.css" />
+    <link rel="stylesheet" href="../../public/sass/review.css">
 </head>
 
 <body>
     <?php
-    require_once('../common/header.php');
+    require_once('../../common/header.php');
     ?>
     <main class="main">
 
@@ -52,7 +52,7 @@ $id = $_SESSION['user']['id'];
             </li>
         </ul>
 
-        <form type="POST" action="./action/review_upload.php">
+        <form type="POST" action="../action/review_upload.php">
             <div class="review">
                 <input id="star1" type="radio" name="star" value="5" />
                 <label for="star1"><span class="text"></span>★</label>
@@ -69,10 +69,10 @@ $id = $_SESSION['user']['id'];
         </form>
     </main>
     <?php
-    require '../common/footer.php';
+    require '../../common/footer.php';
     ?>
 
-    <script src="../public/js/script.js"></script>
+    <script src="../../public/js/script.js"></script>
 </body>
 
 </html>

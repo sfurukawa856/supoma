@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const postDatas = new FormData(formDatas);
 
         const request = new XMLHttpRequest();
-        request.open('POST', './action/xhr.php', true);
+        request.open('POST', '../action/xhr.php', true);
         request.send(postDatas);
 
         // 通信状態ごとに関数呼び出し
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     })
                 } else {
                     alert('サーバーエラーが発生しました。');
-                    location.href = '../../Individual/personal.php';
+                    location.href = '../../Individual/personal/';
                 }
             } else {
             }

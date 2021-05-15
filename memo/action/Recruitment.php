@@ -4,12 +4,9 @@ require '../../common/validation.php';
 require '../../common/database.php';
 require_once './myUtil.php';
 
-var_dump($_SESSION);
-var_dump($_POST);
-
 // CSRF対策
 if ($_POST['csrf'] !== $_SESSION['csrfToken']) {
-    header('Location: ../../user/index.php');
+    header('Location: ../../user/');
     exit('もう一度入力してください。');
 } else {
     unset($_SESSION['csrfToken']);
@@ -48,8 +45,8 @@ $_SESSION['errors'] = [];
 emptyCheck($_SESSION['errors'], $title, "タイトルを入力してください。");
 emptyCheck($_SESSION['errors'], $category, "カテゴリーを選択してください");
 emptyCheck($_SESSION['errors'], $member, "募集人数を入力してください");
-emptyCheck($_SESSION['errors'], $eventDate, "開催日時を入力してください");
-emptyCheck($_SESSION['errors'], $eventEndDate, "開催日時を入力してください");
+emptyCheck($_SESSION['errors'], $eventDate, "開催日の開始日時を入力してください");
+emptyCheck($_SESSION['errors'], $eventEndDate, "開催日の終了日を入力してください");
 emptyCheck($_SESSION['errors'], $place, "開催場所を入力してください");
 emptyCheck($_SESSION['errors'], $start_time, "募集期間（開始日）を入力してください");
 emptyCheck($_SESSION['errors'], $end_time, "募集期間（終了日）を入力してください");
@@ -95,7 +92,7 @@ $_SESSION['userpost'] = [
 ];
 
 if ($_SESSION['errors']) {
-    header('Location:../apply.php');
+    header('Location:../apply/');
     exit;
 }
 
@@ -104,7 +101,7 @@ if (is_uploaded_file($tmp_path)) {
 
         unset($_SESSION['collect']);
 
-        header('Location:../../Individual/index.php');
+        header('Location:../../Individual/');
         exit;
     } else {
         echo "ファイルが保存できませんでした。";

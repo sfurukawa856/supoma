@@ -1,0 +1,157 @@
+body {
+  font-size: 16px;
+  font-family: 'Noto Sans JP', 'Quicksand', sans-serif;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+li {
+  list-style-type: none;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  padding-top: 115px;
+}
+
+@media (max-width: 600px) {
+  main {
+    padding-top: 50px;
+  }
+}
+
+main .contact {
+  margin-top: 40px;
+  border-bottom: solid 1px #e7e7e7;
+  padding-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  main .contact {
+    font-size: 1rem;
+  }
+}
+
+main .errorMsg {
+  margin: 10px 0;
+  color: red;
+}
+
+main .form {
+  margin-top: 20px;
+}
+
+main table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+main table tr {
+  border-bottom: 1px solid #e7e7e7;
+  height: 30px;
+  vertical-align: middle;
+}
+
+main table tr th {
+  font-weight: normal;
+  font-size: 0.8rem;
+  width: 30%;
+  text-align: left;
+  background-color: #00a5bb;
+  padding-left: 10px;
+  opacity: 0.8;
+  color: #fff;
+}
+
+main table tr th .hissu {
+  color: red;
+  font-size: 0.7rem;
+  margin-left: 5px;
+}
+
+main table tr td {
+  padding: 5px 0;
+  width: 70%;
+  padding-left: 10px;
+  text-align: left;
+}
+
+main table tr td input[type="text"],
+main table tr td input[type="tel"],
+main table tr td input[type="email"],
+main table tr td textarea {
+  padding: 10px;
+  width: 95%;
+  border: none;
+  background-color: #ececec;
+}
+
+main table tr td textarea {
+  height: 12rem;
+  vertical-align: middle;
+}
+
+@media (max-width: 600px) {
+  main table tr td textarea {
+    height: 8rem;
+  }
+}
+
+main table tr td select {
+  margin-bottom: 10px;
+}
+
+main table tr td select:first-child {
+  margin-right: 10px;
+}
+
+main .attention {
+  font-size: 0.7rem;
+  margin-left: 10px;
+}
+
+main .submit_area {
+  text-align: center;
+}
+
+main .submit_area input[type="submit"] {
+  padding: 10px 30px;
+  background-color: #00a5bb;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 20px;
+  display: inline-block;
+  text-align: center;
+  line-height: 40px;
+  margin: 20px 0;
+  font-size: 1.2rem;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+@media (max-width: 600px) {
+  main .submit_area input[type="submit"] {
+    padding: 5px 25px;
+    font-size: 1rem;
+  }
+}
+
+main .submit_area input[type="submit"]:hover {
+  color: #00a5bb;
+  background-color: #fff;
+  border: 1px solid #00a5bb;
+}
+
+main .submit_area .none {
+  pointer-events: none;
+  opacity: 0.3;
+}
+/*# sourceMappingURL=contact.css.map */

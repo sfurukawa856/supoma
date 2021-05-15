@@ -29,7 +29,7 @@ btn.addEventListener('click', function () {
                 // formタグを作りtable-itemの中に挿入
                 const form = document.createElement('form');
                 form.name = 'form' + counter2;
-                form.action = '../Individual/personal.php';
+                form.action = '../../Individual/personal/';
                 form.method = 'post';
                 div_tableItem.appendChild(form);
 
@@ -58,7 +58,7 @@ btn.addEventListener('click', function () {
 
                 // imgタグを作りimage-containerの中に挿入
                 const img = document.createElement('img');
-                img.src = el["file_path"].substr(3);
+                img.src = el["file_path"];
                 div_imageContainer.appendChild(img);
 
                 // クラス名table-item-textのdivを作りformの中に挿入
@@ -92,12 +92,12 @@ btn.addEventListener('click', function () {
 
                 // メッセージ用のpタグを作りformの中に挿入
                 const p_message = document.createElement('p');
+                p_message.classList.add('resultMessage');
                 if (el["message"].length >= 120) {
                     var message_el = el["message"].substr(0, 119) + "…";
                 } else {
                     var message_el = el["message"];
                 }
-                // p_message.textContent = message_el;
                 p_message.insertAdjacentHTML('beforeend', message_el);
                 link.appendChild(p_message);
             } else {

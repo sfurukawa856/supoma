@@ -1,37 +1,17 @@
 <?php
 session_start();
-require_once('../common/database.php');
-require_once('./action/myUtil.php');
+require_once('../../common/database.php');
+require_once('../action/myUtil.php');
 
 $id = $_SESSION['user']['id'];
-require '../common/auth.php';
+require '../../common/auth.php';
 
 if (!isLogin()) {
-    header('Location: ../login/');
+    header('Location: ../../login/');
     exit;
 }
 $name = $_SESSION['user_name'];
 $url = $_SESSION['url'];
-// if (!empty($_SESSION['userpost'])) {
-//     $title = $_SESSION['userpost']['title'];
-//     $category = $_SESSION['userpost']['category'];
-//     $member = $_SESSION['userpost']['member'];
-//     $eventDate = $_SESSION['userpost']['eventDate'];
-//     $place = $_SESSION['userpost']['place'];
-//     $start_time = $_SESSION['userpost']['start_time'];
-//     $end_time = $_SESSION['userpost']['end_time'];
-//     $message = strip_tags($_SESSION['userpost']['message']);
-//     unset($_SESSION['userpost']);
-// } else {
-//     $title = "";
-//     $category = "";
-//     $member = "";
-//     $eventDate = "";
-//     $place = "";
-//     $start_time = "";
-//     $end_time = "";
-//     $message = "";
-// }
 ?>
 
 <?php
@@ -57,10 +37,10 @@ try {
 <head>
     <?php
     // 共通ファイル読み込み
-    require_once("../common/head.php");
+    require_once("../../common/head.php");
     echo getHeader("マイページ 応募画面");
     ?>
-    <link rel="stylesheet" href="../public/css/apply.css">
+    <link rel="stylesheet" href="../../public/css/apply.css">
 </head>
 
 <body>
@@ -88,9 +68,9 @@ try {
                         </div>
                         <a href="./index.php" class="btn">マイページ</a>
                         <ul class="ul">
-                            <li><a href="./table.php">一覧</a></li>
-                            <li><a href="./news.php">通知</a></li>
-                            <li><a href="http://localhost/GroupWork/20210329_spoma-main/memo/apply.php">募集</a></li>
+                            <li><a href="./table/">一覧</a></li>
+                            <li><a href="./news/">通知</a></li>
+                            <li><a href="http://localhost/GroupWork/20210329_spoma-main/memo/apply/">募集</a></li>
                             <li><a href="./action/logout.php">ログアウト</a></li>
                         </ul>
                     </div>
@@ -106,9 +86,9 @@ try {
             </div>
 
             <ul class="header-item">
-                <li><a href="index.php">基本情報</a></li>
-                <li><a href="apply.php" class="line">募集する</a></li>
-                <li class="news"><a href="news.php">お知らせ</a>
+                <li><a href="../">基本情報</a></li>
+                <li><a href="<?php $_SERVER['SCRIPT_NAME']; ?>" class="line">募集する</a></li>
+                <li class="news"><a href="../news/">お知らせ</a>
                     <?php if (!empty($dbResult2[0]['SUM(count)'])) : ?>
                         <span class="news-span">
                             <?php echo $dbResult2[0]['SUM(count)']; ?>
@@ -140,6 +120,7 @@ try {
                 $category = $_SESSION['userpost']['category'];
                 $member = $_SESSION['userpost']['member'];
                 $eventDate = $_SESSION['userpost']['eventDate'];
+                $eventEndDate = $_SESSION['userpost']['eventEndDate'];
                 $place = $_SESSION['userpost']['place'];
                 $start_time = $_SESSION['userpost']['start_time'];
                 $end_time = $_SESSION['userpost']['end_time'];
@@ -151,6 +132,7 @@ try {
                 $category = "";
                 $member = "";
                 $eventDate = "";
+                $eventEndDate = "";
                 $place = "";
                 $start_time = "";
                 $end_time = "";
@@ -202,11 +184,10 @@ try {
                     </div>
                     <div class="items">
                         <dt class="dt-l">開催日時<span class="kome">*</span></dt>
-                        <dd class="dt-r applydate">
-                            <!-- <input type="datetime-local" name="eventDate" id="eventDate" class="eventDate" value="<?php echo $eventDate ?>"> -->
-                            <input type="datetime-local" name="eventDate" id="period" class="period" value="">
+                        <dd class="dt-r eventdate">
+                            <input type="datetime-local" name="eventDate" id="period" class="period event" value="<?php echo $eventDate ?>">
                             <span>~</span>
-                            <input type="datetime-local" name="eventEndDate" id="period" class="period" value="">
+                            <input type="datetime-local" name="eventEndDate" id="period" class="period event_end" value="<?php echo $eventEndDate ?>">
                         </dd>
                     </div>
                     <div class="items">
@@ -244,7 +225,8 @@ try {
             </form>
         </div>
     </main>
-    <script src="../public/js/script.js"></script>
+    <script src="../../public/js/script.js"></script>
+    <script src="../../public/js/applydate.js"></script>
 </body>
 
 </html>

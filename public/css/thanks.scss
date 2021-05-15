@@ -1,32 +1,84 @@
 @import "./module";
 @import "./base";
 
-div {
-    text-align: center;
+main {
+	max-width: 960px;
+	margin: 0 auto;
+	padding: 0 20px;
+	padding-top: 115px;
 
-    h1 {
-        @include media768 {
-            font-size: 29px;
-        }
-    }
+	@include media768 {
+		padding-top: 50px;
+	}
 
-    p {
-        color: #9A9A9A;
+	.contact {
+		margin-top: 40px;
+		border-bottom: solid 1px #e7e7e7;
+		padding-bottom: 20px;
+		@include media768 {
+			font-size: 1rem;
+		}
+	}
 
-        @include media768 {
-            font-size: 13px;
-        }
-    }
+	.text {
+		margin-top: 20px;
+		width: 100%;
+		text-align: center;
+		color: #9a9a9a;
 
-    button {
-        padding: 5px 16px;
-        border: none;
-        border-radius: 20px;
-        background-color: $base-color;
-        color: #fff;
+		@include media768 {
+			font-size: 13px;
+		}
 
-        @include media768 {
-            font-size: 13px;
-        }
-    }
+		button {
+			margin-top: 20px;
+			margin-bottom: 20px;
+			padding: 5px 16px;
+			border: none;
+			border-radius: 20px;
+			background-color: $base-color;
+			color: #fff;
+			transition: all 0.4s;
+
+			&:hover {
+				color: #00a5bb;
+				background-color: #fff;
+				border: 1px solid #00a5bb;
+			}
+
+			@include media768 {
+				font-size: 13px;
+			}
+		}
+	}
 }
+
+// div {
+// 	text-align: center;
+
+// 	h1 {
+// 		@include media768 {
+// 			font-size: 29px;
+// 		}
+// 	}
+
+// 	p {
+// 		color: #9a9a9a;
+
+// 		@include media768 {
+// 			font-size: 13px;
+// 		}
+// 	}
+
+// 	button {
+// 		padding: 5px 16px;
+// 		border: none;
+// 		border-radius: 20px;
+// 		background-color: $base-color;
+// 		color: #fff;
+
+// 		@include media768 {
+// 			font-size: 13px;
+// 		}
+// 	}
+// }

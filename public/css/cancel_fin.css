@@ -46,16 +46,16 @@ main .cancel_end {
 }
 
 main .cancel_end a {
-  border: 1px solid #00A5BB;
-  color: #00A5BB;
+  border: 1px solid #00a5bb;
+  color: #00a5bb;
   padding: 15px 40px;
   display: inline-block;
 }
 
 main .cancel_end a:hover {
   color: #fff;
-  background: -webkit-gradient(linear, left top, left bottom, from(#00A5BB), to(#138dbd));
-  background: linear-gradient(#00A5BB, #138dbd);
+  background: -webkit-gradient(linear, left top, left bottom, from(#00a5bb), to(#138dbd));
+  background: linear-gradient(#00a5bb, #138dbd);
   opacity: 0.8;
 }
 /*# sourceMappingURL=cancel_fin.css.map */

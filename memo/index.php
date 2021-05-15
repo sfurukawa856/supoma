@@ -65,7 +65,7 @@ try {
             <nav class="header-nav">
                 <ul>
                     <li>
-                        <a href="table.php"> 一覧</a>
+                        <a href="./table/"> 一覧</a>
                     </li>
                     <?php
                     $name = $dbResult[0]['name'];
@@ -94,9 +94,9 @@ try {
                         </div>
                         <a href="index.php" class="btn">マイページ</a>
                         <ul class="ul">
-                            <li><a href="./table.php">一覧</a></li>
-                            <li><a href="./news.php">通知</a></li>
-                            <li><a href="http://localhost/GroupWork/20210329_spoma-main/memo/apply.php">募集</a></li>
+                            <li><a href="./table/">一覧</a></li>
+                            <li><a href="./news/">通知</a></li>
+                            <li><a href="http://localhost/GroupWork/20210329_spoma-main/memo/apply/">募集</a></li>
                             <li><a href="./action/logout.php">ログアウト</a></li>
 
                         </ul>
@@ -118,8 +118,8 @@ try {
 
             <ul class="header-item">
                 <li><a href="index.php" class="line">基本情報</a></li>
-                <li><a href="apply.php">募集する</a></li>
-                <li class="news"><a href="news.php">お知らせ</a>
+                <li><a href="apply/">募集する</a></li>
+                <li class="news"><a href="news/">お知らせ</a>
 
                     <?php if (!empty($dbResult2[0]['SUM(count)'])) : ?>
                         <span class="news-span">
@@ -209,7 +209,7 @@ try {
                         <div class="items">
                             <dt class="dt-l">プロフィール画像</dt>
                             <input type="hidden" name="MAX_FILE_SIZE" value="4194304" />
-                            <dd class="dt-r"><input name="img" type="file" accept="image/*" / class="file"></dd>
+                            <dd class="dt-r"><input name="img" type="file" accept="image/*" class="file"></dd>
                         </div>
                     </dl>
                     <div class="btn-wrap">

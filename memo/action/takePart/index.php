@@ -1,12 +1,12 @@
 <?php
 
 session_start();
-require '../../common/database.php';
-require '../../common/auth.php';
+require '../../../common/database.php';
+require '../../../common/auth.php';
 
 
 if (!isLogin()) {
-    header('Location:../../login');
+    header('Location:../../../login/');
     exit;
 }
 
@@ -14,7 +14,7 @@ $check = $_POST['bool'];
 
 if (!$check === "check") {
 
-    header('Location: ../../memo/index.php');
+    header('Location: ../../../memo/');
     exit;
 }
 
@@ -97,21 +97,21 @@ if (!empty($_POST['id_news'])) {
 <head>
     <?php
     //共通ファイル読み込み
-    require_once('../../common/head.php');
+    require_once('../../../common/head.php');
     //head取得
     echo getHeader("申請承認画面");
     ?>
-    <link rel="icon" href="../../public/images/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="../../public/images/apple-touch-icon.png">
-    <link rel="stylesheet" type="text/css" href="../../public/css/rest.css" />
-    <link rel="stylesheet" href="../../public/css/takePart.css">
+    <link rel="icon" href="../../../public/images/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../../public/images/apple-touch-icon.png">
+    <link rel="stylesheet" type="text/css" href="../../../public/css/rest.css" />
+    <link rel="stylesheet" href="../../../public/css/takePart.css">
 </head>
 
 <body>
-    <div class="cursor"></div>
-    <div class="follower"></div>
+
+
     <?php
-    require_once('../../common/header.php');
+    require_once('../../../common/header.php');
     ?>
 
     <main class="main">
@@ -146,9 +146,10 @@ if (!empty($_POST['id_news'])) {
             </div>
         </form>
     </main>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
-    <script src="../../public/js/jquery-3.6.0.min.js"></script>
-    <script src="../../public/js/script.js"></script>
+    //
+    <!-- <script src="../../../public/js/jquery-3.6.0.min.js"></script> -->
+
+    <script src="../../../public/js/script.js"></script>
 </body>
 
 </html>

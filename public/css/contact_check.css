@@ -1,0 +1,140 @@
+body {
+  font-size: 16px;
+  font-family: 'Noto Sans JP', 'Quicksand', sans-serif;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+li {
+  list-style-type: none;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  padding-top: 115px;
+}
+
+@media (max-width: 600px) {
+  main {
+    padding-top: 50px;
+  }
+}
+
+main .contact {
+  margin-top: 40px;
+  border-bottom: solid 1px #e7e7e7;
+  padding-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  main .contact {
+    font-size: 1rem;
+  }
+}
+
+main .form-table {
+  margin-top: 20px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+main .form-table tr {
+  border-bottom: 1px solid #e7e7e7;
+  height: 30px;
+  vertical-align: middle;
+}
+
+main .form-table tr th {
+  font-weight: normal;
+  font-size: 0.8rem;
+  width: 30%;
+  text-align: left;
+  background-color: #00a5bb;
+  padding-left: 10px;
+  opacity: 0.8;
+  color: #fff;
+}
+
+main .form-table tr th .hissu {
+  color: red;
+  font-size: 0.7rem;
+  margin-left: 5px;
+}
+
+main .form-table tr td {
+  padding: 15px 0 15px 20px;
+  width: 70%;
+  padding-left: 10px;
+  text-align: left;
+}
+
+main .btn_area {
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+          flex-direction: column-reverse;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 20px;
+}
+
+main .btn_area .submit {
+  padding: 10px 30px;
+  background-color: #00a5bb;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 20px;
+  display: inline-block;
+  text-align: center;
+  line-height: 40px;
+  margin: 20px 0;
+  font-size: 1.2rem;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  min-width: 140px;
+}
+
+@media (max-width: 600px) {
+  main .btn_area .submit {
+    padding: 5px 25px;
+    font-size: 1rem;
+    width: 140px;
+  }
+}
+
+main .btn_area .submit:hover {
+  color: #00a5bb;
+  background-color: #fff;
+  border: 1px solid #00a5bb;
+}
+
+main .btn_area .submit:first-child {
+  margin-right: 15px;
+}
+
+@media (max-width: 600px) {
+  main .btn_area .submit:first-child {
+    margin-top: 0;
+    margin-right: 0;
+  }
+}
+
+main .btn_area .return {
+  border-bottom: 1.5px solid black;
+  padding-bottom: 1px;
+  font-size: 1.1rem;
+}
+/*# sourceMappingURL=contact_check.css.map */

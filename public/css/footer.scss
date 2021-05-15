@@ -1,15 +1,12 @@
 @import "./base";
 @import "./module";
 
-@include corsor;
-
 footer {
 	width: 95%;
 	max-width: 960px;
 	display: flex;
 	justify-content: space-between;
 	margin: 0 auto;
-	margin-bottom: 100px;
 
 	@include media768 {
 		width: 100%;
@@ -17,7 +14,7 @@ footer {
 	}
 
 	h2 {
-		margin-top: 100px;
+		margin-top: 50px;
 
 		@include media768 {
 			margin: 0;
@@ -26,15 +23,20 @@ footer {
 
 	.footer-wrapper {
 		display: flex;
+		justify-content: space-around;
 		width: 100%;
 
 		.footer-item {
-			width: 33%;
+			width: 200px;
+
+			@include media768 {
+				width: 100%;
+				font-size: 0.5rem;
+			}
 		}
 
 		@include media768 {
 			width: 100%;
-			display: block;
 			padding: 20px;
 			text-align: center;
 		}
@@ -49,9 +51,16 @@ footer {
 		margin-left: 25px;
 
 		@include media768 {
+			margin-left: 0;
 			width: 100%;
 			padding: 20px;
 			text-align: center;
+		}
+
+		h2 {
+			@include media768 {
+				font-size: 0.8rem;
+			}
 		}
 
 		textarea {

@@ -1,8 +1,6 @@
 @import "./base";
 @import "./module";
 
-@include corsor;
-
 // sliderのためのcss
 .swiper-slide {
 	margin: 0 10px;
@@ -225,7 +223,14 @@
 
 			h3 {
 				@include media768 {
-					margin-top: 20px;
+					margin-top: 15px;
+					font-size: 16px;
+				}
+			}
+
+			.resultMessage {
+				@include media768 {
+					display: none;
 				}
 			}
 		}

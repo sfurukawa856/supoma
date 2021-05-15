@@ -1,8 +1,6 @@
 @import "./base";
 @import "./module";
 
-@include corsor;
-
 header {
 	display: flex;
 	justify-content: space-between;
@@ -23,25 +21,29 @@ header {
 
 	.left {
 		img {
-			margin: 1rem;
+			margin: 1rem 1rem 0 1rem;
 
 			@include media768 {
 				width: 50px;
 				margin: 0;
-				padding: 10px;
+				padding: 10px 10px 0 10px;
 			}
 		}
-
-		h2 {
-			margin: 1rem;
+		.supoma {
+			color: $base-color;
+			text-align: center;
+			margin: 0;
+			font-size: 1rem;
 
 			&:hover {
 				cursor: pointer;
 			}
 
 			@include media768 {
-				margin: 0;
-				margin-left: 20px;
+				// margin: 0;
+				// margin-left: 20px;
+				// margin: 0 20px;
+				font-size: 0.7rem;
 			}
 		}
 	}

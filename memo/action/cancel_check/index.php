@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once('../../memo/action/myUtil.php');
-require '../../common/auth.php';
+require_once('../../../memo/action/myUtil.php');
+require '../../../common/auth.php';
 
 if (!isLogin()) {
-    header('Location:../../index.php');
+    header('Location:../../../index.php');
     exit;
 }
 
@@ -27,7 +27,7 @@ $_SESSION['errors'] = [];
 
 if (empty($_POST)) {
     array_push($_SESSION['errors'], "退会理由を一つ以上選択してください。");
-    header('Location:../cancel.php');
+    header('Location:../../cancel/');
     exit;
 } else {
     $_SESSION['cancel'] = $_POST;
@@ -40,10 +40,10 @@ if (empty($_POST)) {
 
 <head>
     <?php
-    require_once("../../common/head.php");
+    require_once("../../../common/head.php");
     echo getHeader("スポマ退会ページ");
     ?>
-    <link rel="stylesheet" href="../../public/sass/cancel_check.css">
+    <link rel="stylesheet" href="../../../public/css/cancel_check.css">
 </head>
 
 <body>
@@ -66,8 +66,8 @@ if (empty($_POST)) {
         <div class="final_confirm">
             <p>こちらの内容で問題ないですか。</p>
             <form>
-                <input type="button" value="戻る" onclick="location.href='../cancel.php'">
-                <input type="button" value="送信する" onclick="location.href='../cancel_fin.php'">
+                <input type="button" value="戻る" onclick="location.href='../../cancel/'">
+                <input type="button" value="送信する" onclick="location.href='../../cancel_fin/'">
             </form>
         </div>
     </main>

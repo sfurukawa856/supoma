@@ -20,7 +20,7 @@ body {
 }
 
 body .header {
-  background-color: #05506B;
+  background-color: #05506b;
   position: relative;
 }
 
@@ -50,7 +50,7 @@ body .header-nav ul {
 }
 
 body .header-nav a {
-  color: #C5CFDB;
+  color: #c5cfdb;
 }
 
 body .header-nav a:hover {
@@ -64,7 +64,7 @@ body .header-nav a:hover {
 }
 
 body .header-nav li {
-  color: #C5CFDB;
+  color: #c5cfdb;
   margin-right: 16px;
 }
 
@@ -164,7 +164,7 @@ body .header-mypage .faceName h1 {
 }
 
 body .header-mypage .btn {
-  background-color: #00A5BB;
+  background-color: #00a5bb;
   color: #fff;
   font-weight: 500;
   border-radius: 20px;
@@ -189,7 +189,7 @@ body .header-mypage .ul li {
 }
 
 body .header-mypage .ul a {
-  color: #75797C;
+  color: #75797c;
 }
 
 body .header .display {
@@ -308,16 +308,16 @@ body .header-item {
 
 body .header-item .line {
   color: #fff;
-  border-bottom: 4px #E7C40F solid;
+  border-bottom: 4px #e7c40f solid;
 }
 
 body .header-item li {
-  color: #C5D1DB;
+  color: #c5d1db;
   margin-right: 24px;
 }
 
 body .header-item a {
-  color: #C5D1DB;
+  color: #c5d1db;
 }
 
 body .header-item a:hover {
@@ -379,7 +379,7 @@ body .main .success {
 
 body .main .topTitle {
   font-weight: 700;
-  color: #00A5BB;
+  color: #00a5bb;
   font-size: 1.5rem;
   margin-bottom: 24px;
 }
@@ -490,6 +490,31 @@ body .main-form .applydate span {
   font-size: 1.5rem;
 }
 
+body .main-form .eventdate {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media (max-width: 600px) {
+  body .main-form .eventdate {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+  }
+}
+
+body .main-form .eventdate span {
+  font-size: 1.5rem;
+}
+
 body .main-form .titleInput,
 body .main-form .category,
 body .main-form .human,
@@ -497,7 +522,7 @@ body .main-form .eventDate,
 body .main-form .date,
 body .main-form .place,
 body .main-form .period {
-  border: 1px solid #DCDFE3;
+  border: 1px solid #dcdfe3;
   width: 100%;
   height: 32px;
   padding-left: 8px;
@@ -505,7 +530,7 @@ body .main-form .period {
 }
 
 body .main-form .message {
-  border: 1px solid #DCDFE3;
+  border: 1px solid #dcdfe3;
   outline: none;
   width: 100%;
   height: 200px;
@@ -520,7 +545,7 @@ body .main-form .message {
 }
 
 body .main-form .btn {
-  background-color: #00A5BB;
+  background-color: #00a5bb;
   color: #fff;
   width: 218px;
   line-height: 40px;

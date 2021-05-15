@@ -1,11 +1,11 @@
 <?php
 session_start();
-require_once('../common/auth.php');
-require_once('./action/myUtil.php');
-require_once('../common/database.php');
+require_once('../../common/auth.php');
+require_once('../action/myUtil.php');
+require_once('../../common/database.php');
 
 if (!isLogin()) {
-    header('Location: ../login/');
+    header('Location: ../../login/');
     exit;
 }
 
@@ -89,7 +89,7 @@ EOD;
 
     if (!$mailResult) {
         array_push($_SESSION['errors'], "退会処理に失敗しました。<br>お手数ですが、もう一度退会処理のお手続きをお願いいたします。");
-        header('Location:./cancel.php');
+        header('Location:../cancel/');
         exit;
     }
 } catch (Exception $e) {
@@ -134,10 +134,10 @@ try {
 
 <head>
     <?php
-    require_once("../common/head.php");
+    require_once("../../common/head.php");
     echo getHeader("スポマ退会ページ");
     ?>
-    <link rel="stylesheet" href="../public/sass/cancel_fin.css">
+    <link rel="stylesheet" href="../../public/css/cancel_fin.css">
 </head>
 
 <body>
@@ -151,7 +151,7 @@ try {
             <p>またのご利用をお待ちしております。</p>
         </div>
         <div class="cancel_end">
-            <a href="../index.php">スポマトップページに戻る</a>
+            <a href="../../">スポマトップページに戻る</a>
         </div>
     </main>
 </body>

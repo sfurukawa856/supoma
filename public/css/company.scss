@@ -1,0 +1,97 @@
+@import "./base";
+@import "./module";
+
+main {
+	max-width: 960px;
+	margin: 0 auto;
+	padding: 0 20px;
+	padding-top: 103px;
+
+	.kaisha {
+		border-collapse: collapse;
+		width: 100%;
+		margin-bottom: 20px;
+
+		& th,
+		td {
+			border: 1px solid #ccc;
+			padding: 20px;
+
+			@include media768 {
+				padding: 5px;
+				font-size: 0.7rem;
+			}
+		}
+
+		& th {
+			font-weight: bold;
+			background-color: $base-color;
+			color: #fff;
+			font-weight: normal;
+			opacity: 0.7;
+			width: 30%;
+		}
+
+		& td {
+			width: 70%;
+		}
+	}
+
+	.overview {
+		padding: 10px 0;
+		margin-bottom: 15px;
+		border-bottom: 1px solid $base-color;
+		@include media768 {
+			font-size: 1rem;
+		}
+	}
+
+	.service {
+		display: flex;
+		margin-bottom: 20px;
+		@include media768 {
+			flex-direction: column;
+		}
+
+		.company_logo {
+			width: 50%;
+			text-align: center;
+
+			@include media768 {
+				width: 100%;
+			}
+
+			img {
+				width: 50%;
+				min-width: 125px;
+				@include media768 {
+					width: 25%;
+				}
+			}
+		}
+
+		.company_detail {
+			padding-top: 20px;
+			font-size: 20px;
+
+			@include media768 {
+				font-size: 14px;
+				text-align: center;
+			}
+
+			p {
+				@include media768 {
+					text-align: left;
+				}
+			}
+		}
+	}
+
+	.image_area {
+		text-align: center;
+		width: 100%;
+		img {
+			width: 50%;
+		}
+	}
+}

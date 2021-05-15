@@ -89,7 +89,7 @@ if (user_id()) {
                         <td class="td-r"><input type="number" name="age" class="age"></td>
                     </tr>
                     <tr>
-                        <td class="td-l">プロフィール画像<span class="kome">*</span></td>
+                        <td class="td-l">プロフィール画像</td>
                         <input type="hidden" name="MAX_FILE_SIZE" value="4194304" />
                         <td class="td-r"><input name="img" type="file" accept="image/*" / class="profile"></td>
                     </tr>

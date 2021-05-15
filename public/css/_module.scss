@@ -1,69 +1,65 @@
-$font-color :#333;
-$base-color:#00A5BB;
-$border-color:#E7E7E7;
+$font-color: #333;
+$base-color: #00a5bb;
+$border-color: #e7e7e7;
 
-@mixin media768($width-media:600px) {
-  @media (max-width:$width-media) {
-    @content
-  }
+@mixin media768($width-media: 600px) {
+	@media (max-width: $width-media) {
+		@content;
+	}
 }
 
-
-@mixin media1050($width-media2:1050px) {
-  @media (max-width:$width-media2) {
-    @content
-  }
+@mixin media1050($width-media2: 1050px) {
+	@media (max-width: $width-media2) {
+		@content;
+	}
 }
 
-@mixin  topWrap {
-  width: 96%;
+@mixin topWrap {
+	width: 96%;
 }
 
+// @mixin corsor {
 
-@mixin corsor {
+//   body {
+//   position: relative;
+//   cursor: none;
+// }
 
-  body {
-  position: relative;
-  cursor: none;
-}
+// .cursor,
+// .follower {
+//   border-radius: 50%;
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   pointer-events: none;
+// }
 
-.cursor,
-.follower {
-  border-radius: 50%;
-  position: absolute;
-  top: 0;
-  left: 0; 
-  pointer-events: none;
-}
+// .cursor {
+//   width: 10px;
+//   height: 10px;
+//   background-color: $base-color;
+//   z-index: 1001;
+// }
 
-.cursor {
-  width: 10px;
-  height: 10px;
-  background-color: $base-color;
-  z-index: 1001;
-}
+// .follower {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   width: 20px;
+//   height: 20px;
+//   background-color: rgba(#fdfe00, .5);
+//   z-index: 1000;
+//   transition: transform ease .1s;
+//   text-align: center;
+//   span {
+//     display: inline-block;
+//     font-size: 14px;
+//     font-weight: bold;
+//     transform: scale(0);
+//   }
+//   &.is-active {
+//     transform: scale(3);
+//   }
+// }
 
-.follower {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 20px;
-  height: 20px;
-  background-color: rgba(#fdfe00, .5);
-  z-index: 1000;
-  transition: transform ease .1s;
-  text-align: center;
-  span {
-    display: inline-block;
-    font-size: 14px;
-    font-weight: bold;
-    transform: scale(0);
-  }
-  &.is-active {
-    transform: scale(3);
-  }
-}
-
-
-
-}
+// }

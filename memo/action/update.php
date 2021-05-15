@@ -7,7 +7,7 @@ require_once('../../common/database.php');
 $id = $_SESSION['user']['id'];
 
 $errors = [];
-$gobackURL = "../index.php";
+$gobackURL = "../";
 
 // 文字エンコードの検証
 if (!cken($_POST)) {

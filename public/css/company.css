@@ -1,0 +1,134 @@
+body {
+  font-size: 16px;
+  font-family: 'Noto Sans JP', 'Quicksand', sans-serif;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+li {
+  list-style-type: none;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  padding-top: 103px;
+}
+
+main .kaisha {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+main .kaisha th,
+main .kaisha td {
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+@media (max-width: 600px) {
+  main .kaisha th,
+  main .kaisha td {
+    padding: 5px;
+    font-size: 0.7rem;
+  }
+}
+
+main .kaisha th {
+  font-weight: bold;
+  background-color: #00a5bb;
+  color: #fff;
+  font-weight: normal;
+  opacity: 0.7;
+  width: 30%;
+}
+
+main .kaisha td {
+  width: 70%;
+}
+
+main .overview {
+  padding: 10px 0;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #00a5bb;
+}
+
+@media (max-width: 600px) {
+  main .overview {
+    font-size: 1rem;
+  }
+}
+
+main .service {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  main .service {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+main .service .company_logo {
+  width: 50%;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  main .service .company_logo {
+    width: 100%;
+  }
+}
+
+main .service .company_logo img {
+  width: 50%;
+  min-width: 125px;
+}
+
+@media (max-width: 600px) {
+  main .service .company_logo img {
+    width: 25%;
+  }
+}
+
+main .service .company_detail {
+  padding-top: 20px;
+  font-size: 20px;
+}
+
+@media (max-width: 600px) {
+  main .service .company_detail {
+    font-size: 14px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  main .service .company_detail p {
+    text-align: left;
+  }
+}
+
+main .image_area {
+  text-align: center;
+  width: 100%;
+}
+
+main .image_area img {
+  width: 50%;
+}
+/*# sourceMappingURL=company.css.map */

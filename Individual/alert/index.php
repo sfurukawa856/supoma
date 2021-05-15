@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once('../common/database.php');
-require_once('../common/auth.php');
+require_once('../../common/database.php');
+require_once('../../common/auth.php');
 
 if (!isLogin()) {
-    header('Location: ../login/');
+    header('Location: ../../login/');
     exit;
 }
 

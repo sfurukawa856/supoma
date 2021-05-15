@@ -7,10 +7,12 @@ header('X-FRAME-OPTIONS:DENY');
 <html lang="ja">
 
 <head>
-    <meta charset="utf-8">
-    <title>スポマトップページ</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <?php
+    //共通ファイル読み込み
+    require_once('./common/head.php');
+    //head取得
+    echo getHeader("スポマトップページ");
+    ?>
     <!--==============レイアウトを制御する独自のCSSを読み込み===============-->
     <link href="https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/reset.css" rel="stylesheet">
     <link rel="stylesheet" href="./public/css/loading.css">
@@ -39,8 +41,8 @@ header('X-FRAME-OPTIONS:DENY');
                     <p><span class="white">マ</span>ッチングアプリ</p>
                 </div>
                 <div class="btn">
-                    <p><input type="button" value="新規登録" onclick="location.href='./user/index.php'"></p>
-                    <p><input type="button" value="ログイン" onclick="location.href='./login/index.php'"></p>
+                    <p><input type="button" value="新規登録" onclick="location.href='./user/'"></p>
+                    <p><input type="button" value="ログイン" onclick="location.href='./login/'"></p>
                 </div>
             </div>
             <div class="right">

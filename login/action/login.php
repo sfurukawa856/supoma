@@ -74,7 +74,7 @@ if ($statement = $database_handler->prepare('SELECT * FROM user WHERE email = :u
             'id' => $id
         ];
         setcookie("missCounter", "", time() - 3600);
-        header('Location: ../../memo/table.php');
+        header('Location: ../../memo/table/');
         exit;
     } elseif (!password_verify($user_password, $user['password']) &&  $misscounter <= 4) {
         setcookie("missCounter", ++$misscounter, time() + 60 * 25);

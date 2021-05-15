@@ -54,5 +54,5 @@ try {
 
 
 // 一覧投稿画面にリダイレクト
-header('Location:../../memo/table.php');
+header('Location:../../memo/table/');
 exit;

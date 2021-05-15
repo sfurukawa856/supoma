@@ -1,10 +1,10 @@
 <?php
 session_start();
-require '../common/auth.php';
-require_once('./action/myUtil.php');
+require '../../common/auth.php';
+require_once('../action/myUtil.php');
 
 if (!isLogin()) {
-    header('Location: ../login/');
+    header('Location: ../../login/');
     exit;
 }
 
@@ -14,11 +14,11 @@ if (!isLogin()) {
 
 <head>
     <?php
-    require_once("../common/head.php");
+    require_once("../../common/head.php");
     echo getHeader("スポマ退会ページ");
     ?>
-    <link rel="stylesheet" href="../public/sass/cancel.css">
-    <link rel="stylesheet" href="../public/sass/errorMessage.css">
+    <link rel="stylesheet" href="../../public/css/cancel.css">
+    <link rel="stylesheet" href="../../public/css/errorMessage.css">
 </head>
 
 <body>
@@ -42,7 +42,7 @@ if (!isLogin()) {
         <div class="container">
             <p>スポマを退会しますとご登録情報はすべて削除されます。退会を希望される場合は下記より退会手続きを行ってください。</p>
         </div>
-        <form action="./action/cancel_check.php" method="post">
+        <form action="../action/cancel_check/" method="post">
             <h3 class="title">退会理由<span class="hissu">※必須　※複数選択可</span></h3>
             <div class="container">
                 <input type="checkbox" name="reason[]" id="not_matching" value="マッチングできないから" <?php if (!empty($_SESSION['cancel']['reason'])) {
@@ -66,7 +66,7 @@ if (!isLogin()) {
                     <label for="cancel_checkbox">本当にスポマを退会しますか？</label>
                 </div>
                 <input type="submit" value="スポマを退会する" class="disabled_submit"><br>
-                <a href="./table.php" class="continue">やっぱり続ける</a>
+                <a href="../table/" class="continue">やっぱり続ける</a>
             </div>
         </form>
     </main>
@@ -78,7 +78,7 @@ if (!isLogin()) {
     }
     ?>
 
-    <script src="../public/js/cancel.js"></script>
+    <script src="../../public/js/cancel.js"></script>
 </body>
 
 </html>

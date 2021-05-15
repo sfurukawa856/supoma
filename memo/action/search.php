@@ -60,7 +60,7 @@ if (isset($keyword) || isset($category)) {
             echo "ファイル書き込み中に失敗しました。<br>";
         } else {
             $_SESSION['search'] = "検索完了";
-            header('Location:../table.php');
+            header('Location:../table/');
         }
     } catch (Exception $e) {
         echo "データベース接続エラーがありました。<br>";
@@ -68,5 +68,5 @@ if (isset($keyword) || isset($category)) {
         exit;
     }
 } else {
-    header('Location:../table.php');
+    header('Location:../table/');
 }

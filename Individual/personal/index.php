@@ -1,12 +1,12 @@
 <?php
 session_start();
 
-require '../common/auth.php';
-require_once('../memo/action/myUtil.php');
-require_once('../common/database.php');
+require '../../common/auth.php';
+require_once('../../memo/action/myUtil.php');
+require_once('../../common/database.php');
 
 if (!isLogin()) {
-    header('Location: ../login/');
+    header('Location: ../../login/');
     exit;
 }
 
@@ -82,7 +82,6 @@ try {
     $stm->bindValue(':insert_date', $insert_date, PDO::PARAM_INT);
     $stm->execute();
     $userpostResult = $stm->fetchAll(PDO::FETCH_ASSOC);
-    // var_dump($userpostResult);
 } catch (Exception $e) {
     echo "データベース接続エラーがありました(personal.php//69)。<br>";
     echo $e->getMessage();
@@ -110,18 +109,18 @@ try {
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <?php
-    require_once("../common/head.php");
+    require_once("../../common/head.php");
     echo getHeader("募集個別ページ");
     ?>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
-    <link rel="stylesheet" href="../public/css/personal.css">
+    <link rel="stylesheet" href="../../public/css/personal.css">
 </head>
 
 <body>
-    <div class="cursor"></div>
-    <div class="follower"></div>
+
+
     <?php
-    require_once('../common/header.php');
+    require_once('../../common/header.php');
     ?>
 
     <main class="main">
@@ -129,7 +128,7 @@ try {
         $file_path = $userinfoResult[0]['file_path'];
         $path_info = pathinfo($file_path);
         $file_name = $path_info['basename'];
-        $url = "http://xs126549.xsrv.jp/portfolio/supoma/images/{$file_name}";
+        $url = "http://localhost/GroupWork/20210329_spoma-main/images/{$file_name}";
 
         $file_path2 = $userpostResult[0]['file_path'];
         $path_info2 = pathinfo($file_path2);
@@ -158,8 +157,6 @@ try {
             ?>
             <span class="main-category"><?php echo es($category); ?></span>
             <h1 class="main-title"><?php echo es($title); ?></h1>
-            <!-- <p class="main-eventdate">開催日 <time datetime="<?php echo $datetime; ?>">
-                    <?php echo $eventDate; ?>~</time></p> -->
             <div class="main-top-img">
                 <img src="<?php echo $url2; ?>" alt="">
             </div>
@@ -313,7 +310,7 @@ try {
                         }
                         ?>
                         <?php if ($id === $userpost_id || in_array($id, $array_id)) : ?>
-                            <a href="./action/joining.php" class="myself">参加する</a>
+                            <a href="../action/joining.php" class="myself">参加する</a>
 
                         <?php else : ?>
                             <a href="./action/joining.php" class="main-btn">参加する</a>
@@ -357,15 +354,14 @@ try {
     </main>
     <hr>
     <?php
-    require '../common/footer.php';
+    require '../../common/footer.php';
     ?>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
-    <script src="../public/js/jquery-3.6.0.min.js"></script>
-    <script src="../public/js/script.js"></script>
-    <script src="../public/js/chat.js" type="module"></script>
-    <script src="../public/js/end_personal.js" type="module"></script>
-    <script src="../public/js/contact.js" type="module"></script>
+    <script src="../../public/js/jquery-3.6.0.min.js"></script>
+    <script src="../../public/js/script.js"></script>
+    <script src="../../public/js/chat.js" type="module"></script>
+    <script src="../../public/js/end_personal.js" type="module"></script>
+    <script src="../../public/js/contact.js" type="module"></script>
 
 </body>
 

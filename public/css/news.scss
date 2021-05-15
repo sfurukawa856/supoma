@@ -1,13 +1,10 @@
 @import "./module";
 @import "./base";
 
-@include corsor;
-
 main {
 	max-width: 960px;
 	margin: 0 auto;
-	padding: 0 20px;
-	padding-top: 103px;
+	padding: 103px 20px 50px 20px;
 
 	@include media768 {
 		padding-top: 70px;

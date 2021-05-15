@@ -15,36 +15,64 @@ li {
   list-style-type: none;
 }
 
-div {
-  text-align: center;
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  padding-top: 115px;
 }
 
 @media (max-width: 600px) {
-  div h1 {
-    font-size: 29px;
+  main {
+    padding-top: 50px;
   }
 }
 
-div p {
-  color: #9A9A9A;
+main .contact {
+  margin-top: 40px;
+  border-bottom: solid 1px #e7e7e7;
+  padding-bottom: 20px;
 }
 
 @media (max-width: 600px) {
-  div p {
+  main .contact {
+    font-size: 1rem;
+  }
+}
+
+main .text {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+  color: #9a9a9a;
+}
+
+@media (max-width: 600px) {
+  main .text {
     font-size: 13px;
   }
 }
 
-div button {
+main .text button {
+  margin-top: 20px;
+  margin-bottom: 20px;
   padding: 5px 16px;
   border: none;
   border-radius: 20px;
-  background-color: #00A5BB;
+  background-color: #00a5bb;
   color: #fff;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+main .text button:hover {
+  color: #00a5bb;
+  background-color: #fff;
+  border: 1px solid #00a5bb;
 }
 
 @media (max-width: 600px) {
-  div button {
+  main .text button {
     font-size: 13px;
   }
 }

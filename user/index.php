@@ -74,7 +74,7 @@ if (isLogin()) {
                 <button type="submit" class="UserBtn"><i class="fas fa-arrow-right"></i></button>
             </div>
             <div class="login">
-                <a href="../login/index.php">ログイン</a>
+                <a href="../login/">ログイン</a>
             </div>
         </form>
     </div>

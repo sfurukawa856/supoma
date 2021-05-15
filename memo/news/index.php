@@ -1,10 +1,10 @@
 <?php
 session_start();
-require '../common/database.php';
-require '../common/auth.php';
+require '../../common/database.php';
+require '../../common/auth.php';
 
 if (!isLogin()) {
-    header('Location: ../login/');
+    header('Location: ../../login/');
     exit;
 }
 
@@ -61,19 +61,19 @@ if (!empty($dbResult)) {
 
 <head>
     <?php
-    require_once("../common/head.php");
+    require_once("../../common/head.php");
     echo getHeader("お知らせページ");
     ?>
-    <link rel="stylesheet" href="../public/css/news.css">
+    <link rel="stylesheet" href="../../public/css/news.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
 
 </head>
 
 <body>
-    <div class="cursor"></div>
-    <div class="follower"></div>
+
+
     <?php
-    require_once('../common/header.php');
+    require_once('../../common/header.php');
     ?>
 
     <main>
@@ -117,7 +117,7 @@ if (!empty($dbResult)) {
                     }
                     ?>
 
-                    <form action="../Individual/personal.php" method="POST" name="form<?php echo $idNews; ?>">
+                    <form action="../../Individual/personal.php" method="POST" name="form<?php echo $idNews; ?>">
                         <input type="hidden" name="user_id" value="<?php echo $userpost_id; ?>">
                         <input type="hidden" name="insert_date" value="<?php echo $insert_date; ?>">
                         <input type="hidden" name="id_news" value="<?php echo $idNews; ?>">
@@ -171,7 +171,7 @@ if (!empty($dbResult)) {
 
                     ?>
 
-                    <form action="../Individual/personal.php" method="POST" name="form<?php echo $idNews; ?>">
+                    <form action="../../Individual/personal.php" method="POST" name="form<?php echo $idNews; ?>">
                         <input type="hidden" name="user_id" value="<?php echo $userpost_id; ?>">
                         <input type="hidden" name="insert_date" value="<?php echo $insert_date; ?>">
                         <input type="hidden" name="id_news" value="<?php echo $idNews; ?>">
@@ -291,7 +291,7 @@ if (!empty($dbResult)) {
 
 
                     ?>
-                    <form action="../Individual/personal.php" method="POST" name="form<?php echo $idNews; ?>">
+                    <form action="../../Individual/personal.php" method="POST" name="form<?php echo $idNews; ?>">
                         <input type="hidden" name="user_id" value="<?php echo $userpost_id; ?>">
                         <input type="hidden" name="insert_date" value="<?php echo $insert_date; ?>">
                         <input type="hidden" name="id_news" value="<?php echo $idNews; ?>">
@@ -350,7 +350,7 @@ if (!empty($dbResult)) {
 
 
                     ?>
-                    <form action="./congra.php" method="POST" name="form<?php echo $idNews; ?>">
+                    <form action="./congra/" method="POST" name="form<?php echo $idNews; ?>">
                         <input type="hidden" name="id_news" value="<?php echo $idNews; ?>">
                         <input type="hidden" name="userpost_id" value="<?php echo $userpost_id; ?>">
                         <input type="hidden" name="insert_date" value="<?php echo $insert_date; ?>">
@@ -410,7 +410,7 @@ if (!empty($dbResult)) {
 
 
                     ?>
-                    <form action="../Individual/personal.php" method="POST" name="form<?php echo $idNews; ?>">
+                    <form action="../../Individual/personal.php" method="POST" name="form<?php echo $idNews; ?>">
 
                         <input type="hidden" name="user_id" value="<?php echo $userpost_id; ?>">
                         <input type="hidden" name="insert_date" value="<?php echo $insert_date; ?>">
@@ -468,7 +468,7 @@ if (!empty($dbResult)) {
                     }
 
                     ?>
-                    <form action="../Individual/personal.php" method="POST" name="form<?php echo $idNews; ?>">
+                    <form action="../../Individual/personal.php" method="POST" name="form<?php echo $idNews; ?>">
 
                         <input type="hidden" name="user_id" value="<?php echo $userpost_id; ?>">
                         <input type="hidden" name="insert_date" value="<?php echo $insert_date; ?>">
@@ -499,15 +499,14 @@ if (!empty($dbResult)) {
         <?php endif; ?>
 
     </main>
-
+    <hr>
     <?php
-    require '../common/footer.php';
+    require '../../common/footer.php';
     ?>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
-    <script src="../public/js/jquery-3.6.0.min.js"></script>
-    <script src="../public/js/script.js"></script>
-    <script src="../public/js/contact.js" type="module"></script>
+    <script src="../../public/js/jquery-3.6.0.min.js"></script>
+    <script src="../../public/js/script.js"></script>
+    <script src="../../public/js/contact.js" type="module"></script>
 </body>
 
 </html>

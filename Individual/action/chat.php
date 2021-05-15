@@ -33,7 +33,7 @@ try {
         $stm = $dbConnect->prepare($sql);
         $stm->execute();
         $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-        header("Location: ../personal.php");
+        header("Location: ../personal/");
     }
 } catch (Exception $e) {
     echo "データベース接続エラーがありました。<br>";

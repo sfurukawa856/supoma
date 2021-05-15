@@ -1,9 +1,8 @@
 <?php
 session_start();
-require '../common/auth.php';
-require_once './action/myUtil.php';
-require_once('../common/database.php');
-require_once('../Individual/alert.php');
+require '../../common/auth.php';
+require_once '../action/myUtil.php';
+require_once('../../common/database.php');
 
 if (isset($_SESSION['csrfToken'])) {
     unset($_SESSION['csrfToken']);
@@ -14,7 +13,7 @@ if (isset($_SESSION['password'])) {
 }
 
 if (!isLogin()) {
-    header('Location: ../login/');
+    header('Location: ../../login/');
     exit;
 }
 $id = $_SESSION['user']['id'];
@@ -25,7 +24,7 @@ $id = $_SESSION['user']['id'];
 // search.phpからリダイレクトされたのかチェック
 if (!empty($_SESSION['search'])) {
     unset($_SESSION['search']);
-    $json = file_get_contents("../public/json/data.json");
+    $json = file_get_contents("../../public/json/data.json");
     $result = json_decode($json, true);
 } else {
     // DB接続
@@ -45,7 +44,7 @@ if (!empty($_SESSION['search'])) {
 
             // jsonファイルに書き出し
             $data = json_encode($result, JSON_UNESCAPED_UNICODE);
-            file_put_contents("../public/json/data.json", $data, LOCK_EX);
+            file_put_contents("../../public/json/data.json", $data, LOCK_EX);
         }
 
         // プロフィール情報取得
@@ -93,19 +92,19 @@ try {
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <?php
-    require_once("../common/head.php");
+    require_once("../../common/head.php");
     echo getHeader("一覧ページ");
     ?>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
-    <link rel="stylesheet" href="../public/css/table.css">
+    <link rel="stylesheet" href="../../public/css/table.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/css/swiper.min.css">
 </head>
 
 <body>
-    <div class="cursor"></div>
-    <div class="follower"></div>
+
+
     <?php
-    require_once('../common/header.php');
+    require_once('../../common/header.php');
     ?>
 
     <!-- Slider main container -->
@@ -115,42 +114,42 @@ try {
             <!-- Slides -->
             <div class="swiper-slide">
                 <div class="img">
-                    <img src="../public/images/slide1.png" alt="スノーボード">
+                    <img src="../../public/images/slide1.png" alt="スノーボード">
                 </div>
             </div>
             <div class="swiper-slide">
                 <div class="img">
-                    <img src="../public/images/slide2.png" alt="バスケ">
+                    <img src="../../public/images/slide2.png" alt="バスケ">
                 </div>
             </div>
             <div class="swiper-slide">
                 <div class="img">
-                    <img src="../public/images/slide3.png" alt="テニス">
+                    <img src="../../public/images/slide3.png" alt="テニス">
                 </div>
             </div>
             <div class="swiper-slide">
                 <div class="img">
-                    <img src="../public/images/slide4.png" alt="卓球">
+                    <img src="../../public/images/slide4.png" alt="卓球">
                 </div>
             </div>
             <div class="swiper-slide">
                 <div class="img">
-                    <img src="../public/images/slide5.png" alt="野球">
+                    <img src="../../public/images/slide5.png" alt="野球">
                 </div>
             </div>
             <div class="swiper-slide">
                 <div class="img">
-                    <img src="../public/images/slide6.png" alt="バドミントン">
+                    <img src="../../public/images/slide6.png" alt="バドミントン">
                 </div>
             </div>
             <div class="swiper-slide">
                 <div class="img">
-                    <img src="../public/images/slide7.png" alt="サッカー">
+                    <img src="../../public/images/slide7.png" alt="サッカー">
                 </div>
             </div>
             <div class="swiper-slide">
                 <div class="img">
-                    <img src="../public/images/slide8.png" alt="ダンス">
+                    <img src="../../public/images/slide8.png" alt="ダンス">
                 </div>
             </div>
         </div>
@@ -159,7 +158,7 @@ try {
     <main>
         <div class="main-container">
             <div class="conditions">
-                <form action="./action/search.php" method="post">
+                <form action="../action/search.php" method="post">
                     <label>
                         <p>検索条件</p>
                         <input type="text" name="keyword" placeholder="キーワードで検索" value="<?php echo $_SESSION['keyword'] ?>">
@@ -198,13 +197,13 @@ try {
                 <?php for ($i = 0; $i < count($result); $i++) : ?>
                     <?php if ($i <= 2) : ?>
                         <div class="table-item">
-                            <form name="form<?php echo $i; ?>" action="../Individual/personal.php" method="post">
+                            <form name="form<?php echo $i; ?>" action="../../Individual/personal.php" method="post">
                                 <input type="hidden" name="user_id" value="<?php echo $result[$i]['userpost_id']; ?>">
                                 <input type="hidden" name="insert_date" value="<?php echo $result[$i]['insert_date']; ?>">
                                 <input type="hidden" name="end_time" value="<?php echo $result[$i]['end_time']; ?>">
                                 <a href="javascript:form<?php echo $i; ?>.submit()">
                                     <div class="image-container">
-                                        <img src="<?php echo es(substr($result[$i]['file_path'], 3)); ?>" alt="">
+                                        <img src="<?php echo es(substr($result[$i]['file_path'], 0)); ?>" alt="">
                                     </div>
                                     <div class="table-item-text">
                                         <div class="table-item-text-left">
@@ -235,7 +234,7 @@ try {
                                         $resultMessage = $result[$i]['message'];
                                     }
                                     ?>
-                                    <p><?php echo $resultMessage; ?></p>
+                                    <p class="resultMessage"><?php echo $resultMessage; ?></p>
                                 </a>
                             </form>
                         </div>
@@ -252,16 +251,16 @@ try {
     </main>
     <hr>
     <?php
-    require '../common/footer.php';
+    require '../../common/footer.php';
     ?>
     <script src="//cdnjs.cloudflare.com/ajax/libs/Swiper/5.4.5/js/swiper.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
-    <script src="../public/js/jquery-3.6.0.min.js"></script>
-    <script src="../public/js/slider.js"></script>
-    <script src="../public/js/readmore.js" type="module"></script>
-    <script src="../public/js/script.js"></script>
-    <script src="../public/js/end_apply.js" type="module"></script>
-    <script src="../public/js/contact.js" type="module"></script>
+    <script src="../../public/js/jquery-3.6.0.min.js"></script>
+
+    <script src="../../public/js/slider.js"></script>
+    <script src="../../public/js/readmore.js" type="module"></script>
+    <script src="../../public/js/script.js"></script>
+    <script src="../../public/js/end_apply.js" type="module"></script>
+    <script src="../../public/js/contact.js" type="module"></script>
 </body>
 
 </html>

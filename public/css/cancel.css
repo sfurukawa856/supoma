@@ -100,17 +100,17 @@ main .final_answer .continue {
   display: inline-block;
   margin-bottom: 20px;
   padding: 15px 57px;
-  border: solid 1px #00A5BB;
+  border: solid 1px #00a5bb;
   border-radius: 5px;
   background-color: #fff;
   background: none;
-  color: #00A5BB;
+  color: #00a5bb;
 }
 
 main .final_answer .continue:hover {
   color: #fff;
-  background: -webkit-gradient(linear, left top, left bottom, from(#00A5BB), to(#138dbd));
-  background: linear-gradient(#00A5BB, #138dbd);
+  background: -webkit-gradient(linear, left top, left bottom, from(#00a5bb), to(#138dbd));
+  background: linear-gradient(#00a5bb, #138dbd);
   opacity: 0.8;
 }
 /*# sourceMappingURL=cancel.css.map */
