@@ -47,22 +47,6 @@ function selected($value, $question)
     }
 }
 
-// 配列の値チェック関数
-function checked($value, $question)
-{
-    if (is_array($question)) {
-        $isChecked = in_array($value, $question);
-    } else {
-        $isChecked = ($value === $question);
-    }
-    if ($isChecked) {
-        echo "checked";
-    } else {
-        echo "";
-    }
-}
-
-
 // セッションを破壊する
 function killSession()
 {

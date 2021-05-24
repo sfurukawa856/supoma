@@ -9,43 +9,17 @@ if (!isLogin()) {
     exit;
 }
 
-// if (isset($_SESSION['recruitment'])) {
-//     unset($_SESSION['recruitment']);
-//     header('Location: ../memo/');
-//     exit;
-// };
+$id = es($_SESSION['user']['id']);
+$userpost_id = es($_POST['user_id']);
+$insert_date = es($_POST['insert_date']);
 
-$id = $_SESSION['user']['id'];
-
-$title = $_SESSION['userpost']['title'];
-$category = $_SESSION['userpost']['category'];
-$member = $_SESSION['userpost']['member'];
-$eventDate = $_SESSION['userpost']['eventDate'];
-// var_dump($eventDate);
-
-$replace = str_replace("T", " ", $eventDate);
-$replace2 = str_replace("-", "/", $replace);
-// var_dump($replace2);
-
-$place = $_SESSION['userpost']['place'];
-$start_time = $_SESSION['userpost']['start_time'];
-$startTime  = str_replace("-", "/", mb_substr($start_time, 5));
-
-$end_time = $_SESSION['userpost']['end_time'];
-$endTime  = str_replace("-", "/", mb_substr($end_time, 5));
-
-$message = $_SESSION['userpost']['message'];
-$filename = $_SESSION['userpost']['filename'];
-$tmp_path = $_SESSION['userpost']['tmp_path'];
-$save_path = $_SESSION['userpost']['save_path'];
-$save_filename = $_SESSION['userpost']['save_filename'];
-
-
+// var_dump($_POST);
+// var_dump($_SESSION);
 ?>
 
 <?php
 
-//userinfoのデータ取得
+//ログインしているユーザーのuserinfoのデータ取得
 try {
     require_once('../common/database.php');
     $dbConnect = getDatabaseConnection();
@@ -53,13 +27,65 @@ try {
     $stm = $dbConnect->prepare($sql);
     $stm->bindValue(':id', "$id", PDO::PARAM_INT);
     $stm->execute();
-    $dbResult = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-    // var_dump($dbResult);
+    $userinfoResult = $stm->fetchAll(PDO::FETCH_ASSOC);
+    // var_dump($userinfoResult);
 } catch (Exception $e) {
     echo "データベース接続エラーがありました。<br>";
     echo $e->getMessage();
+    exit();
 }
+
+// 投稿者のuserinforのデータ取得
+try {
+    $sql = "SELECT nickname FROM userinfor WHERE user_id=:id";
+    $stm = $dbConnect->prepare($sql);
+    $stm->bindValue(':id', "$userpost_id", PDO::PARAM_INT);
+    $stm->execute();
+    $postUserinfoResult = $stm->fetchAll(PDO::FETCH_ASSOC);
+    // var_dump($postUserinfoResult);
+} catch (Exception $e) {
+    echo "データベース接続エラーがありました。<br>";
+    echo $e->getMessage();
+    exit();
+}
+
+//投稿者のuserpostのデータ取得
+try {
+    $sql = "SELECT * FROM userpost WHERE userpost_id=:id AND insert_date=:insert_date";
+    $stm = $dbConnect->prepare($sql);
+    $stm->bindValue(':id', "$userpost_id", PDO::PARAM_INT);
+    $stm->bindValue(':insert_date', $insert_date, PDO::PARAM_INT);
+    $stm->execute();
+    $userpostResult = $stm->fetchAll(PDO::FETCH_ASSOC);
+    // var_dump($userpostResult);
+} catch (Exception $e) {
+    echo "データベース接続エラーがありました。<br>";
+    echo $e->getMessage();
+    exit();
+}
+
+//
+/**
+ * 多次元配列のソート関数
+ * @param string $key_name
+ * @param $sort_order
+ * @param array $array
+ * @return array $array
+ */
+// function sortByKey($key_name, $sort_order, $array)
+// {
+//     foreach ($array as $key => $value) {
+//         $standard_key_array[$key] = $value[$key_name];
+//     }
+
+//     array_multisort($standard_key_array, $sort_order, $array);
+
+//     return $array;
+// }
+//降順（insert_dateを基準）
+// $sorted_array = sortByKey('insert_date', SORT_DESC, $userpostResult);
+// var_dump($sorted_array);
+
 
 
 ?>
@@ -70,9 +96,9 @@ try {
 <head>
     <?php
     require_once("../common/header.php");
-    echo getHeader("募集個別確認ページ");
+    echo getHeader("募集個別ページ");
     ?>
-    <link rel="stylesheet" href="../public/css/Individual.css">
+    <link rel="stylesheet" href="../public/css/Individual2.css">
 </head>
 
 <body>
@@ -86,16 +112,15 @@ try {
             <div class="icon"><i class="fas fa-comment-dots"></i></div>
             <div class="icon"><i class="far fa-bell"></i></div>
             <?php
-            $name = $dbResult[0]['name'];
+            $name = $userinfoResult[0]['name'];
             ?>
             <h2 class="headerInfo"><?php echo es($name); ?></h2>
             <?php
-            $file_path = $dbResult[0]['file_path'];
+            $file_path = $userinfoResult[0]['file_path'];
             $path_info = pathinfo($file_path);
             $file_name = $path_info['basename'];
-            // $url = "http://localhost/GroupWork/20210319spoma-miyamura/images/{$file_name}";
             $url = "http://localhost/GroupWork/20210329_spoma-main/images/{$file_name}";
-            // "http://localhost/";
+            // $url = "http://localhost/supoma-locall/images/{$file_name}";
             ?>
             <img src="<?php echo $url; ?>" alt="プロフィール" width="50" class="headerInfo">
         </div>
@@ -105,9 +130,12 @@ try {
                 <div class="header-mypage-wrap">
                     <div class="faceName">
                         <div class="img">
-                            <img src="<?php echo $url; ?>" alt="">
+                            <img src="
+                            <?php echo $url; ?>" alt="">
                         </div>
-                        <h1><?php echo es($name); ?></h1>
+                        <h1><?php
+                            echo es($name);
+                            ?></h1>
                     </div>
                     <a href="../memo/" class="btn">マイページ</a>
                     <ul class="ul">
@@ -127,23 +155,37 @@ try {
 
     <main class="main">
 
-
         <?php
-
-        $url2 = "http://localhost/GroupWork/20210329_spoma-main/images/{$save_filename}";
-        // "http://localhost/";
-
+        $file_path2 = $userpostResult[0]['file_path'];
+        $path_info2 = pathinfo($file_path2);
+        $file_name2 = $path_info2['basename'];
+        $url2 = "http://localhost/GroupWork/20210329_spoma-main/images/{$file_name2}";
+        // $url2 = "http://localhost/supoma-locall/images/{$file_name2}";
         ?>
 
         <div class="main-sp-img">
             <img src="<?php echo $url2; ?>" alt="">
         </div>
         <div class="main-wrap">
+            <?php
 
+            $category = $userpostResult[0]['category'];
+            $title = $userpostResult[0]['title'];
+            $datetime = $userpostResult[0]['eventDate'];
+            $eventDate = mb_substr($userpostResult[0]['eventDate'], 5, 11);
+            $start_time = mb_substr($userpostResult[0]['start_time'], 5);
+            $end_time = mb_substr($userpostResult[0]['end_time'], 5);
+            $member = $userpostResult[0]['member'];
+            $place = $userpostResult[0]['place'];
+            $message = $userpostResult[0]['message'];
+
+
+
+            ?>
             <span class="main-category"><?php echo es($category); ?></span>
             <h1 class="main-title"><?php echo es($title); ?></h1>
-            <p class="main-eventdate">開催日 <time datetime="<?php echo mb_substr($replace2, 5, 11); ?>">
-                    <?php echo mb_substr($replace2, 5, 11); ?>~</time></p>
+            <p class="main-eventdate">開催日 <time datetime="<?php echo $datetime; ?>">
+                    <?php echo $eventDate; ?>~</time></p>
             <div class="main-top-img">
                 <img src="<?php echo $url2; ?>" alt="">
             </div>
@@ -153,8 +195,7 @@ try {
                         <div class="main-items-wrap">
                             <dt class="item">募集期間</dt>
                             <dd class="answer">
-                                <?php
-                                echo $startTime; ?>~<?php echo $endTime; ?>
+                                <?php echo str_replace("-", "/", $start_time); ?>~<?php echo str_replace("-", "/", $end_time); ?>
                             </dd>
                         </div>
                         <div class="main-items-wrap">
@@ -169,10 +210,11 @@ try {
                         <dd class="text"><?php echo es($message); ?></dd>
                     </dl>
 
+
                     <form action="#" method="POST" class="form">
-                        <h2 class="comment">コメント欄<span class="notification">※応募者が質問、コメントする欄になります</span></h2>
+                        <h2 class="comment">コメント欄</h2>
                         <p class="info">相手のことを考え丁寧なコメントを心がけましょう</p>
-                        <!-- <div class="talk-items-user">
+                        <div class="talk-items-user">
                             <div class="block">
                                 <p class="nickname">ニックネーム</p>
                                 <p class="talk">testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</p>
@@ -199,26 +241,23 @@ try {
                                 <p class="talk">testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttest</p>
                             </div>
                             <div class="img-wrap"><img src="../images/Slogo.png" alt=""></div>
-                        </div> -->
+                        </div>
                         <textarea name="message" class="message" placeholder="質問する..."></textarea>
                         <div class="form-btn">
                             <button type="submit">質問する</button>
                         </div>
                     </form>
 
-
-
                 </div>
 
 
                 <div class="main-btn-wrap">
                     <div class="main-btn-wrap-flex">
-                        <a href="./action/collect.php" class="return" class="main-btn">確定</a>
-                        <a href="./action/imgRemove.php" class="return">修正する</a>
+                        <button type="submit" class="main-btn">参加する</button>
                         <div class="side-block">
                             <h2>開催者</h2>
                             <?php
-                            $nickname = $dbResult[0]['nickname'];
+                            $nickname = $postUserinfoResult[0]['nickname'];
                             ?>
                             <p><?php echo es($nickname); ?></p>
                             <h2>評価</h2>

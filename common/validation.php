@@ -108,7 +108,7 @@ function ctypeDigit(&$errors, $check_value, $message)
  */
 function fileCheck(&$errors, $tmp_path, $file_err, $message)
 {
-    if ($tmp_path > 4194304 || $file_err === 2) {
+    if ($tmp_path > 3145728 || $file_err === 2) {
         array_push($errors, $message);
     }
 }
@@ -125,10 +125,6 @@ function fileExt(&$errors, $file_ext, $allow_ext, $message)
 }
 
 
-/**
- * 日付比較関数
- */
-
 function dateCheck(&$errors, $date, $message)
 {
     $today = date("Y-m-d");
@@ -136,19 +132,6 @@ function dateCheck(&$errors, $date, $message)
         array_push($errors, $message);
     }
 }
-
-
-function dataCheck3(&$errors, $date, $start_time, $message)
-{
-    if (strtotime($start_time) > strtotime($date)) {
-        array_push($errors, $message);
-    }
-}
-
-/**
- * 日付比較関数（時間含む）
- */
-
 
 function dateCheck2(&$errors, $date, $message)
 {
